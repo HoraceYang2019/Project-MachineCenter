@@ -1,0 +1,42 @@
+{
+  "nc_file_id": "NCFile_01",
+  "file_name": "partA_op10.nc",
+  "machine_id": "TMV-720",
+  "tool_id": "EndMill-D6-F4",
+  "material_id": "S45C",
+  "controller_id": "Syntec_21",
+  "program_type": "side_milling",
+  "process_parameters": {
+    "spindle_speed_rpm": 3600,
+    "feed_rate_mm_min": 827.6,
+    "cutting_speed_mm_min": 827.6,
+    "ap_mm": 5.0,
+    "ae_mm": 0.5
+  },
+  "quality_target": {
+    "ra_um": 1.6,
+    "tolerance_mm": 0.02,
+    "max_vb_mm": 0.3
+  },
+  "blocks": [
+    {
+      "block_id": "NCBlock_N120",
+      "sequence_no": 120,
+      "code": "N120 G01 X25.0 Y10.0 F827.6",
+      "nc_file_id": "NCFile_01",
+      "process_parameters": {
+        "spindle_speed_rpm": 3600,
+        "feed_rate_mm_min": 827.6,
+        "ap_mm": 5.0,
+        "ae_mm": 0.5
+      }
+    }
+  ],
+  "ontology_mapping": {
+    "class_uri": "sth:NCFile",
+    "individual_uri": "sth:NCFile_01",
+    "json_field_uri": "sth:Field_ncfile",
+    "mqtt_topic_uri": "sth:Topic_NCFile",
+    "opcua_node_uri": "sth:OPCUA_NCFile"
+  }
+}

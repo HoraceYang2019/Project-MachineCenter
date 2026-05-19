@@ -1,0 +1,94 @@
+@prefix mis: <http://nkust.edu.tw/mislab#> .
+@prefix sth: <http://nkust.edu.tw/mislab/cnc/ontology/sth#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+mis:Knowledge_A_ProcessChatter a mis:BatchKnowledge ;
+    mis:confidence 9.2e-01 ;
+    mis:derivedFromDataset "tmv720_2026_batch_A" ;
+    mis:forBatch mis:TMV720_Batch_A ;
+    mis:forState sth:State_Chatter ;
+    mis:hasDescription "Chatter process based on chatter score" ;
+    mis:hasKnowledgeCategory "process_state" ;
+    mis:maxChatterScore 1e+00 ;
+    mis:minChatterScore 6.8e-01 .
+
+mis:Knowledge_A_ProcessStable a mis:BatchKnowledge ;
+    mis:confidence 9.1e-01 ;
+    mis:derivedFromDataset "tmv720_2026_batch_A" ;
+    mis:forBatch mis:TMV720_Batch_A ;
+    mis:forState sth:State_Stable ;
+    mis:hasDescription "Stable process based on chatter score" ;
+    mis:hasKnowledgeCategory "process_state" ;
+    mis:maxChatterScore 2.8e-01 ;
+    mis:minChatterScore 0e+00 .
+
+mis:Knowledge_A_ProcessTransition a mis:BatchKnowledge ;
+    mis:confidence 8.8e-01 ;
+    mis:derivedFromDataset "tmv720_2026_batch_A" ;
+    mis:forBatch mis:TMV720_Batch_A ;
+    mis:forState sth:State_Transition ;
+    mis:hasDescription "Transition process based on chatter score" ;
+    mis:hasKnowledgeCategory "process_state" ;
+    mis:maxChatterScore 6.8e-01 ;
+    mis:minChatterScore 2.8e-01 .
+
+mis:Knowledge_A_Ra_Bad a mis:BatchKnowledge ;
+    mis:confidence 8.8e-01 ;
+    mis:derivedFromDataset "tmv720_2026_batch_A" ;
+    mis:forBatch mis:TMV720_Batch_A ;
+    mis:forState mis:Ra_Bad ;
+    mis:hasDescription "Surface roughness unacceptable range" ;
+    mis:hasKnowledgeCategory "surface_quality" ;
+    mis:maxMeasuredRa 9.99e+00 ;
+    mis:minMeasuredRa 1.5e+00 .
+
+mis:Knowledge_A_Ra_OK a mis:BatchKnowledge ;
+    mis:confidence 9.1e-01 ;
+    mis:derivedFromDataset "tmv720_2026_batch_A" ;
+    mis:forBatch mis:TMV720_Batch_A ;
+    mis:forState mis:Ra_OK ;
+    mis:hasDescription "Surface roughness within acceptable range" ;
+    mis:hasKnowledgeCategory "surface_quality" ;
+    mis:maxMeasuredRa 7.5e-01 ;
+    mis:minMeasuredRa 0e+00 .
+
+mis:Knowledge_A_Ra_Warning a mis:BatchKnowledge ;
+    mis:confidence 8.9e-01 ;
+    mis:derivedFromDataset "tmv720_2026_batch_A" ;
+    mis:forBatch mis:TMV720_Batch_A ;
+    mis:forState mis:Ra_Warning ;
+    mis:hasDescription "Surface roughness warning range" ;
+    mis:hasKnowledgeCategory "surface_quality" ;
+    mis:maxMeasuredRa 1.5e+00 ;
+    mis:minMeasuredRa 7.5e-01 .
+
+mis:Knowledge_A_ToolNormal a mis:BatchKnowledge ;
+    mis:confidence 9.2e-01 ;
+    mis:derivedFromDataset "tmv720_2026_batch_A" ;
+    mis:forBatch mis:TMV720_Batch_A ;
+    mis:forState mis:Tool_Normal ;
+    mis:hasDescription "Normal tool condition based on torque ratio" ;
+    mis:hasKnowledgeCategory "tool_condition" ;
+    mis:maxTorqueRatio 1.15e+00 ;
+    mis:minTorqueRatio 0e+00 .
+
+mis:Knowledge_A_ToolSevereWear a mis:BatchKnowledge ;
+    mis:confidence 9e-01 ;
+    mis:derivedFromDataset "tmv720_2026_batch_A" ;
+    mis:forBatch mis:TMV720_Batch_A ;
+    mis:forState mis:Tool_SevereWear ;
+    mis:hasDescription "Severe tool wear based on torque ratio" ;
+    mis:hasKnowledgeCategory "tool_condition" ;
+    mis:maxTorqueRatio 9.99e+00 ;
+    mis:minTorqueRatio 1.48e+00 .
+
+mis:Knowledge_A_ToolWorn a mis:BatchKnowledge ;
+    mis:confidence 9.3e-01 ;
+    mis:derivedFromDataset "tmv720_2026_batch_A" ;
+    mis:forBatch mis:TMV720_Batch_A ;
+    mis:forState mis:Tool_Worn ;
+    mis:hasDescription "Worn tool condition based on torque ratio" ;
+    mis:hasKnowledgeCategory "tool_condition" ;
+    mis:maxTorqueRatio 1.48e+00 ;
+    mis:minTorqueRatio 1.15e+00 .
+

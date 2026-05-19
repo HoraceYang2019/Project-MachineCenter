@@ -1,0 +1,14 @@
+@prefix mis: <http://nkust.edu.tw/mislab#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+mis:TMV720_Batch_A a mis:Batch ;
+    mis:hasBatchId "TMV720_Batch_A" ;
+    mis:derivedFromDataset "tmv720_2026_batch_A" .
+
+mis:TMV720_Batch_B a mis:Batch ;
+    mis:hasBatchId "TMV720_Batch_B" ;
+    mis:derivedFromDataset "tmv720_2026_batch_B" .
+
+mis:TMV720_Batch_C a mis:Batch ;
+    mis:hasBatchId "TMV720_Batch_C" ;
+    mis:derivedFromDataset "tmv720_2026_batch_C" .

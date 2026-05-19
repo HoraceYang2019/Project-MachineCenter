@@ -1,0 +1,147 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://nkust.edu.tw/mislab/cnc/machinecenter/schema/nc-file.schema.json",
+  "title": "NC File",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "nc_file_id",
+    "file_name",
+    "machine_id",
+    "tool_id",
+    "material_id",
+    "process_parameters",
+    "blocks"
+  ],
+  "properties": {
+    "nc_file_id": {
+      "type": "string",
+      "examples": [
+        "NCFile_01"
+      ]
+    },
+    "file_name": {
+      "type": "string",
+      "examples": [
+        "partA_op10.nc"
+      ]
+    },
+    "machine_id": {
+      "type": "string",
+      "examples": [
+        "TMV-720"
+      ]
+    },
+    "tool_id": {
+      "type": "string",
+      "examples": [
+        "EndMill-D6-F4"
+      ]
+    },
+    "material_id": {
+      "type": "string",
+      "examples": [
+        "S45C"
+      ]
+    },
+    "controller_id": {
+      "type": "string",
+      "examples": [
+        "Syntec_21"
+      ]
+    },
+    "program_type": {
+      "type": "string",
+      "enum": [
+        "roughing",
+        "finishing",
+        "slotting",
+        "side_milling",
+        "drilling",
+        "unknown"
+      ],
+      "default": "unknown"
+    },
+    "process_parameters": {
+      "$ref": "#/$defs/processParameters"
+    },
+    "quality_target": {
+      "$ref": "#/$defs/qualityTarget"
+    },
+    "blocks": {
+      "type": "array",
+      "items": {
+        "$ref": "nc-block.schema.json"
+      }
+    },
+    "ontology_mapping": {
+      "$ref": "#/$defs/ontologyMapping"
+    }
+  },
+  "$defs": {
+    "processParameters": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "spindle_speed_rpm": {
+          "type": "number"
+        },
+        "feed_rate_mm_min": {
+          "type": "number"
+        },
+        "cutting_speed_mm_min": {
+          "type": "number"
+        },
+        "ap_mm": {
+          "type": "number"
+        },
+        "ae_mm": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "spindle_speed_rpm",
+        "feed_rate_mm_min",
+        "ap_mm",
+        "ae_mm"
+      ]
+    },
+    "qualityTarget": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ra_um": {
+          "type": "number"
+        },
+        "tolerance_mm": {
+          "type": "number"
+        },
+        "max_vb_mm": {
+          "type": "number"
+        }
+      }
+    },
+    "ontologyMapping": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "class_uri": {
+          "type": "string",
+          "const": "sth:NCFile"
+        },
+        "individual_uri": {
+          "type": "string"
+        },
+        "json_field_uri": {
+          "type": "string"
+        },
+        "mqtt_topic_uri": {
+          "type": "string"
+        },
+        "opcua_node_uri": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

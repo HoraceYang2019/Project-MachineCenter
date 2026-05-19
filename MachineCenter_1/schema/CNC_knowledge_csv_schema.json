@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CNC Batch Knowledge CSV Row Schema",
+  "type": "object",
+  "required": ["batch_id", "knowledge_id", "category", "state_uri", "min_property", "min_value", "max_property", "max_value", "confidence", "dataset_id"],
+  "properties": {
+    "batch_id": {"type": "string", "pattern": "^_Batch_[A-Z0-9_]+$"},
+    "knowledge_id": {"type": "string", "pattern": "^Knowledge_"},
+    "category": {"type": "string", "enum": ["tool_condition", "surface_quality", "process_state"]},
+    "state_uri": {"type": "string", "pattern": "^(mis|sth):[A-Za-z_][A-Za-z0-9_]*$"},
+    "min_property": {"type": "string", "pattern": "^mis:min[A-Za-z0-9_]+$"},
+    "min_value": {"type": "number"},
+    "max_property": {"type": "string", "pattern": "^mis:max[A-Za-z0-9_]+$"},
+    "max_value": {"type": "number"},
+    "confidence": {"type": "number", "minimum": 0.0, "maximum": 1.0},
+    "dataset_id": {"type": "string"},
+    "description": {"type": "string"}
+  }
+}

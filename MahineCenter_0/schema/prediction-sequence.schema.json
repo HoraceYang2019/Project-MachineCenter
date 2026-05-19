@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://nkust.edu.tw/mislab/cnc/machinecenter/schema/prediction-sequence.schema.json",
+  "title": "Prediction Sequence",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "prediction_sequence_id",
+    "machine_id",
+    "holder_id",
+    "predictions"
+  ],
+  "properties": {
+    "prediction_sequence_id": {
+      "type": "string"
+    },
+    "machine_id": {
+      "type": "string"
+    },
+    "holder_id": {
+      "type": "string"
+    },
+    "predictions": {
+      "type": "array",
+      "items": {
+        "$ref": "prediction.schema.json"
+      },
+      "minItems": 1
+    },
+    "sequence_summary": {
+      "type": "object",
+      "additionalProperties": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ]
+      }
+    },
+    "ontology_mapping": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "class_uri": {
+          "type": "string",
+          "const": "mis:PredictionSequence"
+        },
+        "individual_uri": {
+          "type": "string"
+        },
+        "json_field_uri": {
+          "type": "string"
+        },
+        "mqtt_topic_uri": {
+          "type": "string"
+        },
+        "opcua_node_uri": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://nkust.edu.tw/mislab/cnc/machinecenter/schema/diagnosis-sequence.schema.json",
+  "title": "Diagnosis Sequence",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "diagnosis_sequence_id",
+    "machine_id",
+    "holder_id",
+    "diagnoses"
+  ],
+  "properties": {
+    "diagnosis_sequence_id": {
+      "type": "string"
+    },
+    "machine_id": {
+      "type": "string"
+    },
+    "holder_id": {
+      "type": "string"
+    },
+    "diagnoses": {
+      "type": "array",
+      "items": {
+        "$ref": "diagnosis.schema.json"
+      },
+      "minItems": 1
+    },
+    "ontology_mapping": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "class_uri": {
+          "type": "string",
+          "const": "sth:DiagnosisSequence"
+        },
+        "individual_uri": {
+          "type": "string"
+        },
+        "json_field_uri": {
+          "type": "string"
+        },
+        "mqtt_topic_uri": {
+          "type": "string"
+        },
+        "opcua_node_uri": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

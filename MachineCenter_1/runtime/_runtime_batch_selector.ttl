@@ -1,0 +1,9 @@
+@prefix mis: <http://nkust.edu.tw/mislab#> .
+
+mis:RuntimeBatchSelector_01
+    a mis:RuntimeBatchSelector ;
+    mis:activeBatch mis:Batch_A.
+
+mis:RuntimeBatchSelector_01
+    a mis:RuntimeBatchSelector ;
+    mis:activeBatch mis:Batch_B .

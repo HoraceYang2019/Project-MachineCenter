@@ -1,0 +1,138 @@
+@startuml
+
+participant SensingEdge
+box "Diagnosis" #LightBlue
+    participant DiagnosisAgent
+    participant AggregationAgent
+end box
+
+box "User Interface" #LightGreen
+    participant User_Browser
+end box
+
+header Ontology Sequence Diagrams
+footer Page %page% of %lastpage%
+
+title Sequence Diagrams of Ontology Services
+caption Diagnosis and Aggregation of Sensing Data.
+autonumber 1.0
+autonumber inc B
+activate SensingEdge
+group Diagnosis and Aggregation
+    activate DiagnosisAgent
+    activate AggregationAgent
+    SensingEdge -> DiagnosisAgent: via MQTT: ../sensing/window
+        note right
+        sensor-window.example.json:{
+        "window_id": "w10231",
+        "machine_id": "cncA",
+        "holder_id": "sth01",
+        "NCFile": {"NCFile_01": {"NCBlock_id": "NCBlock_N120"}},
+        "torque_nm": 1.28,
+        "vibration_rms_g": 0.31,
+        "timestamp": ["2026-04-13T10:00:00.100",  "2026-04-13T10:00:02.100"]
+        }
+        end note
+    DiagnosisAgent -> AggregationAgent: via MQTT: ../diagnosis following diagnosis.schema.json
+        note right
+        diagnosis.example.json:{
+        "window_id": "w10231",
+        "chatter_state": false,
+        "chatter_score": 0.12,
+        "confidence": 0.96,
+        "state_label": "stable",
+        "model_version": "lstm-chatter-v2.1"
+        }
+        end note
+
+    SensingEdge -> DiagnosisAgent: via MQTT: ../sensing/window
+        note right
+        sensor-window.example.json:{
+        "window_id": "w10232",
+        "machine_id": "cncA",
+        "holder_id": "sth01",
+        "NCFile": {"NCFile_01": {"NCBlock_id": "NCBlock_N120"}},
+        "torque_nm": 1.39,
+        "vibration_rms_g": 0.35,
+        "timestamp": ["2026-04-13T10:20:00.100",  "2026-04-13T10:20:02.100"]
+        }
+        end note
+
+    DiagnosisAgent -> AggregationAgent: via MQTT: ../diagnosis following diagnosis.schema.json
+        note right
+        diagnosis.example.json:{
+        "window_id": "w10232",
+        "chatter_state": false,
+        "chatter_score": 0.28,
+        "confidence": 0.94,
+        "state_label": "transition",
+        "model_version": "lstm-chatter-v2.1"
+        }
+        end note
+    SensingEdge -> DiagnosisAgent: via MQTT: ../sensing/window
+        note right
+        sensor-window.example.json:{
+        "window_id": "w102323",
+        "machine_id": "cncA",
+        "holder_id": "sth01",
+        "NCFile": {"NCFile_01": {"NCBlock_id": "NCBlock_N120"}},
+        "torque_nm": 1.61,
+        "vibration_rms_g": 0.55,
+        "timestamp": ["2026-04-13T11:00:00.100",  "2026-04-13T11:00:02.100"]
+        }
+        end note
+
+    DiagnosisAgent -> AggregationAgent: via MQTT: ../diagnosis following diagnosis.schema.json
+        note right
+        diagnosis.example.json:{
+        "window_id": "w10233",
+        "chatter_state": true,
+        "chatter_score": 0.93,
+        "confidence": 0.94,
+        "state_label": "chatter",
+        "model_version": "lstm-chatter-v2.1"
+        }
+        end note
+    deactivate DiagnosisAgent
+end
+group User Interface
+    activate User_Browser
+    AggregationAgent -> User_Browser: http://localhost:3000
+        note left
+        diagnosis-sequence.example.json:{
+        "sequence_id": "seq_partA_op10_001",
+        "machine_id": "cncA",
+        "holder_id": "sth01",
+        "NCFile": "NCFile_01",{"NCBlock": "NCBlock_N120"}   
+        "model_version": "lstm-chatter-v2.1"
+        "diagnosis_windows": [
+            {
+            "window_id": "w10231",
+            "chatter_state": false,
+            "chatter_score": 0.12,
+            "confidence": 0.96,
+            "state_label": "stable",
+            },
+            {
+            "window_id": "w10232",
+            "chatter_state": false,
+            "chatter_score": 0.28,
+            "confidence": 0.94,
+            "state_label": "transition",
+            },
+            {
+            "window_id": "w10233",
+            "chatter_state": true,
+            "chatter_score": 0.93,
+            "confidence": 0.94,
+            "state_label": "chatter",
+            }
+        ]
+        }
+        end note
+    deactivate AggregationAgent
+    deactivate User_Browser
+end
+deactivate SensingEdge
+
+@endum

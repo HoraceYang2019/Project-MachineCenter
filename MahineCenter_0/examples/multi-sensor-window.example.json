@@ -1,0 +1,62 @@
+{
+  "window_id": "w10231",
+  "machine_id": "TMV-720",
+  "holder_id": "sth01",
+  "start_time": "2026-04-13T10:00:00.100Z",
+  "end_time": "2026-04-13T10:00:00.200Z",
+  "aligned_with": {
+    "nc_file_id": "NCFile_01",
+    "block_id": "NCBlock_N120",
+    "tool_path_segment_id": "Segment_01"
+  },
+  "signals": {
+    "torque": {
+      "signal_type": "torque",
+      "unit": "N·m",
+      "sampling_rate_hz": 1000,
+      "values": [
+        1.92,
+        2.01,
+        2.08
+      ],
+      "features": {
+        "rms": 2.0,
+        "peak": 2.08
+      }
+    },
+    "vibration": {
+      "signal_type": "vibration",
+      "unit": "g",
+      "sampling_rate_hz": 5000,
+      "values": [
+        0.12,
+        0.15,
+        0.13
+      ],
+      "features": {
+        "rms": 0.134,
+        "kurtosis": 3.1
+      }
+    },
+    "spindle_current": {
+      "signal_type": "spindle_current",
+      "unit": "A",
+      "sampling_rate_hz": 500,
+      "values": [
+        3.2,
+        3.3,
+        3.25
+      ],
+      "features": {
+        "mean": 3.25
+      }
+    }
+  },
+  "ontology_mapping": {
+    "class_uri": "sth:MultiSensorWindow",
+    "individual_uri": "sth:Window_w10231",
+    "json_field_uri": "sth:Field_window",
+    "mqtt_topic_uri": "sth:Topic_Window",
+    "opcua_node_uri": "sth:OPCUA_Window"
+  }
+}

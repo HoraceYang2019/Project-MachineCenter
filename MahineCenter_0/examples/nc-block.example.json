@@ -1,0 +1,23 @@
+{
+  "block_id": "NCBlock_N120",
+  "sequence_no": 120,
+  "code": "N120 G01 X25.0 Y10.0 F827.6",
+  "nc_file_id": "NCFile_01",
+  "tool_path_segment_id": "Segment_01",
+  "start_time": "2026-04-13T10:00:00.100Z",
+  "end_time": "2026-04-13T10:00:00.400Z",
+  "process_parameters": {
+    "spindle_speed_rpm": 3600,
+    "feed_rate_mm_min": 827.6,
+    "cutting_speed_mm_min": 827.6,
+    "ap_mm": 5.0,
+    "ae_mm": 0.5
+  },
+  "ontology_mapping": {
+    "class_uri": "sth:NCBlock",
+    "individual_uri": "sth:NCBlock_N120",
+    "json_field_uri": "sth:Field_block",
+    "mqtt_topic_uri": "sth:Topic_NCBlock",
+    "opcua_node_uri": "sth:OPCUA_NCBlock"
+  }
+}

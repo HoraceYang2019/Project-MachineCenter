@@ -1,0 +1,20 @@
+{
+  "diagnosis_id": "Diagnosis_w10233_chatter",
+  "window_id": "w10233",
+  "machine_id": "TMV-720",
+  "holder_id": "sth01",
+  "state_label": "chatter",
+  "process_state_uri": "sth:ChatterState_01",
+  "chatter_score": 0.93,
+  "confidence": 0.94,
+  "model_version": "lstm-chatter-v2.1",
+  "timestamp": "2026-04-13T10:00:00.400Z",
+  "previous_diagnosis_id": "Diagnosis_w10232_transition",
+  "ontology_mapping": {
+    "class_uri": "sth:Diagnosis",
+    "individual_uri": "sth:Diagnosis_w10233_chatter",
+    "json_field_uri": "sth:Field_diagnosis_label",
+    "mqtt_topic_uri": "sth:Topic_Diagnosis",
+    "opcua_node_uri": "sth:OPCUA_DiagnosisState"
+  }
+}

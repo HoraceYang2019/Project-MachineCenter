@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://nkust.edu.tw/mislab/cnc/machinecenter/schema/sensing-window.schema.json",
+  "title": "Sensing Window",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "window_id",
+    "machine_id",
+    "holder_id",
+    "start_time",
+    "end_time",
+    "signal"
+  ],
+  "properties": {
+    "window_id": {
+      "type": "string"
+    },
+    "machine_id": {
+      "type": "string"
+    },
+    "holder_id": {
+      "type": "string"
+    },
+    "nc_file_id": {
+      "type": "string"
+    },
+    "block_id": {
+      "type": "string"
+    },
+    "start_time": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "end_time": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "signal": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "signal_type": {
+          "type": "string",
+          "enum": [
+            "torque",
+            "vibration",
+            "strain",
+            "temperature",
+            "spindle_current"
+          ]
+        },
+        "unit": {
+          "type": "string"
+        },
+        "sampling_rate_hz": {
+          "type": "number"
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 1
+        },
+        "features": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "number"
+          }
+        }
+      },
+      "required": [
+        "signal_type",
+        "unit",
+        "values"
+      ]
+    },
+    "ontology_mapping": {
+      "type": "object",
+      "properties": {
+        "class_uri": {
+          "type": "string",
+          "const": "sth:SensingWindow"
+        },
+        "json_field_uri": {
+          "type": "string"
+        },
+        "mqtt_topic_uri": {
+          "type": "string"
+        },
+        "opcua_node_uri": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

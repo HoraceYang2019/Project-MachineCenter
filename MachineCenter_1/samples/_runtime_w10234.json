@@ -1,0 +1,35 @@
+{
+  "window_id": "w10234",
+  "project": "2026SBIR",
+  "batch": "Batch_B",
+  "SmartToolHolder": "STH_002",
+  "timestamp": "2026-04-27T09:01:00+08:00",
+  "time_window": {
+    "start": "2026-04-27T09:01:00.000+08:00",
+    "end": "2026-04-27T09:01:00.200+08:00"
+  },
+  "alignment": {
+    "nc_block": "NCBlock_N130",
+    "tool_path_segment": "Segment_02"
+  },
+  "process": {
+    "spindle_speed": 12000,
+    "feed_rate": 800.0
+  },
+  "features": {
+    "torque_ratio": 2.31,
+    "vibration_rms": 1.82,
+    "chatter_score": 0.99,
+    "measured_ra": 3.12
+  },
+    "sth_status": {
+    "battery_level": 4.8,
+    "comm_score": 0.6,
+    "max_torque": 0.65
+  },
+  "progress": {
+    "sequence_index": 34,
+    "progress_ratio": 0.62,
+    "block_progress_ratio": 0.35
+  }
+}

@@ -1,0 +1,1 @@
+Purpose: Database folder for storing data wuth schema and query samples.

@@ -1,0 +1,32 @@
+{
+  "window_id": "w10231_torque",
+  "machine_id": "TMV-720",
+  "holder_id": "sth01",
+  "nc_file_id": "NCFile_01",
+  "block_id": "NCBlock_N120",
+  "start_time": "2026-04-13T10:00:00.100Z",
+  "end_time": "2026-04-13T10:00:00.200Z",
+  "signal": {
+    "signal_type": "torque",
+    "unit": "N·m",
+    "sampling_rate_hz": 1000,
+    "values": [
+      1.92,
+      2.01,
+      2.08,
+      2.0,
+      1.95
+    ],
+    "features": {
+      "rms": 2.0,
+      "peak": 2.08,
+      "std": 0.06
+    }
+  },
+  "ontology_mapping": {
+    "class_uri": "sth:SensingWindow",
+    "json_field_uri": "sth:Field_torque",
+    "mqtt_topic_uri": "sth:Topic_Torque",
+    "opcua_node_uri": "sth:OPCUA_TorqueSignal"
+  }
+}

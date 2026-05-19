@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://nkust.edu.tw/mislab/cnc/machinecenter/schema/multi-sensor-window.schema.json",
+  "title": "Multi-Sensor Window",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "window_id",
+    "machine_id",
+    "holder_id",
+    "start_time",
+    "end_time",
+    "aligned_with",
+    "signals"
+  ],
+  "properties": {
+    "window_id": {
+      "type": "string"
+    },
+    "machine_id": {
+      "type": "string"
+    },
+    "holder_id": {
+      "type": "string"
+    },
+    "start_time": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "end_time": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "aligned_with": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "nc_file_id",
+        "block_id"
+      ],
+      "properties": {
+        "nc_file_id": {
+          "type": "string"
+        },
+        "block_id": {
+          "type": "string"
+        },
+        "tool_path_segment_id": {
+          "type": "string"
+        }
+      }
+    },
+    "signals": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "torque": {
+          "$ref": "sensing-window.schema.json#/properties/signal"
+        },
+        "vibration": {
+          "$ref": "sensing-window.schema.json#/properties/signal"
+        },
+        "strain": {
+          "$ref": "sensing-window.schema.json#/properties/signal"
+        },
+        "temperature": {
+          "$ref": "sensing-window.schema.json#/properties/signal"
+        },
+        "spindle_current": {
+          "$ref": "sensing-window.schema.json#/properties/signal"
+        }
+      }
+    },
+    "ontology_mapping": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "class_uri": {
+          "type": "string",
+          "const": "sth:MultiSensorWindow"
+        },
+        "individual_uri": {
+          "type": "string"
+        },
+        "json_field_uri": {
+          "type": "string"
+        },
+        "mqtt_topic_uri": {
+          "type": "string"
+        },
+        "opcua_node_uri": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

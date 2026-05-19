@@ -1,0 +1,128 @@
+@prefix mis: <http://nkust.edu.tw/mislab#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sth: <http://nkust.edu.tw/mislab/cnc/ontology/sth#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+mis:CSVColumn_batch_id a mis:CSVColumn ;
+    rdfs:label "batch_id" ;
+    mis:usedByPipeline "CNC BatchKnowledge Schema" .
+
+mis:CSVColumn_category a mis:CSVColumn ;
+    rdfs:label "category" ;
+    mis:usedByPipeline "CNC BatchKnowledge Schema" .
+
+mis:CSVColumn_confidence a mis:CSVColumn ;
+    rdfs:label "confidence" ;
+    mis:usedByPipeline "CNC BatchKnowledge Schema" .
+
+mis:CSVColumn_dataset_id a mis:CSVColumn ;
+    rdfs:label "dataset_id" ;
+    mis:usedByPipeline "CNC BatchKnowledge Schema" .
+
+mis:CSVColumn_description a mis:CSVColumn ;
+    rdfs:label "description" ;
+    mis:usedByPipeline "CNC BatchKnowledge Schema" .
+
+mis:CSVColumn_knowledge_id a mis:CSVColumn ;
+    rdfs:label "knowledge_id" ;
+    mis:usedByPipeline "CNC BatchKnowledge Schema" .
+
+mis:CSVColumn_max_property a mis:CSVColumn ;
+    rdfs:label "max_property" ;
+    mis:usedByPipeline "CNC BatchKnowledge Schema" .
+
+mis:CSVColumn_max_value a mis:CSVColumn ;
+    rdfs:label "max_value" ;
+    mis:usedByPipeline "CNC BatchKnowledge Schema" .
+
+mis:CSVColumn_min_property a mis:CSVColumn ;
+    rdfs:label "min_property" ;
+    mis:usedByPipeline "CNC BatchKnowledge Schema" .
+
+mis:CSVColumn_min_value a mis:CSVColumn ;
+    rdfs:label "min_value" ;
+    mis:usedByPipeline "CNC BatchKnowledge Schema" .
+
+mis:CSVColumn_state_uri a mis:CSVColumn ;
+    rdfs:label "state_uri" ;
+    mis:usedByPipeline "CNC BatchKnowledge Schema" .
+
+mis:SurfaceQualityState a owl:Class ;
+    rdfs:label "Surface Quality State" .
+
+mis:ToolCondition a owl:Class ;
+    rdfs:label "Tool Condition" .
+
+mis:confidence a owl:DatatypeProperty ;
+    rdfs:label "confidence" ;
+    rdfs:domain mis:BatchKnowledge ;
+    rdfs:range xsd:double .
+
+mis:derivedFromDataset a owl:DatatypeProperty ;
+    rdfs:label "derived from dataset" ;
+    rdfs:domain mis:BatchKnowledge ;
+    rdfs:range xsd:string .
+
+mis:forBatch a owl:ObjectProperty ;
+    rdfs:label "for batch" ;
+    rdfs:domain mis:BatchKnowledge ;
+    rdfs:range mis:Batch .
+
+mis:forState a owl:ObjectProperty ;
+    rdfs:label "for state" ;
+    rdfs:domain mis:BatchKnowledge ;
+    rdfs:range owl:Thing .
+
+mis:hasDescription a owl:DatatypeProperty ;
+    rdfs:label "description" ;
+    rdfs:domain mis:BatchKnowledge ;
+    rdfs:range xsd:string .
+
+mis:hasKnowledgeCategory a owl:DatatypeProperty ;
+    rdfs:label "knowledge category" ;
+    rdfs:domain mis:BatchKnowledge ;
+    rdfs:range xsd:string .
+
+mis:maxChatterScore a owl:DatatypeProperty ;
+    rdfs:label "maximum chatter score" ;
+    rdfs:domain mis:BatchKnowledge ;
+    rdfs:range xsd:double .
+
+mis:maxMeasuredRa a owl:DatatypeProperty ;
+    rdfs:label "maximum measured Ra" ;
+    rdfs:domain mis:BatchKnowledge ;
+    rdfs:range xsd:double .
+
+mis:maxTorqueRatio a owl:DatatypeProperty ;
+    rdfs:label "maximum torque ratio" ;
+    rdfs:domain mis:BatchKnowledge ;
+    rdfs:range xsd:double .
+
+mis:minChatterScore a owl:DatatypeProperty ;
+    rdfs:label "minimum chatter score" ;
+    rdfs:domain mis:BatchKnowledge ;
+    rdfs:range xsd:double .
+
+mis:minMeasuredRa a owl:DatatypeProperty ;
+    rdfs:label "minimum measured Ra" ;
+    rdfs:domain mis:BatchKnowledge ;
+    rdfs:range xsd:double .
+
+mis:minTorqueRatio a owl:DatatypeProperty ;
+    rdfs:label "minimum torque ratio" ;
+    rdfs:domain mis:BatchKnowledge ;
+    rdfs:range xsd:double .
+
+sth:ProcessState a owl:Class ;
+    rdfs:label "Process State" .
+
+mis:Batch a owl:Class ;
+    rdfs:label "Batch" .
+
+mis:CSVColumn a owl:Class ;
+    rdfs:label "CSV Column" .
+
+mis:BatchKnowledge a owl:Class ;
+    rdfs:label "Batch Knowledge" .
+

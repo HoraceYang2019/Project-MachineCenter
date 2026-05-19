@@ -1,0 +1,64 @@
+{
+  "prediction_sequence_id": "PredSeq_001",
+  "machine_id": "TMV-720",
+  "holder_id": "sth01",
+  "predictions": [
+    {
+      "prediction_id": "Prediction_w10233_vb",
+      "window_id": "w10233",
+      "machine_id": "TMV-720",
+      "holder_id": "sth01",
+      "target": "tool_wear_vb",
+      "value": 0.18,
+      "unit": "mm",
+      "horizon": {
+        "steps_ahead": 1,
+        "seconds_ahead": 0.1
+      },
+      "confidence": 0.91,
+      "model_version": "pgnn-toolwear-v1.0",
+      "timestamp": "2026-04-13T10:00:00.400Z",
+      "ontology_mapping": {
+        "class_uri": "mis:Prediction",
+        "individual_uri": "mis:Prediction_w10233_vb",
+        "json_field_uri": "sth:Field_toolwear",
+        "mqtt_topic_uri": "sth:Topic_ToolWear",
+        "opcua_node_uri": "sth:OPCUA_ToolWearVB"
+      }
+    },
+    {
+      "prediction_id": "Prediction_w10233_ra",
+      "window_id": "w10233",
+      "machine_id": "TMV-720",
+      "holder_id": "sth01",
+      "target": "surface_roughness_ra",
+      "value": 1.28,
+      "unit": "um",
+      "horizon": {
+        "steps_ahead": 1,
+        "seconds_ahead": 0.1
+      },
+      "confidence": 0.91,
+      "model_version": "rf-ra-v1.2",
+      "timestamp": "2026-04-13T10:00:00.400Z",
+      "ontology_mapping": {
+        "class_uri": "mis:Prediction",
+        "individual_uri": "mis:Prediction_w10233_vb",
+        "json_field_uri": "sth:Field_toolwear",
+        "mqtt_topic_uri": "sth:Topic_ToolWear",
+        "opcua_node_uri": "sth:OPCUA_ToolWearVB"
+      }
+    }
+  ],
+  "sequence_summary": {
+    "max_predicted_vb_mm": 0.18,
+    "quality_risk": "medium"
+  },
+  "ontology_mapping": {
+    "class_uri": "mis:PredictionSequence",
+    "individual_uri": "mis:PredSeq_001",
+    "json_field_uri": "sth:Field_prediction_sequence",
+    "mqtt_topic_uri": "sth:Topic_PredictionSequence",
+    "opcua_node_uri": "sth:OPCUA_PredictionSequence"
+  }
+}

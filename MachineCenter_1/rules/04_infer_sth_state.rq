@@ -1,0 +1,179 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX sth: <http://nkust.edu.tw/mislab/cnc/ontology/sth#>
+PREFIX mis: <http://nkust.edu.tw/mislab#>
+
+CONSTRUCT {
+  ?window ?inferredProperty ?state .
+  ?window mis:matchedSTHThresholdKnowledge ?rule .
+  ?window mis:hasSTHState ?finalState .
+  ?window mis:matchedSTHCompositeKnowledge ?compositeRule .
+}
+WHERE {
+  {
+    ?window rdf:type sth:MultiSensorWindow ;
+            ?observedProperty ?value .
+
+    ?rule rdf:type mis:STHThresholdKnowledge ;
+          mis:observedProperty ?observedProperty ;
+          mis:inferredProperty ?inferredProperty ;
+          mis:forState ?state ;
+          mis:minValue ?min ;
+          mis:maxValue ?max .
+
+    OPTIONAL { ?rule mis:minInclusive ?minInclusive . }
+    OPTIONAL { ?rule mis:maxExclusive ?maxExclusive . }
+
+    FILTER(
+      ( !BOUND(?minInclusive) || ?minInclusive = true  && xsd:double(?value) >= xsd:double(?min) || ?minInclusive = false && xsd:double(?value) > xsd:double(?min) )
+      &&
+      ( !BOUND(?maxExclusive) || ?maxExclusive = true  && xsd:double(?value) < xsd:double(?max) || ?maxExclusive = false && xsd:double(?value) <= xsd:double(?max) )
+    )
+  }
+  UNION
+  {
+    ?compositeRule rdf:type ?compositeClass ;
+                   mis:forState ?finalState .
+    VALUES ?compositeClass { mis:STHCompositeKnowledge mis:STHCompositeRuleKnowledge }
+    VALUES ?finalState { mis:STH_Available }
+
+    ?window rdf:type sth:MultiSensorWindow .
+
+    ?rBattery rdf:type mis:STHThresholdKnowledge ;
+              mis:observedProperty ?pBattery ;
+              mis:forState mis:Normal_Battery ;
+              mis:minValue ?minBattery ;
+              mis:maxValue ?maxBattery .
+    ?window ?pBattery ?vBattery .
+    OPTIONAL { ?rBattery mis:minInclusive ?minBatteryInclusive . }
+    OPTIONAL { ?rBattery mis:maxExclusive ?maxBatteryExclusive . }
+    FILTER(
+      ( !BOUND(?minBatteryInclusive) || ?minBatteryInclusive = true && xsd:double(?vBattery) >= xsd:double(?minBattery) || ?minBatteryInclusive = false && xsd:double(?vBattery) > xsd:double(?minBattery) )
+      &&
+      ( !BOUND(?maxBatteryExclusive) || ?maxBatteryExclusive = true && xsd:double(?vBattery) < xsd:double(?maxBattery) || ?maxBatteryExclusive = false && xsd:double(?vBattery) <= xsd:double(?maxBattery) )
+    )
+
+    ?rComm rdf:type mis:STHThresholdKnowledge ;
+           mis:observedProperty ?pComm ;
+           mis:forState mis:Comm_Stable ;
+           mis:minValue ?minComm ;
+           mis:maxValue ?maxComm .
+    ?window ?pComm ?vComm .
+    OPTIONAL { ?rComm mis:minInclusive ?minCommInclusive . }
+    OPTIONAL { ?rComm mis:maxExclusive ?maxCommExclusive . }
+    FILTER(
+      ( !BOUND(?minCommInclusive) || ?minCommInclusive = true && xsd:double(?vComm) >= xsd:double(?minComm) || ?minCommInclusive = false && xsd:double(?vComm) > xsd:double(?minComm) )
+      &&
+      ( !BOUND(?maxCommExclusive) || ?maxCommExclusive = true && xsd:double(?vComm) < xsd:double(?maxComm) || ?maxCommExclusive = false && xsd:double(?vComm) <= xsd:double(?maxComm) )
+    )
+
+    {
+      ?rLoad rdf:type mis:STHThresholdKnowledge ;
+             mis:observedProperty ?pLoad ;
+             mis:forState mis:Normal_Load ;
+             mis:minValue ?minLoad ;
+             mis:maxValue ?maxLoad .
+    }
+    UNION
+    {
+      ?rLoad rdf:type mis:STHThresholdKnowledge ;
+             mis:observedProperty ?pLoad ;
+             mis:forState mis:Light_Load ;
+             mis:minValue ?minLoad ;
+             mis:maxValue ?maxLoad .
+    }
+
+    ?window ?pLoad ?vLoad .
+    OPTIONAL { ?rLoad mis:minInclusive ?minLoadInclusive . }
+    OPTIONAL { ?rLoad mis:maxExclusive ?maxLoadExclusive . }
+    FILTER(
+      ( !BOUND(?minLoadInclusive) || ?minLoadInclusive = true && xsd:double(?vLoad) >= xsd:double(?minLoad) || ?minLoadInclusive = false && xsd:double(?vLoad) > xsd:double(?minLoad) )
+      &&
+      ( !BOUND(?maxLoadExclusive) || ?maxLoadExclusive = true && xsd:double(?vLoad) < xsd:double(?maxLoad) || ?maxLoadExclusive = false && xsd:double(?vLoad) <= xsd:double(?maxLoad) )
+    )
+  }
+  UNION
+  {
+    ?compositeRule rdf:type ?compositeClass ;
+                   mis:forState ?finalState .
+    VALUES ?compositeClass { mis:STHCompositeKnowledge mis:STHCompositeRuleKnowledge }
+    VALUES ?finalState { mis:STH_Check }
+
+    ?window rdf:type sth:MultiSensorWindow .
+
+    {
+      ?rState rdf:type mis:STHThresholdKnowledge ;
+              mis:observedProperty ?pState ;
+              mis:forState mis:Low_Battery ;
+              mis:minValue ?minState ;
+              mis:maxValue ?maxState .
+    }
+    UNION
+    {
+      ?rState rdf:type mis:STHThresholdKnowledge ;
+              mis:observedProperty ?pState ;
+              mis:forState mis:Comm_Unstable ;
+              mis:minValue ?minState ;
+              mis:maxValue ?maxState .
+    }
+    UNION
+    {
+      ?rState rdf:type mis:STHThresholdKnowledge ;
+              mis:observedProperty ?pState ;
+              mis:forState mis:Heavy_Load ;
+              mis:minValue ?minState ;
+              mis:maxValue ?maxState .
+    }
+
+    ?window ?pState ?vState .
+    OPTIONAL { ?rState mis:minInclusive ?minStateInclusive . }
+    OPTIONAL { ?rState mis:maxExclusive ?maxStateExclusive . }
+    FILTER(
+      ( !BOUND(?minStateInclusive) || ?minStateInclusive = true && xsd:double(?vState) >= xsd:double(?minState) || ?minStateInclusive = false && xsd:double(?vState) > xsd:double(?minState) )
+      &&
+      ( !BOUND(?maxStateExclusive) || ?maxStateExclusive = true && xsd:double(?vState) < xsd:double(?maxState) || ?maxStateExclusive = false && xsd:double(?vState) <= xsd:double(?maxState) )
+    )
+  }
+  UNION
+  {
+    ?compositeRule rdf:type ?compositeClass ;
+                   mis:forState ?finalState .
+    VALUES ?compositeClass { mis:STHCompositeKnowledge mis:STHCompositeRuleKnowledge }
+    VALUES ?finalState { mis:STH_NA }
+
+    ?window rdf:type sth:MultiSensorWindow .
+
+    {
+      ?rState rdf:type mis:STHThresholdKnowledge ;
+              mis:observedProperty ?pState ;
+              mis:forState mis:Need_Charge ;
+              mis:minValue ?minState ;
+              mis:maxValue ?maxState .
+    }
+    UNION
+    {
+      ?rState rdf:type mis:STHThresholdKnowledge ;
+              mis:observedProperty ?pState ;
+              mis:forState mis:Comm_Fail ;
+              mis:minValue ?minState ;
+              mis:maxValue ?maxState .
+    }
+    UNION
+    {
+      ?rState rdf:type mis:STHThresholdKnowledge ;
+              mis:observedProperty ?pState ;
+              mis:forState mis:Heavy_Load ;
+              mis:minValue ?minState ;
+              mis:maxValue ?maxState .
+    }
+
+    ?window ?pState ?vState .
+    OPTIONAL { ?rState mis:minInclusive ?minStateInclusive . }
+    OPTIONAL { ?rState mis:maxExclusive ?maxStateExclusive . }
+    FILTER(
+      ( !BOUND(?minStateInclusive) || ?minStateInclusive = true && xsd:double(?vState) >= xsd:double(?minState) || ?minStateInclusive = false && xsd:double(?vState) > xsd:double(?minState) )
+      &&
+      ( !BOUND(?maxStateExclusive) || ?maxStateExclusive = true && xsd:double(?vState) < xsd:double(?maxState) || ?maxStateExclusive = false && xsd:double(?vState) <= xsd:double(?maxState) )
+    )
+  }
+}
