@@ -1,0 +1,83 @@
+@prefix : <http://nkust.edu.tw/mislab/cnc/ontology/tmv720#> .
+@prefix mis: <http://nkust.edu.tw/mislab/cnc/ontology/tmv720#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://nkust.edu.tw/mislab/cnc/ontology/tmv720> a owl:Ontology ;
+    rdfs:label "TMV-720 CNC Ontology"@en ;
+    rdfs:comment "Ontology for TMV-720 CNC, STH, CNC signals, camera data and predictions."@en .
+
+### Classes
+mis:WorkOrder a owl:Class .
+mis:CNC_Machine a owl:Class .
+mis:Tool a owl:Class .
+mis:STH a owl:Class .
+mis:STHData a owl:Class .
+mis:Torque a owl:Class ; rdfs:subClassOf mis:STHData .
+mis:Bending a owl:Class ; rdfs:subClassOf mis:STHData .
+mis:RSSI a owl:Class ; rdfs:subClassOf mis:STHData .
+mis:CNCData a owl:Class .
+mis:SpindleSpeed a owl:Class ; rdfs:subClassOf mis:CNCData .
+mis:FeedRate a owl:Class ; rdfs:subClassOf mis:CNCData .
+mis:DepthOfCut a owl:Class ; rdfs:subClassOf mis:CNCData .
+mis:Ap a owl:Class ; rdfs:subClassOf mis:CNCData .
+mis:XPosition a owl:Class ; rdfs:subClassOf mis:CNCData .
+mis:YPosition a owl:Class ; rdfs:subClassOf mis:CNCData .
+mis:ZPosition a owl:Class ; rdfs:subClassOf mis:CNCData .
+mis:BlockId a owl:Class ; rdfs:subClassOf mis:CNCData .
+mis:CameraData a owl:Class .
+mis:ToolWearPrediction a owl:Class .
+mis:RAPrediction a owl:Class .
+mis:StatusRiskPrediction a owl:Class .
+mis:DataFile a owl:Class .
+mis:VisualFeature a owl:Class .
+
+### Object properties
+mis:useMachine a owl:ObjectProperty ; rdfs:domain mis:WorkOrder ; rdfs:range mis:CNC_Machine .
+mis:usingToolHolder a owl:ObjectProperty ; rdfs:domain mis:CNC_Machine ; rdfs:range mis:STH .
+mis:hasCameraData a owl:ObjectProperty ; rdfs:domain mis:CNC_Machine ; rdfs:range mis:CameraData .
+mis:usesCameraData a owl:ObjectProperty ; rdfs:domain mis:WorkOrder ; rdfs:range mis:CameraData .
+mis:fittedIn a owl:ObjectProperty ; rdfs:domain mis:Tool ; rdfs:range mis:STH .
+mis:hasSensorData a owl:ObjectProperty ; rdfs:domain mis:STH ; rdfs:range mis:STHData .
+mis:hasCNCData a owl:ObjectProperty ; rdfs:domain mis:CNC_Machine ; rdfs:range mis:CNCData .
+mis:usedFor a owl:ObjectProperty .
+mis:hasDataFile a owl:ObjectProperty ; rdfs:domain mis:STH, mis:CNC_Machine, mis:CameraData ; rdfs:range mis:DataFile .
+mis:hasFeature a owl:ObjectProperty ; rdfs:domain mis:STHData, mis:CNCData, mis:CameraData ; rdfs:range mis:VisualFeature .
+
+### Data properties
+mis:position a owl:DatatypeProperty ; rdfs:domain mis:CNC_Machine ; rdfs:range xsd:string .
+mis:machineName a owl:DatatypeProperty ; rdfs:domain mis:CNC_Machine ; rdfs:range xsd:string .
+mis:Controller a owl:DatatypeProperty ; rdfs:domain mis:CNC_Machine ; rdfs:range xsd:string .
+mis:CNCFileLink a owl:DatatypeProperty ; rdfs:domain mis:CNC_Machine ; rdfs:range xsd:string .
+mis:HolderType a owl:DatatypeProperty ; rdfs:domain mis:CNC_Machine ; rdfs:range xsd:string .
+mis:spindleSpeedMax a owl:DatatypeProperty ; rdfs:domain mis:CNC_Machine ; rdfs:range xsd:double .
+mis:toolId a owl:DatatypeProperty ; rdfs:domain mis:Tool, mis:WorkOrder ; rdfs:range xsd:string .
+mis:toolType a owl:DatatypeProperty ; rdfs:domain mis:Tool ; rdfs:range xsd:string .
+mis:toolMaterial a owl:DatatypeProperty ; rdfs:domain mis:Tool ; rdfs:range xsd:string .
+mis:diameter a owl:DatatypeProperty ; rdfs:domain mis:Tool ; rdfs:range xsd:double .
+mis:NC_Code a owl:DatatypeProperty ; rdfs:domain mis:WorkOrder ; rdfs:range xsd:string .
+mis:orderId a owl:DatatypeProperty ; rdfs:domain mis:WorkOrder ; rdfs:range xsd:string .
+mis:Material a owl:DatatypeProperty ; rdfs:domain mis:WorkOrder ; rdfs:range xsd:string .
+mis:STHMAC a owl:DatatypeProperty ; rdfs:domain mis:WorkOrder ; rdfs:range xsd:string .
+mis:CNC_MachineId a owl:DatatypeProperty ; rdfs:domain mis:WorkOrder ; rdfs:range xsd:string .
+mis:workpieceId a owl:DatatypeProperty ; rdfs:domain mis:WorkOrder ; rdfs:range xsd:string .
+mis:MAC a owl:DatatypeProperty ; rdfs:domain mis:STH ; rdfs:range xsd:string .
+mis:STHFileLink a owl:DatatypeProperty ; rdfs:domain mis:STH ; rdfs:range xsd:string .
+mis:hasValue a owl:DatatypeProperty ; rdfs:domain mis:STHData, mis:CNCData, mis:CameraData, mis:VisualFeature ; rdfs:range xsd:double .
+mis:hasUnit a owl:DatatypeProperty ; rdfs:domain mis:STHData, mis:CNCData, mis:VisualFeature ; rdfs:range xsd:string .
+mis:timestamp a owl:DatatypeProperty ; rdfs:domain mis:STHData, mis:CNCData, mis:CameraData ; rdfs:range xsd:dateTime .
+mis:sourceMAC a owl:DatatypeProperty ; rdfs:domain mis:STHData, mis:CNCData ; rdfs:range xsd:string .
+mis:cameraId a owl:DatatypeProperty ; rdfs:domain mis:CameraData ; rdfs:range xsd:string .
+mis:imagePath a owl:DatatypeProperty ; rdfs:domain mis:CameraData ; rdfs:range xsd:string .
+mis:frameId a owl:DatatypeProperty ; rdfs:domain mis:CameraData ; rdfs:range xsd:string .
+mis:resolution a owl:DatatypeProperty ; rdfs:domain mis:CameraData ; rdfs:range xsd:string .
+mis:exposure a owl:DatatypeProperty ; rdfs:domain mis:CameraData ; rdfs:range xsd:string .
+mis:audioPath a owl:DatatypeProperty ; rdfs:domain mis:CameraData ; rdfs:range xsd:string .
+mis:audioStreamId a owl:DatatypeProperty ; rdfs:domain mis:CameraData ; rdfs:range xsd:string .
+mis:sampleRate a owl:DatatypeProperty ; rdfs:domain mis:CameraData ; rdfs:range xsd:integer .
+mis:channelCount a owl:DatatypeProperty ; rdfs:domain mis:CameraData ; rdfs:range xsd:integer .
+mis:micId a owl:DatatypeProperty ; rdfs:domain mis:CameraData ; rdfs:range xsd:string .
+mis:predictedValue a owl:DatatypeProperty ; rdfs:domain mis:ToolWearPrediction, mis:RAPrediction, mis:StatusRiskPrediction ; rdfs:range xsd:string .
+mis:confidence a owl:DatatypeProperty ; rdfs:domain mis:ToolWearPrediction, mis:RAPrediction, mis:StatusRiskPrediction ; rdfs:range xsd:double .

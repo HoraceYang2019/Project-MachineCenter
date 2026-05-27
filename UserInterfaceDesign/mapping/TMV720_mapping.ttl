@@ -1,0 +1,82 @@
+@prefix : <http://nkust.edu.tw/mislab/cnc/mapping/tmv720#> .
+@prefix map: <http://nkust.edu.tw/mislab/cnc/mapping/tmv720#> .
+@prefix mis: <http://nkust.edu.tw/mislab/cnc/ontology/tmv720#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://nkust.edu.tw/mislab/cnc/mapping/tmv720> a owl:Ontology ;
+    rdfs:label "TMV-720 Mapping Ontology"@en ;
+    rdfs:comment "Mapping between YAML/CSV sources and TMV-720 ontology classes/properties."@en .
+
+map:DataFileMapping a owl:Class .
+map:ColumnMapping a owl:Class .
+
+map:filePath a owl:DatatypeProperty ; rdfs:domain map:DataFileMapping ; rdfs:range xsd:string .
+map:format a owl:DatatypeProperty ; rdfs:domain map:DataFileMapping ; rdfs:range xsd:string .
+map:yamlSourcePath a owl:DatatypeProperty ; rdfs:domain map:DataFileMapping ; rdfs:range xsd:string .
+map:targetClass a owl:DatatypeProperty ; rdfs:domain map:DataFileMapping ; rdfs:range xsd:string .
+map:hasColumnMapping a owl:ObjectProperty ; rdfs:domain map:DataFileMapping ; rdfs:range map:ColumnMapping .
+map:columnName a owl:DatatypeProperty ; rdfs:domain map:ColumnMapping ; rdfs:range xsd:string .
+map:toClass a owl:DatatypeProperty ; rdfs:domain map:ColumnMapping ; rdfs:range xsd:string .
+map:toProperty a owl:DatatypeProperty ; rdfs:domain map:ColumnMapping ; rdfs:range xsd:string .
+map:unit a owl:DatatypeProperty ; rdfs:domain map:ColumnMapping ; rdfs:range xsd:string .
+map:yamlPath a owl:DatatypeProperty ; rdfs:domain map:ColumnMapping ; rdfs:range xsd:string .
+
+map:STHDataFileMapping a map:DataFileMapping ;
+    map:filePath "CNC/Exp-1/STH/84f703ce2d10_2025-08-15__16_35_05_272750_conv_out.csv" ;
+    map:format "csv" ;
+    map:yamlSourcePath "ToolRelated.ToolHolder.STH1.Data.FileLink" ;
+    map:targetClass "STHData" ;
+    map:hasColumnMapping map:STHData_TimeTag, map:STHData_Torque, map:STHData_Bending, map:STHData_RSSI .
+
+map:STHData_TimeTag a map:ColumnMapping ;
+    map:columnName "TimeTag" ;
+    map:toClass "STHData" ;
+    map:toProperty "timestamp" .
+map:STHData_Torque a map:ColumnMapping ;
+    map:columnName "Torque" ;
+    map:toClass "Torque" ;
+    map:toProperty "hasValue" ;
+    map:unit "Nm" .
+map:STHData_Bending a map:ColumnMapping ;
+    map:columnName "BendingX+BendingY" ;
+    map:toClass "Bending" ;
+    map:toProperty "hasValue" .
+map:STHData_RSSI a map:ColumnMapping ;
+    map:columnName "RSSI" ;
+    map:toClass "RSSI" ;
+    map:toProperty "hasValue" .
+
+map:CNCDataFileMapping a map:DataFileMapping ;
+    map:filePath "CNC/CNC_opcua.json" ;
+    map:format "json" ;
+    map:yamlSourcePath "CNCSpindle.S1.FileLink" ;
+    map:targetClass "CNCData" ;
+    map:hasColumnMapping map:CNC_SpindleSpeed, map:CNC_FeedRate, map:CNC_DepthOfCut, map:CNC_Ap, map:CNC_XPosition, map:CNC_YPosition, map:CNC_ZPosition, map:CNC_BlockId .
+
+map:CNC_SpindleSpeed a map:ColumnMapping ; map:yamlPath "CNCSpindle.S1.CmdSpeed" ; map:toClass "SpindleSpeed" ; map:toProperty "hasValue" ; map:unit "RPM" .
+map:CNC_FeedRate a map:ColumnMapping ; map:yamlPath "CNCSpindle.S1.FeedRate" ; map:toClass "FeedRate" ; map:toProperty "hasValue" .
+map:CNC_DepthOfCut a map:ColumnMapping ; map:columnName "DepthOfCut" ; map:toClass "DepthOfCut" ; map:toProperty "hasValue" .
+map:CNC_Ap a map:ColumnMapping ; map:columnName "Ap" ; map:toClass "Ap" ; map:toProperty "hasValue" .
+map:CNC_XPosition a map:ColumnMapping ; map:columnName "XPosition" ; map:toClass "XPosition" ; map:toProperty "hasValue" .
+map:CNC_YPosition a map:ColumnMapping ; map:columnName "YPosition" ; map:toClass "YPosition" ; map:toProperty "hasValue" .
+map:CNC_ZPosition a map:ColumnMapping ; map:columnName "ZPosition" ; map:toClass "ZPosition" ; map:toProperty "hasValue" .
+map:CNC_BlockId a map:ColumnMapping ; map:columnName "BlockId" ; map:toClass "BlockId" ; map:toProperty "hasValue" .
+
+map:CameraDataFileMapping a map:DataFileMapping ;
+    map:filePath "CNC/Exp-1/Camera/" ;
+    map:format "folder" ;
+    map:yamlSourcePath "Job.DesignStlFile.FileLink" ;
+    map:targetClass "CameraData" ;
+    map:hasColumnMapping map:Camera_timestamp, map:Camera_cameraId, map:Camera_frameId, map:Camera_imagePath, map:Camera_audioPath, map:Camera_sampleRate, map:Camera_channelCount, map:Camera_micId .
+
+map:Camera_timestamp a map:ColumnMapping ; map:columnName "timestamp" ; map:toClass "CameraData" ; map:toProperty "timestamp" .
+map:Camera_cameraId a map:ColumnMapping ; map:columnName "cameraId" ; map:toClass "CameraData" ; map:toProperty "cameraId" .
+map:Camera_frameId a map:ColumnMapping ; map:columnName "frameId" ; map:toClass "CameraData" ; map:toProperty "frameId" .
+map:Camera_imagePath a map:ColumnMapping ; map:columnName "imagePath" ; map:toClass "CameraData" ; map:toProperty "imagePath" .
+map:Camera_audioPath a map:ColumnMapping ; map:columnName "audioPath" ; map:toClass "CameraData" ; map:toProperty "audioPath" .
+map:Camera_sampleRate a map:ColumnMapping ; map:columnName "sampleRate" ; map:toClass "CameraData" ; map:toProperty "sampleRate" .
+map:Camera_channelCount a map:ColumnMapping ; map:columnName "channelCount" ; map:toClass "CameraData" ; map:toProperty "channelCount" .
+map:Camera_micId a map:ColumnMapping ; map:columnName "micId" ; map:toClass "CameraData" ; map:toProperty "micId" .

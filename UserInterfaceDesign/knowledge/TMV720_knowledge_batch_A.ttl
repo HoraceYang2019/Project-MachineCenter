@@ -1,0 +1,92 @@
+@prefix : <http://nkust.edu.tw/mislab/cnc/knowledge/tmv720#> .
+@prefix mis: <http://nkust.edu.tw/mislab/cnc/ontology/tmv720#> .
+@prefix kb: <http://nkust.edu.tw/mislab/cnc/knowledge/tmv720#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://nkust.edu.tw/mislab/cnc/knowledge/tmv720> a owl:Ontology ;
+    rdfs:label "TMV-720 Knowledge Batch A"@en ;
+    rdfs:comment "Thresholds, windows, feature definitions and model settings for TMV-720 batch A."@en .
+
+kb:BatchKnowledge a owl:Class .
+kb:ModelSpec a owl:Class .
+kb:ThresholdSpec a owl:Class .
+kb:WindowingSpec a owl:Class .
+
+kb:forProject a owl:DatatypeProperty ; rdfs:domain kb:BatchKnowledge ; rdfs:range xsd:string .
+kb:forBatch a owl:DatatypeProperty ; rdfs:domain kb:BatchKnowledge ; rdfs:range xsd:string .
+kb:forState a owl:DatatypeProperty ; rdfs:domain kb:BatchKnowledge ; rdfs:range xsd:string .
+kb:minValue a owl:DatatypeProperty ; rdfs:domain kb:ThresholdSpec ; rdfs:range xsd:double .
+kb:maxValue a owl:DatatypeProperty ; rdfs:domain kb:ThresholdSpec ; rdfs:range xsd:double .
+kb:hasConfidence a owl:DatatypeProperty ; rdfs:domain kb:BatchKnowledge ; rdfs:range xsd:double .
+kb:sourceFile a owl:DatatypeProperty ; rdfs:domain kb:BatchKnowledge ; rdfs:range xsd:string .
+kb:samplingHz a owl:DatatypeProperty ; rdfs:domain kb:WindowingSpec ; rdfs:range xsd:integer .
+kb:windowSizePoints a owl:DatatypeProperty ; rdfs:domain kb:WindowingSpec ; rdfs:range xsd:integer .
+kb:overlapPoints a owl:DatatypeProperty ; rdfs:domain kb:WindowingSpec ; rdfs:range xsd:integer .
+kb:modelId a owl:DatatypeProperty ; rdfs:domain kb:ModelSpec ; rdfs:range xsd:string .
+kb:modelType a owl:DatatypeProperty ; rdfs:domain kb:ModelSpec ; rdfs:range xsd:string .
+kb:defaultConfidence a owl:DatatypeProperty ; rdfs:domain kb:ModelSpec ; rdfs:range xsd:double .
+kb:intercept a owl:DatatypeProperty ; rdfs:domain kb:ModelSpec ; rdfs:range xsd:double .
+kb:featureName a owl:DatatypeProperty ; rdfs:domain kb:ModelSpec ; rdfs:range xsd:string .
+kb:featureWeight a owl:DatatypeProperty ; rdfs:domain kb:ModelSpec ; rdfs:range xsd:double .
+kb:predict a owl:DatatypeProperty ; rdfs:domain kb:ModelSpec ; rdfs:range xsd:string .
+kb:whenCondition a owl:DatatypeProperty ; rdfs:domain kb:ModelSpec ; rdfs:range xsd:string .
+kb:labelKey a owl:DatatypeProperty ; rdfs:domain kb:ThresholdSpec ; rdfs:range xsd:string .
+
+kb:Windowing_A a kb:WindowingSpec ;
+    kb:samplingHz 1000 ;
+    kb:windowSizePoints 200 ;
+    kb:overlapPoints 100 .
+
+kb:Threshold_ToolLife a kb:ThresholdSpec ;
+    kb:labelKey "toolLife" ;
+    kb:minValue 0.2 ;
+    kb:maxValue 0.3 .
+
+kb:Threshold_RA a kb:ThresholdSpec ;
+    kb:labelKey "ra" ;
+    kb:minValue 0.0 ;
+    kb:maxValue 1.6 .
+
+kb:Threshold_StatusRisk a kb:ThresholdSpec ;
+    kb:labelKey "statusRiskScore" ;
+    kb:minValue 0.0 ;
+    kb:maxValue 0.8 .
+
+kb:ToolWearModel_A a kb:ModelSpec ;
+    kb:modelId "toolwear_v1" ;
+    kb:modelType "linear" ;
+    kb:defaultConfidence 0.85 ;
+    kb:intercept 0.02 ;
+    kb:featureName "Torque.mean" ; kb:featureWeight 0.12 ;
+    kb:featureName "Torque.std" ; kb:featureWeight 0.08 ;
+    kb:featureName "Torque.max" ; kb:featureWeight 0.10 ;
+    kb:featureName "Bending.mean" ; kb:featureWeight 0.09 ;
+    kb:featureName "Bending.std" ; kb:featureWeight 0.07 .
+
+kb:RAModel_A a kb:ModelSpec ;
+    kb:modelId "ra_v1" ;
+    kb:modelType "linear" ;
+    kb:defaultConfidence 0.82 ;
+    kb:intercept 0.4 ;
+    kb:featureName "Torque.mean" ; kb:featureWeight 0.3 ;
+    kb:featureName "Torque.std" ; kb:featureWeight 0.2 ;
+    kb:featureName "SpindleSpeed.mean" ; kb:featureWeight -0.00002 ;
+    kb:featureName "FeedRate.mean" ; kb:featureWeight 0.0003 .
+
+kb:StatusRiskModel_A a kb:ModelSpec ;
+    kb:modelId "statusrisk_v1" ;
+    kb:modelType "rule" ;
+    kb:defaultConfidence 0.8 ;
+    kb:whenCondition "audio_anomaly_score >= 0.8" ; kb:predict "HIGH" ;
+    kb:whenCondition "audio_anomaly_score >= 0.6" ; kb:predict "MEDIUM" ;
+    kb:whenCondition "audio_anomaly_score < 0.6" ; kb:predict "LOW" .
+
+kb:Knowledge_Batch_A a kb:BatchKnowledge ;
+    kb:forProject "TMV720_Project" ;
+    kb:forBatch "TMV720_Batch_A" ;
+    kb:forState "ToolNormal" ;
+    kb:hasConfidence 0.95 ;
+    kb:sourceFile "thresholds_TMV720_batch_A.csv" .

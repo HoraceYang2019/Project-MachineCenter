@@ -1,0 +1,337 @@
+{
+  "ontology": {
+    "classes": [
+      {
+        "name": "CNC_Machine",
+        "properties": [
+          {"name": "machineName", "type": "string"},
+          {"name":"Controller", "type": "string"},
+          {"name":"CNCFileLink", "type": "string"},
+          {"name":"HolderType", "type": "string"},
+          {"name": "spindleSpeedMax", "type": "double", "unit": "RPM"}
+        ]
+      },
+      {
+        "name": "Tool",
+        "label": "刀具",
+        "properties": [
+          {"name": "toolId", "type": "string"},
+          {"name": "toolType", "type": "string"},
+          {"name": "toolMaterial", "type": "string"},
+          {"name": "diameter", "type": "double", "unit": "mm"}
+        ]
+      },
+      {
+        "name": "WorkOrder",
+        "label": "Work Order",
+        "properties": [
+            {"name": "position", "type": "string"},
+            {"name": "NC_Code", "type": "string"},
+            {"name": "orderId", "type": "string"},
+            {"name":"Material", "type": "string"},
+            {"name": "STHMAC", "type": "string"},
+            {"name": "toolId", "type": "string"},
+            {"name": "CNC_Machine", "type": "string"},
+            {"name": "workpieceId", "type": "string"}
+        ]
+      },
+
+      {
+        "name": "STH",
+        "label": "智慧刀把",
+        "properties": [
+          {"name": "MAC", "type": "string"},
+          {"name": "STHFileLink", "type": "string"}
+        ]
+      },
+      {
+        "name": "STHData",
+        "label": "STH感測資料",
+        "properties": [
+            {"name": "hasValue", "type": "double"},
+            {"name": "hasUnit", "type": "string"},
+            {"name": "timestamp", "type": "datetime"},
+            {"name": "sourceMAC", "type": "string"}
+        ]
+        },
+        {
+            "name": "Torque",
+            "label": "扭矩訊號",
+            "subClassOf": "STHData",
+            "properties": []
+        },
+        {
+            "name": "Bending",
+            "label": "彎曲訊號",
+            "subClassOf": "STHData",
+            "properties": []
+        },
+        {
+            "name": "RSSI",
+            "label": "訊號強度",
+            "subClassOf": "STHData",
+            "properties": []
+        },
+
+        {
+          "name": "CNCData",
+          "label": "CNC控制器資料",
+          "properties": [
+              {"name": "hasValue", "type": "double"},
+              {"name": "hasUnit", "type": "string"},
+              {"name": "timestamp", "type": "datetime"},
+              {"name": "sourceMAC", "type": "string"}
+          ]
+        },
+        {
+          "name": "SpindleSpeed",
+          "label": "主軸轉速",
+          "subClassOf": "CNCData",
+          "properties": []
+        },
+        {
+          "name": "FeedRate",
+          "label": "進給速率",
+          "subClassOf": "CNCData",
+          "properties": []
+        },
+        {
+          "name": "Ap",
+          "label": "切削深度",
+          "subClassOf": "CNCData",
+          "properties": []
+        },
+        {
+          "name": "Ap",
+          "label": "切寬度",
+          "subClassOf": "CNCData",
+          "properties": []
+          
+        },
+        {
+          "name": "XPosition",
+          "label": "x軸位置",
+          "subClassOf": "CNCData",
+          "properties": []
+        },
+        {
+          "name": "YPosition",
+          "label": "y軸位置",
+          "subClassOf": "CNCData",
+          "properties": []
+        },
+        {
+          "name": "ZPosition",
+          "label": "z軸位置",
+          "subClassOf": "CNCData",
+          "properties": []
+        },
+        {
+          "name": "BlockId",
+          "label": "NC程式段ID",
+          "subClassOf": "CNCData",
+          "properties": []
+        },
+
+        {
+          "name": "CameraData",
+          "label": "相機資料",
+          "properties": [
+            {"name": "cameraId", "type": "string"},
+            {"name": "frameId", "type": "string"},
+            {"name": "timestamp", "type": "datetime"},
+            {"name": "audioPath", "type": "string"},
+            {"name": "sampleRate", "type": "integer", "unit": "Hz"},
+            {"name": "micId", "type": "string"}
+          ]
+        },
+        
+        {
+            "name": "ToolWearPrediction",
+            "label": "刀具磨耗預測",
+            "properties": [
+            {"name": "predictedValue", "type": "double", "unit": "mm"},
+            {"name": "confidence", "type": "double"}
+            ]
+        },
+        {
+            "name": "RAPrediction",
+            "label": "表面品質預測",
+            "properties": [
+                {"name": "predictedValue", "type": "double", "unit": "mm"},
+                {"name": "confidence", "type": "double"}
+            ]
+        },
+        {
+            "name": "StatusRiskPrediction",
+            "label": "聲音狀態訊號",
+            "properties": [
+                {"name": "predictedValue", "type": "string"},
+                {"name": "confidence", "type": "double"}
+          ]
+        }
+
+    ],
+    "relationships": [
+        {"from": "WorkOrder", "to": "CNC_Machine", "relation": "useMachine"},
+        {"from": "CNC_Machine", "to": "STH", "relation": "usingToolHolder"},
+        {"from": "WorkOrder", "to": "CameraData", "relation": "usesCameraData"},
+        {"from": "Tool", "to": "STH", "relation": "fittedIn"},
+        {"from": "STH", "to": "STHData", "relation": "hasSensorData"},
+        {"from": "CNC_Machine", "to": "CNCData", "relation": "hasCNCData"},
+
+        {"from": "CNCData", "to": "ToolWearPrediction", "relation": "usedFor"},
+        {"from": "Torque", "to": "ToolWearPrediction", "relation": "usedFor"},
+        {"from": "Bending", "to": "ToolWearPrediction", "relation": "usedFor"},
+
+
+        {"from": "Torque", "to": "RAPrediction", "relation": "usedFor"},
+        {"from": "SpindleSpeed", "to": "RAPrediction", "relation": "usedFor"},
+        {"from": "FeedRate", "to": "RAPrediction", "relation": "usedFor"},
+
+        {"from": "CameraData", "to": "StatusRiskPrediction", "relation": "usedFor"}
+
+    ]
+  },
+  "mapping": {
+    "dataFiles": [
+      {
+        "name": "STHDataFile",
+        "label": "STH資料檔案位置",
+        "properties": [
+          {"name": "filePath", "type": "string"},
+          {"name": "format", "type": "string"},
+          {"name": "columns", "type": "array", "example": ["time", "Torque", "Bending"]}
+        ],
+        "yamlSourcePath": "ToolRelated.ToolHolder.STH1.Data.FileLink",
+        "targetClass": "STHData",
+        "columnMappings": [
+          {"column": "time", "toClass": "STHData", "toProperty": "timestamp"},
+          {"column": "Torque", "toClass": "Torque", "toProperty": "hasValue", "unit": "Nm"},
+          {"column": "Bending", "toClass": "Bending", "toProperty": "hasValue"},
+          {"column": "RSSI", "toClass": "RSSI", "toProperty": "hasValue"}
+        ]
+      },
+      {
+        "name": "CNCDataFile",
+        "label": "CNC資料檔案位置",
+        "properties": [
+          {"name": "filePath", "type": "string"},
+          {"name": "format", "type": "string"},
+          {"name": "columns", "type": "array", "example": ["time", "SpindleSpeed", "FeedRate", "DepthOfCut", "Ap", "XPosition", "YPosition", "ZPosition", "BlockId"]}
+        ],
+        "yamlSourcePath": "CNCSpindle.S1.FileLink",
+        "targetClass": "CNCData",
+        "yamlFieldMappings": [
+          {"yamlPath": "CNCSpindle.S1.CmdSpeed", "toClass": "SpindleSpeed", "toProperty": "hasValue", "unit": "RPM"},
+          {"yamlPath": "CNCSpindle.S1.FeedRate", "toClass": "FeedRate", "toProperty": "hasValue"}
+        ],
+        "columnMappings": [
+          {"column": "time", "toClass": "CNCData", "toProperty": "timestamp"},
+          {"column": "SpindleSpeed", "toClass": "SpindleSpeed", "toProperty": "hasValue", "unit": "RPM"},
+          {"column": "FeedRate", "toClass": "FeedRate", "toProperty": "hasValue"},
+          {"column": "DepthOfCut", "toClass": "DepthOfCut", "toProperty": "hasValue"},
+          {"column": "Ap", "toClass": "Ap", "toProperty": "hasValue"},
+          {"column": "XPosition", "toClass": "XPosition", "toProperty": "hasValue"},
+          {"column": "YPosition", "toClass": "YPosition", "toProperty": "hasValue"},
+          {"column": "ZPosition", "toClass": "ZPosition", "toProperty": "hasValue"},
+          {"column": "BlockId", "toClass": "BlockId", "toProperty": "hasValue"}
+        ]
+      },
+      {
+        "name": "CameraDataFile",
+        "label": "相機資料檔案位置",
+        "properties": [
+          {"name": "filePath", "type": "string"},
+          {"name": "format", "type": "string"},
+          {"name": "columns", "type": "array", "example": ["timestamp", "cameraId", "frameId", "imagePath", "audioPath", "sampleRate", "channelCount", "micId"]}
+        ],
+        "yamlSourcePath": "Job.DesignStlFile.FileLink",
+        "targetClass": "CameraData",
+        "columnMappings": [
+          {"column": "timestamp", "toClass": "CameraData", "toProperty": "timestamp"},
+          {"column": "cameraId", "toClass": "CameraData", "toProperty": "cameraId"},
+          {"column": "frameId", "toClass": "CameraData", "toProperty": "frameId"},
+          {"column": "imagePath", "toClass": "CameraData", "toProperty": "imagePath"},
+          {"column": "audioPath", "toClass": "CameraData", "toProperty": "audioPath"},
+          {"column": "sampleRate", "toClass": "CameraData", "toProperty": "sampleRate"},
+          {"column": "channelCount", "toClass": "CameraData", "toProperty": "channelCount"},
+          {"column": "micId", "toClass": "CameraData", "toProperty": "micId"}
+        ]
+      }
+    ]
+  },
+  "knowledge": {
+    "machines": [
+      {"name": "TMV-720", "spindleSpeedMax": 12000}
+    ],
+    "thresholds": {
+      "toolLife": {"warn": 0.2, "critical": 0.3, "unit": "mm"},
+      "ra": {"goodMax": 0.8, "warnMax": 1.6, "poorMin": 1.6, "unit": "um"},
+      "statusRiskScore": {"warn": 0.6, "critical": 0.8}
+    },
+    "windowing": {
+      "samplingHz": 1000,
+      "windowSizePoints": 200,
+      "overlapPoints": 100
+    },
+    "featureDefinitions": {
+      "toolWear": ["Torque", "ap", "Bending.mean", "Bending.std"],
+      "ra": ["Torque.mean", "Torque.std", "SpindleSpeed.mean", "FeedRate.mean"],
+      "statusRisk": ["CameraData.audioPath", "CameraData.sampleRate", "RSSI.mean"]
+    },
+    "models": {
+      "toolWear": {
+        "modelId": "toolwear_v1",
+        "type": "linear",
+        "outputClass": "ToolWearPrediction",
+        "outputProperty": "predictedValue",
+        "defaultConfidence": 0.85,
+        "coefficients": {
+          "Torque.mean": 0.12,
+          "Torque.std": 0.08,
+          "Torque.max": 0.1,
+          "Bending.mean": 0.09,
+          "Bending.std": 0.07
+        },
+        "intercept": 0.02
+      },
+      "ra": {
+        "modelId": "ra_v1",
+        "type": "linear",
+        "outputClass": "RAPrediction",
+        "outputProperty": "predictedValue",
+        "defaultConfidence": 0.82,
+        "coefficients": {
+          "Torque.mean": 0.3,
+          "Torque.std": 0.2,
+          "SpindleSpeed.mean": -0.00002,
+          "FeedRate.mean": 0.0003
+        },
+        "intercept": 0.4
+      },
+      "statusRisk": {
+        "modelId": "statusrisk_v1",
+        "type": "rule",
+        "outputClass": "StatusRiskPrediction",
+        "outputProperty": "predictedValue",
+        "defaultConfidence": 0.8,
+        "rules": [
+          {"when": "audio_anomaly_score >= 0.8", "predict": "HIGH"},
+          {"when": "audio_anomaly_score >= 0.6", "predict": "MEDIUM"},
+          {"when": "audio_anomaly_score < 0.6", "predict": "LOW"}
+        ]
+      }
+    },
+    "fallback": {
+      "spindleSpeed": ["mapping.CNCDataFile.yamlFieldMappings.CNCSpindle.S1.CmdSpeed", "opcua.Actual_Spindle_RPM"],
+      "feedRate": ["mapping.CNCDataFile.yamlFieldMappings.CNCSpindle.S1.FeedRate", "opcua.Actual_Feed_mm_min"],
+      "statusRiskSource": ["CameraData.audioPath", "RSSI"]
+    },
+    "stateLabels": {
+      "toolWear": {"normal": "ToolNormal", "warn": "ToolWorn", "critical": "ToolSevereWear"},
+      "ra": {"good": "Ra_Good", "warn": "Ra_Warning", "poor": "Ra_Poor"},
+      "statusRisk": {"low": "LOW", "medium": "MEDIUM", "high": "HIGH"}
+    }
+  }
+}
