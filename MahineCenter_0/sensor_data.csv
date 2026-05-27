@@ -1,4 +1,0 @@
-ts,block_id,torque_nm,vibration_rms_g,strain_ue,temperature_c,spindle_current_a,dominant_frequency_hz
-2026-04-13T10:00:00.100Z,N50,1.28,0.31,122.4,38.2,4.8,780.0
-2026-04-13T10:00:00.200Z,N60,1.35,0.34,126.0,38.6,4.9,790.0
-2026-04-13T10:00:00.300Z,N70,1.41,0.39,130.2,39.1,5.0,820.0
