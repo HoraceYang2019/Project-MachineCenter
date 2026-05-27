@@ -1,0 +1,2092 @@
+@prefix : <http://nkust.edu.tw/mislab/cnc/ontology/sth#STHExtendedOntology> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix mis: <http://nkust.edu.tw/mislab#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sth: <http://nkust.edu.tw/mislab/cnc/ontology/sth#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+mis:2025CWG\(丞威\) a mis:Project,
+        owl:NamedIndividual ;
+    mis:cutsMaterial mis:FDAC ;
+    mis:usesMachine mis:CNC-T21iFb ;
+    mis:usesTool mis:EndMill-D2-F2,
+        mis:EndMill-D4-F4 ;
+    dc:creator "hao" ;
+    dc:date "2026-04-27T00:34:31+00:00"^^xsd:dateTime .
+
+mis:2026FlexSpline a mis:Project,
+        owl:NamedIndividual ;
+    mis:LocatedAt "TT" ;
+    mis:cutsMaterial mis:AISI_4340 ;
+    mis:usesMachine mis:CNC-TMV720 ;
+    mis:usesNCFile sth:NC_FlexSpline_01 ;
+    dc:creator "hao" ;
+    dc:date "2026-04-22T06:31:00+00:00"^^xsd:dateTime .
+
+mis:2026HiNC a mis:Project,
+        owl:NamedIndividual ;
+    dc:creator "hao" ;
+    dc:date "2026-05-18T01:16:25+00:00"^^xsd:dateTime .
+
+mis:2026TMTS a mis:Project,
+        owl:NamedIndividual ;
+    mis:LocatedAt "TMTS2026" ;
+    mis:cutsMaterial mis:S45C ;
+    mis:usesMachine mis:CNC-VU-5 ;
+    dc:creator "hao" ;
+    dc:date "2026-04-22T02:25:16+00:00"^^xsd:dateTime .
+
+mis:BBT30-v2 a sth:SmartToolHolder,
+        owl:NamedIndividual ;
+    mis:forSpindle "BT30" ;
+    dc:creator "hao" ;
+    dc:date "2026-04-22T02:36:15+00:00"^^xsd:dateTime .
+
+mis:BBT40-v2 a sth:SmartToolHolder,
+        owl:NamedIndividual ;
+    mis:forSpindle "BT40" ;
+    dc:creator "hao" ;
+    dc:date "2026-04-22T02:58:58+00:00"^^xsd:dateTime .
+
+mis:BT40-v2 a sth:SmartToolHolder,
+        owl:NamedIndividual ;
+    mis:forSpindle "BT40" ;
+    mis:hasUnbalance ""^^owl:rational ;
+    dc:creator "hao" ;
+    dc:date "2026-04-22T02:56:57+00:00"^^xsd:dateTime .
+
+mis:BT50-v2 a sth:SmartToolHolder,
+        owl:NamedIndividual ;
+    mis:forSpindle "BT50" ;
+    mis:hasBendingCoef "" ;
+    dc:creator "hao" ;
+    dc:date "2026-05-13T08:22:41+00:00"^^xsd:dateTime .
+
+mis:CSVColumn_batch_id a mis:CSVColumn ;
+    rdfs:label "batch_id" ;
+    mis:usedByPipeline "CNC BatchKnowledge Schema" .
+
+mis:CSVColumn_category a mis:CSVColumn ;
+    rdfs:label "category" ;
+    mis:usedByPipeline "CNC BatchKnowledge Schema" .
+
+mis:CSVColumn_confidence a mis:CSVColumn ;
+    rdfs:label "confidence" ;
+    mis:usedByPipeline "CNC BatchKnowledge Schema" .
+
+mis:CSVColumn_dataset_id a mis:CSVColumn ;
+    rdfs:label "dataset_id" ;
+    mis:usedByPipeline "CNC BatchKnowledge Schema" .
+
+mis:CSVColumn_description a mis:CSVColumn ;
+    rdfs:label "description" ;
+    mis:usedByPipeline "CNC BatchKnowledge Schema" .
+
+mis:CSVColumn_knowledge_id a mis:CSVColumn ;
+    rdfs:label "knowledge_id" ;
+    mis:usedByPipeline "CNC BatchKnowledge Schema" .
+
+mis:CSVColumn_max_property a mis:CSVColumn ;
+    rdfs:label "max_property" ;
+    mis:usedByPipeline "CNC BatchKnowledge Schema" .
+
+mis:CSVColumn_max_value a mis:CSVColumn ;
+    rdfs:label "max_value" ;
+    mis:usedByPipeline "CNC BatchKnowledge Schema" .
+
+mis:CSVColumn_min_property a mis:CSVColumn ;
+    rdfs:label "min_property" ;
+    mis:usedByPipeline "CNC BatchKnowledge Schema" .
+
+mis:CSVColumn_min_value a mis:CSVColumn ;
+    rdfs:label "min_value" ;
+    mis:usedByPipeline "CNC BatchKnowledge Schema" .
+
+mis:CSVColumn_state_uri a mis:CSVColumn ;
+    rdfs:label "state_uri" ;
+    mis:usedByPipeline "CNC BatchKnowledge Schema" .
+
+mis:DiagnosisModel a owl:Class ;
+    dc:creator "hao" ;
+    dc:date "2026-04-26T10:01:17+00:00"^^xsd:dateTime ;
+    rdfs:subClassOf mis:Model .
+
+mis:EndMill-D10-F2 a sth:CuttingTool,
+        owl:NamedIndividual ;
+    mis:hasDiameter 10 ;
+    mis:hasFluteNum 2 ;
+    dc:creator "hao" ;
+    dc:date "2026-04-22T07:49:51+00:00"^^xsd:dateTime .
+
+mis:EndMill-D8-F4 a sth:CuttingTool,
+        owl:NamedIndividual ;
+    mis:hasDiameter 8 ;
+    mis:hasFluteNum 4 ;
+    dc:creator "hao" ;
+    dc:date "2026-04-22T02:41:35+00:00"^^xsd:dateTime .
+
+mis:FANUC_ a mis:Controller,
+        owl:NamedIndividual ;
+    dc:creator "hao" ;
+    dc:date "2026-05-13T08:16:20+00:00"^^xsd:dateTime .
+
+mis:FlexSpin-1 a mis:DesignStlFile,
+        owl:NamedIndividual ;
+    dc:creator "hao" ;
+    dc:date "2026-05-18T01:18:08+00:00"^^xsd:dateTime .
+
+mis:Knowledge_A_ProcessChatter a mis:BatchKnowledge ;
+    mis:confidence 9.2e-01 ;
+    mis:derivedFromDataset "tmv720_2026_batch_A" ;
+    mis:forBatch mis:TMV720_Batch_A ;
+    mis:forState sth:State_Chatter ;
+    mis:hasDescription "Chatter process based on chatter score" ;
+    mis:hasKnowledgeCategory "process_state" ;
+    mis:maxChatterScore 1e+00 ;
+    mis:minChatterScore 6.8e-01 .
+
+mis:Knowledge_A_ProcessStable a mis:BatchKnowledge ;
+    mis:confidence 9.1e-01 ;
+    mis:derivedFromDataset "tmv720_2026_batch_A" ;
+    mis:forBatch mis:TMV720_Batch_A ;
+    mis:forState sth:State_Stable ;
+    mis:hasDescription "Stable process based on chatter score" ;
+    mis:hasKnowledgeCategory "process_state" ;
+    mis:maxChatterScore 2.8e-01 ;
+    mis:minChatterScore 0e+00 .
+
+mis:Knowledge_A_ProcessTransition a mis:BatchKnowledge ;
+    mis:confidence 8.8e-01 ;
+    mis:derivedFromDataset "tmv720_2026_batch_A" ;
+    mis:forBatch mis:TMV720_Batch_A ;
+    mis:forState sth:State_Transition ;
+    mis:hasDescription "Transition process based on chatter score" ;
+    mis:hasKnowledgeCategory "process_state" ;
+    mis:maxChatterScore 6.8e-01 ;
+    mis:minChatterScore 2.8e-01 .
+
+mis:Knowledge_A_Ra_Bad a mis:BatchKnowledge ;
+    mis:confidence 8.8e-01 ;
+    mis:derivedFromDataset "tmv720_2026_batch_A" ;
+    mis:forBatch mis:TMV720_Batch_A ;
+    mis:forState mis:Ra_Bad ;
+    mis:hasDescription "Surface roughness unacceptable range" ;
+    mis:hasKnowledgeCategory "surface_quality" ;
+    mis:maxMeasuredRa 9.99e+00 ;
+    mis:minMeasuredRa 1.5e+00 .
+
+mis:Knowledge_A_Ra_OK a mis:BatchKnowledge ;
+    mis:confidence 9.1e-01 ;
+    mis:derivedFromDataset "tmv720_2026_batch_A" ;
+    mis:forBatch mis:TMV720_Batch_A ;
+    mis:forState mis:Ra_OK ;
+    mis:hasDescription "Surface roughness within acceptable range" ;
+    mis:hasKnowledgeCategory "surface_quality" ;
+    mis:maxMeasuredRa 7.5e-01 ;
+    mis:minMeasuredRa 0e+00 .
+
+mis:Knowledge_A_Ra_Warning a mis:BatchKnowledge ;
+    mis:confidence 8.9e-01 ;
+    mis:derivedFromDataset "tmv720_2026_batch_A" ;
+    mis:forBatch mis:TMV720_Batch_A ;
+    mis:forState mis:Ra_Warning ;
+    mis:hasDescription "Surface roughness warning range" ;
+    mis:hasKnowledgeCategory "surface_quality" ;
+    mis:maxMeasuredRa 1.5e+00 ;
+    mis:minMeasuredRa 7.5e-01 .
+
+mis:Knowledge_A_ToolNormal a mis:BatchKnowledge ;
+    mis:confidence 9.2e-01 ;
+    mis:derivedFromDataset "tmv720_2026_batch_A" ;
+    mis:forBatch mis:TMV720_Batch_A ;
+    mis:forState mis:Tool_Normal ;
+    mis:hasDescription "Normal tool condition based on torque ratio" ;
+    mis:hasKnowledgeCategory "tool_condition" ;
+    mis:maxTorqueRatio 1.15e+00 ;
+    mis:minTorqueRatio 0e+00 .
+
+mis:Knowledge_A_ToolSevereWear a mis:BatchKnowledge ;
+    mis:confidence 9e-01 ;
+    mis:derivedFromDataset "tmv720_2026_batch_A" ;
+    mis:forBatch mis:TMV720_Batch_A ;
+    mis:forState mis:Tool_SevereWear ;
+    mis:hasDescription "Severe tool wear based on torque ratio" ;
+    mis:hasKnowledgeCategory "tool_condition" ;
+    mis:maxTorqueRatio 9.99e+00 ;
+    mis:minTorqueRatio 1.48e+00 .
+
+mis:Knowledge_A_ToolWorn a mis:BatchKnowledge ;
+    mis:confidence 9.3e-01 ;
+    mis:derivedFromDataset "tmv720_2026_batch_A" ;
+    mis:forBatch mis:TMV720_Batch_A ;
+    mis:forState mis:Tool_Worn ;
+    mis:hasDescription "Worn tool condition based on torque ratio" ;
+    mis:hasKnowledgeCategory "tool_condition" ;
+    mis:maxTorqueRatio 1.48e+00 ;
+    mis:minTorqueRatio 1.15e+00 .
+
+mis:Knowledge_B_ProcessChatter a mis:BatchKnowledge ;
+    mis:confidence 9.2e-01 ;
+    mis:derivedFromDataset "tmv720_2026_batch_B" ;
+    mis:forBatch mis:TMV720_Batch_B ;
+    mis:forState sth:State_Chatter ;
+    mis:hasDescription "Chatter process based on chatter score" ;
+    mis:hasKnowledgeCategory "process_state" ;
+    mis:maxChatterScore 1e+00 ;
+    mis:minChatterScore 7e-01 .
+
+mis:Knowledge_B_ProcessStable a mis:BatchKnowledge ;
+    mis:confidence 9.1e-01 ;
+    mis:derivedFromDataset "tmv720_2026_batch_B" ;
+    mis:forBatch mis:TMV720_Batch_B ;
+    mis:forState sth:State_Stable ;
+    mis:hasDescription "Stable process based on chatter score" ;
+    mis:hasKnowledgeCategory "process_state" ;
+    mis:maxChatterScore 3e-01 ;
+    mis:minChatterScore 0e+00 .
+
+mis:Knowledge_B_ProcessTransition a mis:BatchKnowledge ;
+    mis:confidence 8.9e-01 ;
+    mis:derivedFromDataset "tmv720_2026_batch_B" ;
+    mis:forBatch mis:TMV720_Batch_B ;
+    mis:forState sth:State_Transition ;
+    mis:hasDescription "Transition process based on chatter score" ;
+    mis:hasKnowledgeCategory "process_state" ;
+    mis:maxChatterScore 7e-01 ;
+    mis:minChatterScore 3e-01 .
+
+mis:Knowledge_B_Ra_Bad a mis:BatchKnowledge ;
+    mis:confidence 8.8e-01 ;
+    mis:derivedFromDataset "tmv720_2026_batch_B" ;
+    mis:forBatch mis:TMV720_Batch_B ;
+    mis:forState mis:Ra_Bad ;
+    mis:hasDescription "Surface roughness unacceptable range" ;
+    mis:hasKnowledgeCategory "surface_quality" ;
+    mis:maxMeasuredRa 9.99e+00 ;
+    mis:minMeasuredRa 1.6e+00 .
+
+mis:Knowledge_B_Ra_OK a mis:BatchKnowledge ;
+    mis:confidence 9.2e-01 ;
+    mis:derivedFromDataset "tmv720_2026_batch_B" ;
+    mis:forBatch mis:TMV720_Batch_B ;
+    mis:forState mis:Ra_OK ;
+    mis:hasDescription "Surface roughness within acceptable range" ;
+    mis:hasKnowledgeCategory "surface_quality" ;
+    mis:maxMeasuredRa 8e-01 ;
+    mis:minMeasuredRa 0e+00 .
+
+mis:Knowledge_B_Ra_Warning a mis:BatchKnowledge ;
+    mis:confidence 9e-01 ;
+    mis:derivedFromDataset "tmv720_2026_batch_B" ;
+    mis:forBatch mis:TMV720_Batch_B ;
+    mis:forState mis:Ra_Warning ;
+    mis:hasDescription "Surface roughness warning range" ;
+    mis:hasKnowledgeCategory "surface_quality" ;
+    mis:maxMeasuredRa 1.6e+00 ;
+    mis:minMeasuredRa 8e-01 .
+
+mis:Knowledge_B_ToolNormal a mis:BatchKnowledge ;
+    mis:confidence 9.3e-01 ;
+    mis:derivedFromDataset "tmv720_2026_batch_B" ;
+    mis:forBatch mis:TMV720_Batch_B ;
+    mis:forState mis:Tool_Normal ;
+    mis:hasDescription "Normal tool condition based on torque ratio" ;
+    mis:hasKnowledgeCategory "tool_condition" ;
+    mis:maxTorqueRatio 1.18e+00 ;
+    mis:minTorqueRatio 0e+00 .
+
+mis:Knowledge_B_ToolSevereWear a mis:BatchKnowledge ;
+    mis:confidence 9.1e-01 ;
+    mis:derivedFromDataset "tmv720_2026_batch_B" ;
+    mis:forBatch mis:TMV720_Batch_B ;
+    mis:forState mis:Tool_SevereWear ;
+    mis:hasDescription "Severe tool wear based on torque ratio" ;
+    mis:hasKnowledgeCategory "tool_condition" ;
+    mis:maxTorqueRatio 9.99e+00 ;
+    mis:minTorqueRatio 1.52e+00 .
+
+mis:Knowledge_B_ToolWorn a mis:BatchKnowledge ;
+    mis:confidence 9.4e-01 ;
+    mis:derivedFromDataset "tmv720_2026_batch_B" ;
+    mis:forBatch mis:TMV720_Batch_B ;
+    mis:forState mis:Tool_Worn ;
+    mis:hasDescription "Worn tool condition based on torque ratio" ;
+    mis:hasKnowledgeCategory "tool_condition" ;
+    mis:maxTorqueRatio 1.52e+00 ;
+    mis:minTorqueRatio 1.18e+00 .
+
+mis:Knowledge_C_ProcessChatter a mis:BatchKnowledge ;
+    mis:confidence 9.2e-01 ;
+    mis:derivedFromDataset "tmv720_2026_batch_C" ;
+    mis:forBatch mis:TMV720_Batch_C ;
+    mis:forState sth:State_Chatter ;
+    mis:hasDescription "Chatter process based on chatter score" ;
+    mis:hasKnowledgeCategory "process_state" ;
+    mis:maxChatterScore 1e+00 ;
+    mis:minChatterScore 7.2e-01 .
+
+mis:Knowledge_C_ProcessStable a mis:BatchKnowledge ;
+    mis:confidence 9.1e-01 ;
+    mis:derivedFromDataset "tmv720_2026_batch_C" ;
+    mis:forBatch mis:TMV720_Batch_C ;
+    mis:forState sth:State_Stable ;
+    mis:hasDescription "Stable process based on chatter score" ;
+    mis:hasKnowledgeCategory "process_state" ;
+    mis:maxChatterScore 3.2e-01 ;
+    mis:minChatterScore 0e+00 .
+
+mis:Knowledge_C_ProcessTransition a mis:BatchKnowledge ;
+    mis:confidence 8.8e-01 ;
+    mis:derivedFromDataset "tmv720_2026_batch_C" ;
+    mis:forBatch mis:TMV720_Batch_C ;
+    mis:forState sth:State_Transition ;
+    mis:hasDescription "Transition process based on chatter score" ;
+    mis:hasKnowledgeCategory "process_state" ;
+    mis:maxChatterScore 7.2e-01 ;
+    mis:minChatterScore 3.2e-01 .
+
+mis:Knowledge_C_Ra_Bad a mis:BatchKnowledge ;
+    mis:confidence 8.8e-01 ;
+    mis:derivedFromDataset "tmv720_2026_batch_C" ;
+    mis:forBatch mis:TMV720_Batch_C ;
+    mis:forState mis:Ra_Bad ;
+    mis:hasDescription "Surface roughness unacceptable range" ;
+    mis:hasKnowledgeCategory "surface_quality" ;
+    mis:maxMeasuredRa 9.99e+00 ;
+    mis:minMeasuredRa 1.7e+00 .
+
+mis:Knowledge_C_Ra_OK a mis:BatchKnowledge ;
+    mis:confidence 9.1e-01 ;
+    mis:derivedFromDataset "tmv720_2026_batch_C" ;
+    mis:forBatch mis:TMV720_Batch_C ;
+    mis:forState mis:Ra_OK ;
+    mis:hasDescription "Surface roughness within acceptable range" ;
+    mis:hasKnowledgeCategory "surface_quality" ;
+    mis:maxMeasuredRa 8.5e-01 ;
+    mis:minMeasuredRa 0e+00 .
+
+mis:Knowledge_C_Ra_Warning a mis:BatchKnowledge ;
+    mis:confidence 8.9e-01 ;
+    mis:derivedFromDataset "tmv720_2026_batch_C" ;
+    mis:forBatch mis:TMV720_Batch_C ;
+    mis:forState mis:Ra_Warning ;
+    mis:hasDescription "Surface roughness warning range" ;
+    mis:hasKnowledgeCategory "surface_quality" ;
+    mis:maxMeasuredRa 1.7e+00 ;
+    mis:minMeasuredRa 8.5e-01 .
+
+mis:Knowledge_C_ToolNormal a mis:BatchKnowledge ;
+    mis:confidence 9.2e-01 ;
+    mis:derivedFromDataset "tmv720_2026_batch_C" ;
+    mis:forBatch mis:TMV720_Batch_C ;
+    mis:forState mis:Tool_Normal ;
+    mis:hasDescription "Normal tool condition based on torque ratio" ;
+    mis:hasKnowledgeCategory "tool_condition" ;
+    mis:maxTorqueRatio 1.22e+00 ;
+    mis:minTorqueRatio 0e+00 .
+
+mis:Knowledge_C_ToolSevereWear a mis:BatchKnowledge ;
+    mis:confidence 9e-01 ;
+    mis:derivedFromDataset "tmv720_2026_batch_C" ;
+    mis:forBatch mis:TMV720_Batch_C ;
+    mis:forState mis:Tool_SevereWear ;
+    mis:hasDescription "Severe tool wear based on torque ratio" ;
+    mis:hasKnowledgeCategory "tool_condition" ;
+    mis:maxTorqueRatio 9.99e+00 ;
+    mis:minTorqueRatio 1.58e+00 .
+
+mis:Knowledge_C_ToolWorn a mis:BatchKnowledge ;
+    mis:confidence 9.3e-01 ;
+    mis:derivedFromDataset "tmv720_2026_batch_C" ;
+    mis:forBatch mis:TMV720_Batch_C ;
+    mis:forState mis:Tool_Worn ;
+    mis:hasDescription "Worn tool condition based on torque ratio" ;
+    mis:hasKnowledgeCategory "tool_condition" ;
+    mis:maxTorqueRatio 1.58e+00 ;
+    mis:minTorqueRatio 1.22e+00 .
+
+mis:LocatedAt a owl:DatatypeProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-04-22T02:45:42+00:00"^^xsd:dateTime ;
+    rdfs:subPropertyOf owl:topDataProperty .
+
+mis:Prediction a owl:Class ;
+    rdfs:subClassOf sth:CyberAsset .
+
+mis:PredictionSequence a owl:Class ;
+    rdfs:subClassOf sth:CyberAsset .
+
+mis:Ra_Good a sth:SurfaceRoughness,
+        owl:NamedIndividual ;
+    dc:creator "hao" ;
+    dc:date "2026-04-26T21:40:10+00:00"^^xsd:dateTime .
+
+mis:Ra_Poor a sth:SurfaceRoughness,
+        owl:NamedIndividual ;
+    dc:creator "hao" ;
+    dc:date "2026-04-26T21:40:18+00:00"^^xsd:dateTime .
+
+mis:RuntimeBatchSelector_01 a mis:RuntimeBatchSelector ;
+    mis:activeBatch mis:Batch_A,
+        mis:Batch_B .
+
+mis:RuntimeObservation a owl:Class ;
+    rdfs:subClassOf mis:RunTime .
+
+mis:RuntimeSelector a owl:Class ;
+    rdfs:subClassOf mis:RunTime .
+
+mis:RuntimeWindow_w10233 a sth:MultiSensorWindow ;
+    mis:belongsToBatch mis:Batch_A ;
+    mis:belongsToProject mis:2026SBIR ;
+    mis:hasBatteryLevel 5.8e+00 ;
+    mis:hasBatteryState mis:Normal_Battery ;
+    mis:hasBlockProgressRatio 3e-01 ;
+    mis:hasChatterScore 4.1e-01 ;
+    mis:hasChatterScoreObserved 4.1e-01 ;
+    mis:hasCommScore 9e-01 ;
+    mis:hasCommunicationState mis:Comm_Stable ;
+    mis:hasFeedRate 8e+02 ;
+    mis:hasLoadState mis:Light_Load ;
+    mis:hasMaxTorque 2e-01 ;
+    mis:hasMeasuredRa 1.12e+00 ;
+    mis:hasProcessState sth:State_Transition ;
+    mis:hasProgressRatio 6.2e-01 ;
+    mis:hasSTHState mis:STH_Available ;
+    mis:hasSequenceIndex 30 ;
+    mis:hasSmartToolHolder sth:STH_001 ;
+    mis:hasSpindleSpeed 1.2e+04 ;
+    mis:hasSurfaceQuality mis:Ra_Warning ;
+    mis:hasTimestamp "2026-04-27T08:01:00+08:00"^^xsd:dateTime ;
+    mis:hasToolCondition mis:Tool_Worn ;
+    mis:hasTorqueRatio 1.28e+00 ;
+    mis:hasVibrationRMS 7.8e-01 ;
+    mis:hasWindowId "w10233"^^xsd:string ;
+    mis:matchedSTHCompositeKnowledge mis:STH_STH_Available ;
+    mis:matchedSTHThresholdKnowledge mis:STH_Comm_Stable,
+        mis:STH_Light_Load,
+        mis:STH_Normal_Battery ;
+    sth:alignedWithNCBlock mis:NCBlock_N130 ;
+    sth:alignedWithToolPathSegment mis:Segment_02 ;
+    sth:hasEndTime "2026-04-27T08:01:00.200000+08:00"^^xsd:dateTime ;
+    sth:hasStartTime "2026-04-27T08:01:00+08:00"^^xsd:dateTime ;
+    sth:usesSmartToolHolder sth:STH_001 .
+
+mis:RuntimeWindow_w10234 a sth:MultiSensorWindow ;
+    mis:belongsToBatch mis:Batch_B ;
+    mis:belongsToProject mis:2026SBIR ;
+    mis:hasBatteryLevel 4.8e+00 ;
+    mis:hasBatteryState mis:Normal_Battery ;
+    mis:hasBlockProgressRatio 3.5e-01 ;
+    mis:hasChatterScore 9.9e-01 ;
+    mis:hasChatterScoreObserved 9.9e-01 ;
+    mis:hasCommScore 6e-01 ;
+    mis:hasCommunicationState mis:Comm_Unstable ;
+    mis:hasFeedRate 8e+02 ;
+    mis:hasLoadState mis:Normal_Load ;
+    mis:hasMaxTorque 6.5e-01 ;
+    mis:hasMeasuredRa 3.12e+00 ;
+    mis:hasProcessState sth:State_Chatter ;
+    mis:hasProgressRatio 6.2e-01 ;
+    mis:hasSTHState mis:STH_Check ;
+    mis:hasSequenceIndex 34 ;
+    mis:hasSmartToolHolder sth:STH_002 ;
+    mis:hasSpindleSpeed 1.2e+04 ;
+    mis:hasSurfaceQuality mis:Ra_Bad ;
+    mis:hasTimestamp "2026-04-27T09:01:00+08:00"^^xsd:dateTime ;
+    mis:hasToolCondition mis:Tool_SevereWear ;
+    mis:hasTorqueRatio 2.31e+00 ;
+    mis:hasVibrationRMS 1.82e+00 ;
+    mis:hasWindowId "w10234"^^xsd:string ;
+    mis:matchedSTHCompositeKnowledge mis:STH_STH_Check ;
+    mis:matchedSTHThresholdKnowledge mis:STH_Comm_Unstable,
+        mis:STH_Normal_Battery,
+        mis:STH_Normal_Load ;
+    sth:alignedWithNCBlock mis:NCBlock_N130 ;
+    sth:alignedWithToolPathSegment mis:Segment_02 ;
+    sth:hasEndTime "2026-04-27T09:01:00.200000+08:00"^^xsd:dateTime ;
+    sth:hasStartTime "2026-04-27T09:01:00+08:00"^^xsd:dateTime ;
+    sth:usesSmartToolHolder sth:STH_002 .
+
+mis:STHStrain_t1 a sth:StrainSignal,
+        owl:NamedIndividual ;
+    dc:creator "hao" ;
+    dc:date "2026-04-26T09:57:48+00:00"^^xsd:dateTime .
+
+mis:SpindleCurrent_t1 a sth:SpindleCurrent,
+        owl:NamedIndividual ;
+    dc:creator "hao" ;
+    dc:date "2026-04-26T09:58:21+00:00"^^xsd:dateTime .
+
+mis:StateChatter a sth:ProcessState,
+        owl:NamedIndividual ;
+    dc:creator "hao" ;
+    dc:date "2026-04-26T21:38:42+00:00"^^xsd:dateTime .
+
+mis:State_Stable a sth:ProcessState,
+        owl:NamedIndividual ;
+    dc:creator "hao" ;
+    dc:date "2026-04-26T21:39:04+00:00"^^xsd:dateTime .
+
+mis:State_Transition a sth:ProcessState,
+        owl:NamedIndividual ;
+    dc:creator "hao" ;
+    dc:date "2026-04-26T21:39:20+00:00"^^xsd:dateTime .
+
+mis:SurfaceQualityState a owl:Class ;
+    rdfs:label "Surface Quality State" .
+
+mis:TMV720_Project a mis:Project,
+        owl:NamedIndividual ;
+    rdfs:label "TMV-720 machine center project" .
+
+mis:ToolTemperature_t1 a sth:ToolTemperature,
+        owl:NamedIndividual ;
+    dc:creator "hao" ;
+    dc:date "2026-04-26T09:56:40+00:00"^^xsd:dateTime .
+
+mis:Tool_Broken a owl:NamedIndividual ;
+    dc:creator "hao" ;
+    dc:date "2026-04-26T09:53:25+00:00"^^xsd:dateTime,
+        "2026-04-26T09:53:33+00:00"^^xsd:dateTime .
+
+mis:Tool_Fresh a owl:NamedIndividual ;
+    dc:creator "hao" ;
+    dc:date "2026-04-26T09:53:12+00:00"^^xsd:dateTime .
+
+mis:activeBatch a owl:ObjectProperty ;
+    rdfs:domain mis:Project ;
+    rdfs:range mis:Batch .
+
+mis:batchId a owl:DatatypeProperty ;
+    rdfs:subPropertyOf mis:Data .
+
+mis:belongsToBatch a owl:ObjectProperty ;
+    rdfs:domain sth:MultiSensorWindow ;
+    rdfs:range mis:Batch .
+
+mis:belongsToProject a owl:ObjectProperty ;
+    rdfs:domain sth:MultiSensorWindow ;
+    rdfs:range mis:Project .
+
+mis:confidence a owl:DatatypeProperty ;
+    rdfs:label "confidence",
+        "confidence"@en ;
+    rdfs:comment "Confidence score associated with the threshold knowledge record."@en ;
+    rdfs:domain mis:BatchKnowledge ;
+    rdfs:range xsd:double .
+
+mis:cutsMaterial a owl:ObjectProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-04-22T03:26:21+00:00"^^xsd:dateTime ;
+    rdfs:domain mis:Project ;
+    rdfs:range mis:Material ;
+    rdfs:subPropertyOf owl:topObjectProperty .
+
+mis:datasetId a owl:DatatypeProperty ;
+    rdfs:subPropertyOf mis:Data .
+
+mis:derivedFromDataset a owl:DatatypeProperty ;
+    rdfs:label "derived from dataset",
+        "derived from dataset"@en ;
+    rdfs:comment "Dataset identifier or provenance tag from which the thresholds were calibrated."@en ;
+    rdfs:domain mis:BatchKnowledge ;
+    rdfs:range xsd:string ;
+    rdfs:subPropertyOf mis:Data .
+
+mis:forBatch a owl:ObjectProperty ;
+    rdfs:label "for batch",
+        "for batch"@en ;
+    rdfs:comment "Links a batch-knowledge individual to the batch for which the thresholds are valid."@en ;
+    rdfs:domain mis:BatchKnowledge ;
+    rdfs:range mis:Batch .
+
+mis:forProcessState a owl:ObjectProperty ;
+    rdfs:label "for state"@en ;
+    rdfs:comment "Links a batch-knowledge individual to the state inferred when the threshold condition is satisfied."@en ;
+    rdfs:domain mis:BatchKnowledge ;
+    rdfs:range mis:LoadState .
+
+mis:forSpindle a owl:DatatypeProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-05-15T05:57:03+00:00"^^xsd:dateTime ;
+    rdfs:domain mis:STHSpecification ;
+    rdfs:range xsd:string ;
+    rdfs:subPropertyOf mis:Specification .
+
+mis:forState a owl:ObjectProperty ;
+    rdfs:label "for state" ;
+    rdfs:domain mis:BatchKnowledge ;
+    rdfs:range owl:Thing .
+
+mis:hasAcousticRMS a owl:DatatypeProperty ;
+    rdfs:domain sth:MultiSensorWindow ;
+    rdfs:range xsd:double ;
+    rdfs:subPropertyOf mis:Acoustic .
+
+mis:hasAe a owl:DatatypeProperty ;
+    rdfs:domain sth:NCBlock ;
+    rdfs:range xsd:float ;
+    rdfs:subPropertyOf mis:ProcessParameter .
+
+mis:hasAp a owl:DatatypeProperty ;
+    rdfs:domain sth:NCBlock ;
+    rdfs:range xsd:float ;
+    rdfs:subPropertyOf mis:ProcessParameter .
+
+mis:hasBendingCoef a owl:DatatypeProperty ;
+    rdfs:domain mis:STHCoefficient ;
+    rdfs:range xsd:float ;
+    rdfs:subPropertyOf mis:Coefficient .
+
+mis:hasBlockProgressRatio a owl:DatatypeProperty ;
+    rdfs:domain sth:MultiSensorWindow ;
+    rdfs:range xsd:double ;
+    rdfs:subPropertyOf mis:Progress .
+
+mis:hasChatterScore a owl:DatatypeProperty ;
+    rdfs:domain sth:MultiSensorWindow ;
+    rdfs:range xsd:double ;
+    rdfs:subPropertyOf mis:Chatter .
+
+mis:hasCoefficient a owl:ObjectProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-05-16T08:30:16+00:00"^^xsd:dateTime ;
+    rdfs:domain sth:SmartToolHolder ;
+    rdfs:range mis:STHCoefficient ;
+    rdfs:subPropertyOf owl:topObjectProperty .
+
+mis:hasController a owl:ObjectProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-04-22T02:32:32+00:00"^^xsd:dateTime ;
+    rdfs:domain sth:MachineCenter ;
+    rdfs:range mis:Controller ;
+    rdfs:subPropertyOf owl:topObjectProperty .
+
+mis:hasCuttingSpeed a owl:DatatypeProperty ;
+    rdfs:domain sth:NCBlock ;
+    rdfs:range xsd:int ;
+    rdfs:subPropertyOf mis:ProcessParameter .
+
+mis:hasDescription a owl:DatatypeProperty ;
+    rdfs:label "description",
+        "has description"@en ;
+    rdfs:comment "Human-readable description of the knowledge record."@en ;
+    rdfs:domain mis:BatchKnowledge ;
+    rdfs:range xsd:string .
+
+mis:hasDiameter a owl:DatatypeProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-04-22T02:42:27+00:00"^^xsd:dateTime ;
+    rdfs:domain sth:CuttingTool ;
+    rdfs:range xsd:float ;
+    rdfs:subPropertyOf mis:ToolSpec .
+
+mis:hasEdge a owl:ObjectProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-05-18T01:25:39+00:00"^^xsd:dateTime ;
+    rdfs:domain mis:Project ;
+    rdfs:range mis:Edge .
+
+mis:hasFeedRate a owl:DatatypeProperty ;
+    rdfs:domain sth:NCBlock ;
+    rdfs:range xsd:double ;
+    rdfs:subPropertyOf mis:ProcessParameter .
+
+mis:hasFluteHeight a owl:DatatypeProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-05-16T07:31:36+00:00"^^xsd:dateTime ;
+    rdfs:domain sth:CuttingTool ;
+    rdfs:range xsd:float ;
+    rdfs:subPropertyOf mis:ToolSpec .
+
+mis:hasFluteNum a owl:DatatypeProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-04-22T02:42:40+00:00"^^xsd:dateTime ;
+    rdfs:domain sth:CuttingTool ;
+    rdfs:range xsd:int ;
+    rdfs:subPropertyOf mis:ToolSpec .
+
+mis:hasFullHeight a owl:DatatypeProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-05-16T07:30:22+00:00"^^xsd:dateTime ;
+    rdfs:domain sth:CuttingTool ;
+    rdfs:range xsd:float ;
+    rdfs:subPropertyOf mis:ToolSpec .
+
+mis:hasHB a owl:DatatypeProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-04-22T02:52:25+00:00"^^xsd:dateTime ;
+    rdfs:subPropertyOf mis:Material .
+
+mis:hasHRC a owl:DatatypeProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-04-27T00:48:14+00:00"^^xsd:dateTime ;
+    rdfs:subPropertyOf mis:Material .
+
+mis:hasHelixAngle a owl:DatatypeProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-05-16T07:36:22+00:00"^^xsd:dateTime ;
+    rdfs:domain sth:CuttingTool ;
+    rdfs:range xsd:float ;
+    rdfs:subPropertyOf mis:ToolSpec .
+
+mis:hasKC a owl:DatatypeProperty ;
+    rdfs:subPropertyOf mis:Material .
+
+mis:hasKnowledgeCategory a owl:DatatypeProperty ;
+    rdfs:label "knowledge category",
+        "has knowledge category"@en ;
+    rdfs:comment "Classifies a knowledge record, for example tool_condition, surface_quality, or process_state."@en ;
+    rdfs:domain mis:BatchKnowledge ;
+    rdfs:range xsd:string .
+
+mis:hasLocalIP a owl:DatatypeProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-05-18T01:09:33+00:00"^^xsd:dateTime ;
+    rdfs:subPropertyOf mis:Machine .
+
+mis:hasMaxVb a owl:DatatypeProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-04-22T07:41:34+00:00"^^xsd:dateTime ;
+    rdfs:domain sth:CuttingTool ;
+    rdfs:range xsd:float ;
+    rdfs:subPropertyOf mis:ToolSpec .
+
+mis:hasMeasuredRa a owl:DatatypeProperty ;
+    rdfs:domain mis:BatchKnowledge,
+        sth:MultiSensorWindow ;
+    rdfs:range xsd:double ;
+    rdfs:subPropertyOf mis:PartQuality .
+
+mis:hasProgressRatio a owl:DatatypeProperty ;
+    rdfs:domain sth:MultiSensorWindow ;
+    rdfs:range xsd:double ;
+    rdfs:subPropertyOf mis:Progress .
+
+mis:hasQualitySpec a owl:ObjectProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-04-22T06:43:10+00:00"^^xsd:dateTime ;
+    rdfs:domain sth:NCFile ;
+    rdfs:range sth:QualityMetric .
+
+mis:hasRUL a owl:DatatypeProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-05-16T07:51:15+00:00"^^xsd:dateTime ;
+    rdfs:domain mis:LoadState,
+        sth:MultiSensorWindow ;
+    rdfs:range xsd:double ;
+    rdfs:subPropertyOf mis:State .
+
+mis:hasRakeAngle a owl:DatatypeProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-05-16T07:34:09+00:00"^^xsd:dateTime ;
+    rdfs:domain sth:CuttingTool ;
+    rdfs:range xsd:float ;
+    rdfs:subPropertyOf mis:ToolSpec .
+
+mis:hasRoundOut a owl:DatatypeProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-05-16T07:50:35+00:00"^^xsd:dateTime ;
+    rdfs:domain mis:LoadState,
+        sth:MultiSensorWindow ;
+    rdfs:range xsd:double ;
+    rdfs:subPropertyOf mis:State .
+
+mis:hasRouterIP a owl:DatatypeProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-05-18T01:21:54+00:00"^^xsd:dateTime ;
+    rdfs:domain sth:SmartToolHolder ;
+    rdfs:range rdf:langString ;
+    rdfs:subPropertyOf mis:Router .
+
+mis:hasSTL a owl:DatatypeProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-05-15T01:05:44+00:00"^^xsd:dateTime ;
+    rdfs:domain sth:NCFile ;
+    rdfs:range rdf:langString ;
+    rdfs:subPropertyOf mis:ProcessParameter .
+
+mis:hasSamplingRate a owl:DatatypeProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-05-16T07:38:07+00:00"^^xsd:dateTime ;
+    rdfs:domain mis:STHSpecification ;
+    rdfs:range xsd:float ;
+    rdfs:subPropertyOf mis:Specification .
+
+mis:hasSequenceIndex a owl:DatatypeProperty ;
+    rdfs:domain sth:MultiSensorWindow ;
+    rdfs:range xsd:integer ;
+    rdfs:subPropertyOf mis:Data .
+
+mis:hasSpecification a owl:ObjectProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-05-16T08:26:51+00:00"^^xsd:dateTime ;
+    rdfs:domain sth:SmartToolHolder ;
+    rdfs:range mis:STHSpecification ;
+    rdfs:subPropertyOf owl:topObjectProperty .
+
+mis:hasSpindle a owl:ObjectProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-04-22T02:29:22+00:00"^^xsd:dateTime ;
+    rdfs:domain sth:MachineCenter ;
+    rdfs:range mis:Spindle ;
+    rdfs:subPropertyOf owl:topObjectProperty .
+
+mis:hasSpindleSpeed a owl:DatatypeProperty ;
+    rdfs:domain sth:MultiSensorWindow ;
+    rdfs:range xsd:double ;
+    rdfs:subPropertyOf mis:ProcessParameter .
+
+mis:hasSurfaceQuality a owl:ObjectProperty ;
+    rdfs:domain sth:NCFile ;
+    rdfs:range sth:SurfaceRoughness .
+
+mis:hasTimestamp a owl:DatatypeProperty ;
+    rdfs:domain sth:MultiSensorWindow ;
+    rdfs:range xsd:dateTime .
+
+mis:hasTolerance a owl:DatatypeProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-04-22T07:57:24+00:00"^^xsd:dateTime ;
+    rdfs:domain mis:BatchKnowledge,
+        sth:NCFile ;
+    rdfs:range xsd:float ;
+    rdfs:subPropertyOf mis:PartQuality .
+
+mis:hasToolCondition a owl:ObjectProperty ;
+    rdfs:domain sth:CuttingTool ;
+    rdfs:range mis:ToolCondition .
+
+mis:hasToolNoseR a owl:DatatypeProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-04-22T02:42:52+00:00"^^xsd:dateTime ;
+    rdfs:domain sth:CuttingTool ;
+    rdfs:range xsd:float ;
+    rdfs:subPropertyOf mis:ToolSpec .
+
+mis:hasToolOverhange a owl:DatatypeProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-05-15T01:15:02+00:00"^^xsd:dateTime ;
+    rdfs:domain sth:NCFile ;
+    rdfs:range xsd:float ;
+    rdfs:subPropertyOf mis:ProcessParameter .
+
+mis:hasTorqueCoef a owl:DatatypeProperty ;
+    rdfs:domain mis:STHCoefficient ;
+    rdfs:range xsd:float ;
+    rdfs:subPropertyOf mis:Coefficient .
+
+mis:hasTorqueRatio a owl:DatatypeProperty ;
+    rdfs:domain sth:MultiSensorWindow ;
+    rdfs:range xsd:double ;
+    rdfs:subPropertyOf mis:Torque .
+
+mis:hasURI a owl:DatatypeProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-05-18T01:27:25+00:00"^^xsd:dateTime ;
+    rdfs:domain mis:Edge ;
+    rdfs:range rdf:langString ;
+    rdfs:subPropertyOf mis:Edge .
+
+mis:hasUnbalance a owl:DatatypeProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-05-16T07:50:11+00:00"^^xsd:dateTime ;
+    rdfs:domain mis:LoadState,
+        sth:MultiSensorWindow ;
+    rdfs:range xsd:double ;
+    rdfs:subPropertyOf mis:State .
+
+mis:hasVibrationRMS a owl:DatatypeProperty ;
+    rdfs:domain sth:MultiSensorWindow ;
+    rdfs:range xsd:double ;
+    rdfs:subPropertyOf mis:Vibration .
+
+mis:hasWindowId a owl:DatatypeProperty ;
+    rdfs:domain sth:MultiSensorWindow ;
+    rdfs:range xsd:string ;
+    rdfs:subPropertyOf mis:Data .
+
+mis:holdsTool a owl:ObjectProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-05-16T08:32:41+00:00"^^xsd:dateTime ;
+    rdfs:domain sth:SmartToolHolder ;
+    rdfs:range sth:CuttingTool .
+
+mis:maxChatterScore a owl:DatatypeProperty ;
+    rdfs:label "maximum chatter score",
+        "maximum chatter score"@en ;
+    rdfs:domain mis:BatchKnowledge ;
+    rdfs:range xsd:double ;
+    rdfs:subPropertyOf mis:Chatter .
+
+mis:maxMeasuredRa a owl:DatatypeProperty ;
+    rdfs:label "maximum measured Ra",
+        "maximum measured Ra"@en ;
+    rdfs:domain mis:BatchKnowledge,
+        sth:NCFile ;
+    rdfs:range xsd:double ;
+    rdfs:subPropertyOf mis:PartQuality .
+
+mis:maxTorqueRatio a owl:DatatypeProperty ;
+    rdfs:label "maximum torque ratio",
+        "maximum torque ratio"@en ;
+    rdfs:domain mis:BatchKnowledge ;
+    rdfs:range xsd:double ;
+    rdfs:subPropertyOf mis:Torque .
+
+mis:minChatterScore a owl:DatatypeProperty ;
+    rdfs:label "minimum chatter score",
+        "minimum chatter score"@en ;
+    rdfs:domain mis:BatchKnowledge ;
+    rdfs:range xsd:double ;
+    rdfs:subPropertyOf mis:Chatter .
+
+mis:minMeasuredRa a owl:DatatypeProperty ;
+    rdfs:label "minimum measured Ra",
+        "minimum measured Ra"@en ;
+    rdfs:domain mis:BatchKnowledge,
+        sth:NCFile ;
+    rdfs:range xsd:double ;
+    rdfs:subPropertyOf mis:PartQuality .
+
+mis:minTorqueRatio a owl:DatatypeProperty ;
+    rdfs:label "minimum torque ratio",
+        "minimum torque ratio"@en ;
+    rdfs:domain mis:BatchKnowledge ;
+    rdfs:range xsd:double ;
+    rdfs:subPropertyOf mis:Torque .
+
+mis:mountedHolder a owl:ObjectProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-05-16T23:52:23+00:00"^^xsd:dateTime ;
+    rdfs:domain mis:ToolMounting ;
+    rdfs:range sth:SmartToolHolder .
+
+mis:setDefaultRouterPass a owl:DatatypeProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-05-18T01:23:13+00:00"^^xsd:dateTime ;
+    rdfs:domain sth:SmartToolHolder ;
+    rdfs:range rdf:langString ;
+    rdfs:subPropertyOf mis:Router .
+
+mis:usesMachine a owl:ObjectProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-04-22T03:01:45+00:00"^^xsd:dateTime ;
+    rdfs:domain mis:Project ;
+    rdfs:range sth:MachineCenter .
+
+mis:usesNCFile a owl:ObjectProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-04-22T03:25:20+00:00"^^xsd:dateTime ;
+    rdfs:domain mis:Project ;
+    rdfs:range sth:NCFile .
+
+mis:usesTool a owl:ObjectProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-04-22T07:44:41+00:00"^^xsd:dateTime ;
+    rdfs:domain sth:NCFile ;
+    rdfs:range sth:CuttingTool ;
+    rdfs:subPropertyOf owl:topObjectProperty .
+
+sth:DiagSeq_001 a sth:DiagnosisSequence,
+        owl:NamedIndividual ;
+    sth:hasHolderId "sth01" ;
+    sth:hasMachineId "TMV-720" ;
+    sth:hasName "Diagnosis sequence for CNC window progression" ;
+    sth:mapsToJSONField sth:Field_diagnosis_sequence ;
+    sth:mapsToMQTTTopic sth:Topic_DiagnosisSequence ;
+    sth:mapsToOPCUANode sth:OPCUA_DiagnosisSequence .
+
+sth:Field_chatter a sth:JSONField,
+        owl:NamedIndividual ;
+    sth:hasJSONKey "chatter_state" .
+
+sth:Field_diagnosis_label a sth:JSONField,
+        owl:NamedIndividual ;
+    sth:hasJSONKey "state_label" .
+
+sth:Field_diagnosis_score a sth:JSONField,
+        owl:NamedIndividual ;
+    sth:hasJSONKey "chatter_score" .
+
+sth:Field_toolwear a sth:JSONField,
+        owl:NamedIndividual ;
+    sth:hasJSONKey "tool_condition" .
+
+sth:Field_window a sth:JSONField,
+        owl:NamedIndividual ;
+    sth:hasJSONKey "window_id" .
+
+sth:NCBlock_N120 a sth:NCBlock,
+        owl:NamedIndividual ;
+    mis:hasAe 0.5 ;
+    mis:hasAp 5 ;
+    sth:belongsToNCFile sth:NC_FlexSpline_01 ;
+    sth:hasName "N120" ;
+    sth:mapsToJSONField sth:Field_block ;
+    sth:mapsToMQTTTopic sth:Topic_NCBlock ;
+    sth:mapsToOPCUANode sth:OPCUA_NCBlock .
+
+sth:OPCUA_Chatter a sth:OPCUANode,
+        owl:NamedIndividual ;
+    sth:hasNodeId "ns=4;s=CNC.Machines.cncA.SmartToolHolder.sth01.Diagnosis.ChatterState" .
+
+sth:OPCUA_DiagnosisScore a sth:OPCUANode,
+        owl:NamedIndividual ;
+    sth:hasNodeId "ns=4;s=CNC.Machines.cncA.SmartToolHolder.sth01.Diagnosis.ChatterScore" .
+
+sth:OPCUA_DiagnosisState a sth:OPCUANode,
+        owl:NamedIndividual ;
+    sth:hasNodeId "ns=4;s=CNC.Machines.cncA.SmartToolHolder.sth01.Diagnosis.StateLabel" .
+
+sth:OPCUA_ToolWear a sth:OPCUANode,
+        owl:NamedIndividual ;
+    sth:hasNodeId "ns=4;s=CNC.Machines.cncA.SmartToolHolder.sth01.Prediction.ToolCondition" .
+
+sth:OPCUA_Window a sth:OPCUANode,
+        owl:NamedIndividual ;
+    sth:hasNodeId "ns=4;s=CNC.Machines.cncA.SmartToolHolder.sth01.Window.WindowId" .
+
+: a owl:Ontology ;
+    rdfs:label "Extended Smart Tool Holder Ontology with NC File and Sensing Windows"@en ;
+    rdfs:comment "Ontology for CNC smart tool holder monitoring with NC files, NC blocks, sensing windows, multi-sensor alignment, diagnosis, prediction, and communication mapping."@en .
+
+sth:Segment_01 a owl:NamedIndividual ;
+    sth:hasName "segment_01" .
+
+sth:SpindleVibration_t1 a sth:SpidleVibration,
+        owl:NamedIndividual ;
+    sth:hasName "Vibration signal at t1" ;
+    sth:hasUnit "g" ;
+    sth:hasValue 0.31 ;
+    sth:mapsToJSONField sth:Field_vibration ;
+    sth:mapsToMQTTTopic sth:Topic_Vibration ;
+    sth:mapsToOPCUANode sth:OPCUA_Vibration .
+
+sth:Topic_Diagnosis a sth:MQTTTopic,
+        owl:NamedIndividual ;
+    sth:hasMQTTTopicString "nkust/mislab/cnc/factory1/lineA/cncA/sth01/diagnosis/chatter" .
+
+sth:Topic_Prediction a sth:MQTTTopic,
+        owl:NamedIndividual ;
+    sth:hasMQTTTopicString "nkust/mislab/cnc/factory1/lineA/cncA/sth01/prediction/tool_wear" .
+
+sth:Topic_Window a sth:MQTTTopic,
+        owl:NamedIndividual ;
+    sth:hasMQTTTopicString "nkust/mislab/cnc/factory1/lineA/cncA/sth01/window" .
+
+sth:TorqueSignal_t1 a sth:TorqueSignal,
+        owl:NamedIndividual ;
+    mis:hasCuttingSpeed "3600.0"^^xsd:float ;
+    sth:hasName "Torque signal at t1" ;
+    sth:hasUnit "N.m" ;
+    sth:hasValue 1.28 ;
+    sth:mapsToJSONField sth:Field_torque ;
+    sth:mapsToMQTTTopic sth:Topic_Torque ;
+    sth:mapsToOPCUANode sth:OPCUA_Torque .
+
+sth:affectsQuality a owl:ObjectProperty ;
+    rdfs:domain sth:MultiSensorWindow ;
+    rdfs:range sth:QualityMetric .
+
+sth:alignedWithNCBlock a owl:ObjectProperty ;
+    rdfs:domain sth:MultiSensorWindow ;
+    rdfs:range sth:NCBlock .
+
+sth:belongsToNCFile a owl:ObjectProperty ;
+    rdfs:domain sth:MultiSensorWindow ;
+    rdfs:range sth:NCFile .
+
+sth:belongsToWindow a owl:ObjectProperty ;
+    rdfs:domain mis:Batch ;
+    rdfs:range sth:MultiSensorWindow .
+
+sth:hasConfidence a owl:DatatypeProperty ;
+    rdfs:range xsd:double .
+
+sth:hasEndTime a owl:DatatypeProperty ;
+    rdfs:domain sth:MultiSensorWindow ;
+    rdfs:range xsd:dateTime .
+
+sth:hasHolderId a owl:DatatypeProperty ;
+    rdfs:domain mis:STHCoefficient ;
+    rdfs:range xsd:string ;
+    rdfs:subPropertyOf mis:Coefficient .
+
+sth:hasJSONKey a owl:DatatypeProperty ;
+    rdfs:range xsd:string .
+
+sth:hasMQTTTopicString a owl:DatatypeProperty ;
+    rdfs:range xsd:string .
+
+sth:hasMachineId a owl:DatatypeProperty ;
+    rdfs:domain sth:MachineCenter ;
+    rdfs:range xsd:string ;
+    rdfs:subPropertyOf mis:Machine .
+
+sth:hasModelVersion a owl:DatatypeProperty ;
+    rdfs:range xsd:string .
+
+sth:hasName a owl:DatatypeProperty ;
+    rdfs:range xsd:string .
+
+sth:hasNodeId a owl:DatatypeProperty ;
+    rdfs:range xsd:string .
+
+sth:hasStartTime a owl:DatatypeProperty ;
+    rdfs:domain sth:MultiSensorWindow ;
+    rdfs:range xsd:dateTime .
+
+sth:hasStateLabel a owl:DatatypeProperty ;
+    rdfs:range xsd:string .
+
+sth:hasUnit a owl:DatatypeProperty ;
+    rdfs:range xsd:string .
+
+sth:hasValue a owl:DatatypeProperty ;
+    rdfs:range xsd:double .
+
+sth:indicatesProcessState a owl:ObjectProperty ;
+    rdfs:domain sth:MultiSensorWindow ;
+    rdfs:range sth:ProcessState .
+
+sth:indicatesToolCondition a owl:ObjectProperty ;
+    rdfs:domain sth:MultiSensorWindow ;
+    rdfs:range mis:ToolCondition .
+
+sth:mapsToJSONField a owl:ObjectProperty ;
+    rdfs:domain mis:Batch ;
+    rdfs:range sth:JSONField .
+
+sth:mapsToMQTTTopic a owl:ObjectProperty ;
+    rdfs:domain mis:Batch ;
+    rdfs:range sth:MQTTTopic .
+
+sth:mapsToOPCUANode a owl:ObjectProperty ;
+    rdfs:domain mis:Batch ;
+    rdfs:range sth:OPCUANode .
+
+dc:creator a owl:AnnotationProperty .
+
+dc:date a owl:AnnotationProperty .
+
+mis:AISI_4340 a mis:Material,
+        owl:NamedIndividual ;
+    mis:hasHB 235 ;
+    mis:hasKC 988 ;
+    dc:creator "hao" ;
+    dc:date "2026-04-22T06:33:22+00:00"^^xsd:dateTime .
+
+mis:AL-5052 a mis:Material,
+        owl:NamedIndividual ;
+    dc:creator "hao" ;
+    dc:date "2026-05-13T08:18:59+00:00"^^xsd:dateTime .
+
+mis:Acoustic a owl:DatatypeProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-05-17T20:27:15+00:00"^^xsd:dateTime .
+
+mis:BT-30 a mis:Spindle,
+        owl:NamedIndividual ;
+    dc:creator "hao" ;
+    dc:date "2026-04-22T02:39:04+00:00"^^xsd:dateTime .
+
+mis:BT-40 a mis:Spindle,
+        owl:NamedIndividual ;
+    dc:creator "hao" ;
+    dc:date "2026-04-22T03:21:01+00:00"^^xsd:dateTime .
+
+mis:C-1020 a mis:Material,
+        owl:NamedIndividual ;
+    dc:creator "hao" ;
+    dc:date "2026-05-13T08:19:14+00:00"^^xsd:dateTime .
+
+mis:CNC-T21iFb a sth:MachineCenter,
+        owl:NamedIndividual ;
+    mis:LocatedAt "雲林-丞威" ;
+    mis:hasController mis:FANUC_alpha-T21iFb ;
+    dc:creator "hao" ;
+    dc:date "2026-04-27T00:35:38+00:00"^^xsd:dateTime .
+
+mis:CNC-VU-5 a sth:MachineCenter,
+        owl:NamedIndividual ;
+    mis:LocatedAt "TMTS 2026 / 東台精機" ;
+    mis:hasController mis:Siemens_840D ;
+    mis:hasSpindle mis:BT-30 ;
+    dc:creator "hao" ;
+    dc:date "2026-04-22T02:27:54+00:00"^^xsd:dateTime .
+
+mis:Comm_Fail a mis:CommunicationState,
+        owl:NamedIndividual ;
+    dc:creator "hao" ;
+    dc:date "2026-05-15T06:07:12+00:00"^^xsd:dateTime .
+
+mis:DesignStlFile a owl:Class ;
+    dc:creator "hao" ;
+    dc:date "2026-05-16T07:28:36+00:00"^^xsd:dateTime ;
+    rdfs:subClassOf mis:Project .
+
+mis:Diagnosis a owl:Class ;
+    dc:creator "hao" ;
+    dc:date "2026-04-28T23:43:49+00:00"^^xsd:dateTime ;
+    rdfs:subClassOf sth:CyberAsset .
+
+mis:EndMill-D2-F2 a sth:CuttingTool,
+        owl:NamedIndividual ;
+    dc:creator "hao" ;
+    dc:date "2026-04-27T00:38:47+00:00"^^xsd:dateTime .
+
+mis:EndMill-D4-F4 a sth:CuttingTool,
+        owl:NamedIndividual ;
+    dc:creator "hao" ;
+    dc:date "2026-04-27T00:39:00+00:00"^^xsd:dateTime .
+
+mis:FANUC_0i-MD a mis:Controller,
+        owl:NamedIndividual ;
+    dc:creator "hao" ;
+    dc:date "2026-05-18T01:11:16+00:00"^^xsd:dateTime .
+
+mis:FANUC_0i-MF a mis:Controller,
+        owl:NamedIndividual ;
+    dc:creator "hao" ;
+    dc:date "2026-05-18T01:10:55+00:00"^^xsd:dateTime .
+
+mis:FANUC_alpha-T21iFb a mis:Controller,
+        owl:NamedIndividual ;
+    dc:creator "hao" ;
+    dc:date "2026-04-27T00:45:13+00:00"^^xsd:dateTime .
+
+mis:FDAC a mis:Material,
+        owl:NamedIndividual ;
+    mis:hasHRC 54 ;
+    mis:hasKC 2210 ;
+    dc:creator "hao" ;
+    dc:date "2026-04-27T00:43:18+00:00"^^xsd:dateTime .
+
+mis:Heavy_Load a mis:LoadState,
+        owl:NamedIndividual ;
+    dc:creator "hao" ;
+    dc:date "2026-05-18T03:14:19+00:00"^^xsd:dateTime .
+
+mis:Low_Battery a mis:BatteryState,
+        owl:NamedIndividual ;
+    dc:creator "hao" ;
+    dc:date "2026-05-15T06:06:30+00:00"^^xsd:dateTime .
+
+mis:Model a owl:Class ;
+    dc:creator "hao" ;
+    dc:date "2026-04-26T10:01:06+00:00"^^xsd:dateTime ;
+    rdfs:subClassOf sth:CyberAsset .
+
+mis:NC_SBIR_FinishCut_01 a sth:NCFile,
+        owl:NamedIndividual ;
+    mis:hasAe 0.2 ;
+    mis:hasAp 12 ;
+    mis:hasCuttingSpeed 827.6 ;
+    mis:hasSTL 0 ;
+    mis:hasSpindleSpeed 3448 ;
+    mis:hasTolerance 1 ;
+    mis:hasToolOverhange 24 ;
+    mis:usesMachine mis:RFF-Dahlih-2 ;
+    mis:usesTool mis:EndMill-D6-F4 ;
+    dc:creator "hao" ;
+    dc:date "2026-04-22T03:33:54+00:00"^^xsd:dateTime .
+
+mis:NC_SBIR_RoughCut_01 a sth:NCFile,
+        owl:NamedIndividual ;
+    mis:hasAe "1.5"^^xsd:float ;
+    mis:hasAp "12.0"^^xsd:float ;
+    mis:hasCuttingSpeed 827.6 ;
+    mis:hasMaxVb 0.3 ;
+    mis:hasSpindleSpeed 3448 ;
+    mis:hasTolerance 100 ;
+    mis:hasToolOverhange 24 ;
+    mis:usesMachine mis:RFF-Dahlih-1 ;
+    mis:usesTool mis:EndMill-D6-F4 ;
+    dc:creator "hao" ;
+    dc:date "2026-04-22T03:33:23+00:00"^^xsd:dateTime .
+
+mis:NC_SBIR_RoughCut_02 a sth:NCFile,
+        owl:NamedIndividual ;
+    mis:hasAe 0.2 ;
+    mis:hasAp 12 ;
+    mis:hasCuttingSpeed 827.6 ;
+    mis:hasMaxVb 0.3 ;
+    mis:hasSTL 0.2 ;
+    mis:hasSpindleSpeed 3448 ;
+    mis:hasTolerance 5 ;
+    mis:hasToolOverhange 24 ;
+    mis:usesMachine mis:RFF-Dahlih-1 ;
+    mis:usesTool mis:EndMill-D6-F4 ;
+    dc:creator "hao" ;
+    dc:date "2026-05-15T01:02:08+00:00"^^xsd:dateTime .
+
+mis:Need_Charge a mis:BatteryState,
+        owl:NamedIndividual ;
+    dc:creator "hao" ;
+    dc:date "2026-05-15T06:05:30+00:00"^^xsd:dateTime .
+
+mis:S45C a mis:Material,
+        owl:NamedIndividual ;
+    mis:hasHB 207 ;
+    mis:hasKC 1250 .
+
+mis:STH_NA a mis:STHState,
+        owl:NamedIndividual ;
+    dc:creator "hao" ;
+    dc:date "2026-05-15T06:07:48+00:00"^^xsd:dateTime .
+
+mis:STH_STH_NA a mis:STHCompositeKnowledge,
+        mis:STHCompositeRuleKnowledge,
+        mis:STHCondition,
+        mis:STHKnowledgeRule ;
+    rdfs:label "STH_STH_NA"^^xsd:string ;
+    mis:conditionExpression "(STH_Need_Charge) or (STH_Comm_Fail) or (STH_Heavy_Load)"^^xsd:string ;
+    mis:forState mis:STH_NA ;
+    mis:hasCondition mis:STH_STH_NA ;
+    mis:hasKnowledgeCategory "sth_availability"^^xsd:string ;
+    mis:hasKnowledgeId "STH_STH_NA"^^xsd:string ;
+    mis:hasProfile mis:STH_profile_v1 ;
+    mis:hasProfileId "STH_profile_v1"^^xsd:string ;
+    mis:hasRuleType "composite"^^xsd:string ;
+    mis:hasStateClass mis:STHState ;
+    mis:inferredProperty mis:hasSTHState ;
+    mis:priority 100 ;
+    mis:requiresCondition mis:STH_Comm_Fail,
+        mis:STH_Heavy_Load,
+        mis:STH_Need_Charge ;
+    mis:ruleExpression "(STH_Need_Charge) or (STH_Comm_Fail) or (STH_Heavy_Load)"^^xsd:string ;
+    rdfs:comment "STH is not available when charging is needed communication fails or the referenced STH-3 heavy-load condition is active."^^xsd:string .
+
+mis:Siemens_840D a mis:Controller,
+        owl:NamedIndividual ;
+    dc:creator "hao" ;
+    dc:date "2026-04-22T02:33:41+00:00"^^xsd:dateTime .
+
+mis:Syntec_21 a mis:Controller,
+        owl:NamedIndividual ;
+    dc:creator "hao" ;
+    dc:date "2026-04-22T02:34:00+00:00"^^xsd:dateTime .
+
+mis:Ti-Gr2 a mis:Material,
+        owl:NamedIndividual ;
+    mis:hasHB 138 ;
+    mis:hasKC 1310 ;
+    dc:creator "hao" ;
+    dc:date "2026-04-22T03:05:59+00:00"^^xsd:dateTime .
+
+mis:ToolMounting a owl:Class ;
+    dc:creator "hao" ;
+    dc:date "2026-05-16T23:44:56+00:00"^^xsd:dateTime .
+
+mis:Vibration a owl:DatatypeProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-05-02T13:22:23+00:00"^^xsd:dateTime .
+
+sth:DiagnosisSequence a owl:Class ;
+    rdfs:subClassOf mis:Diagnosis .
+
+sth:Field_block a sth:JSONField,
+        owl:NamedIndividual ;
+    sth:hasJSONKey "block_id" .
+
+sth:Field_diagnosis_sequence a sth:JSONField,
+        owl:NamedIndividual ;
+    sth:hasJSONKey "diagnosis_windows" .
+
+sth:Field_ncfile a sth:JSONField,
+        owl:NamedIndividual ;
+    sth:hasJSONKey "nc_file_id" .
+
+sth:Field_torque a sth:JSONField,
+        owl:NamedIndividual ;
+    sth:hasJSONKey "torque_nm" .
+
+sth:Field_vibration a sth:JSONField,
+        owl:NamedIndividual ;
+    sth:hasJSONKey "vibration_rms_g" .
+
+sth:OPCUA_DiagnosisSequence a sth:OPCUANode,
+        owl:NamedIndividual ;
+    sth:hasNodeId "ns=4;s=CNC.Machines.cncA.SmartToolHolder.sth01.Diagnosis.Sequence" .
+
+sth:OPCUA_NCBlock a sth:OPCUANode,
+        owl:NamedIndividual ;
+    sth:hasNodeId "ns=4;s=CNC.Machines.cncA.Job.CurrentBlockId" .
+
+sth:OPCUA_NCFile a sth:OPCUANode,
+        owl:NamedIndividual ;
+    sth:hasNodeId "ns=4;s=CNC.Machines.cncA.Job.NCFileId" .
+
+sth:OPCUA_Torque a sth:OPCUANode,
+        owl:NamedIndividual ;
+    sth:hasNodeId "ns=4;s=CNC.Machines.cncA.SmartToolHolder.sth01.Signals.Torque" .
+
+sth:OPCUA_Vibration a sth:OPCUANode,
+        owl:NamedIndividual ;
+    sth:hasNodeId "ns=4;s=CNC.Machines.cncA.SmartToolHolder.sth01.Signals.Vibration.RMS" .
+
+sth:SensingWindow a owl:Class ;
+    rdfs:subClassOf sth:CyberAsset .
+
+sth:SpidleVibration a owl:Class ;
+    rdfs:subClassOf mis:Spindle .
+
+sth:SpindleCurrent a owl:Class ;
+    rdfs:subClassOf mis:Spindle .
+
+sth:StrainSignal a owl:Class ;
+    rdfs:subClassOf sth:SmartToolHolder .
+
+sth:ToolTemperature a owl:Class ;
+    rdfs:subClassOf sth:CuttingTool .
+
+sth:Topic_DiagnosisSequence a sth:MQTTTopic,
+        owl:NamedIndividual ;
+    sth:hasMQTTTopicString "nkust/mislab/cnc/factory1/lineA/cncA/sth01/diagnosis/sequence" .
+
+sth:Topic_NCBlock a sth:MQTTTopic,
+        owl:NamedIndividual ;
+    sth:hasMQTTTopicString "nkust/mislab/cnc/factory1/lineA/cncA/job/current_block" .
+
+sth:Topic_NCFile a sth:MQTTTopic,
+        owl:NamedIndividual ;
+    sth:hasMQTTTopicString "nkust/mislab/cnc/factory1/lineA/cncA/job/nc_file" .
+
+sth:Topic_Torque a sth:MQTTTopic,
+        owl:NamedIndividual ;
+    sth:hasMQTTTopicString "nkust/mislab/cnc/factory1/lineA/cncA/sth01/signals/torque" .
+
+sth:Topic_Vibration a sth:MQTTTopic,
+        owl:NamedIndividual ;
+    sth:hasMQTTTopicString "nkust/mislab/cnc/factory1/lineA/cncA/sth01/signals/vibration" .
+
+sth:TorqueSignal a owl:Class ;
+    rdfs:subClassOf sth:SmartToolHolder .
+
+mis:2026SBIR a mis:Project,
+        owl:NamedIndividual ;
+    rdfs:label "2026SBIR"^^xsd:string ;
+    mis:LocatedAt "隆富發" ;
+    mis:cutsMaterial mis:AL-5052,
+        mis:C-1020,
+        mis:Ti-Gr2 ;
+    mis:usesMachine mis:RFF-Dahlih-1,
+        mis:RFF-Dahlih-2 ;
+    mis:usesNCFile mis:NC_SBIR_FinishCut_01,
+        mis:NC_SBIR_RoughCut_01,
+        mis:NC_SBIR_RoughCut_02 ;
+    dc:creator "hao" ;
+    dc:date "2026-04-22T03:00:44+00:00"^^xsd:dateTime .
+
+mis:BT-50 a mis:Spindle,
+        owl:NamedIndividual ;
+    dc:creator "hao" ;
+    dc:date "2026-04-22T03:21:17+00:00"^^xsd:dateTime .
+
+mis:Batch_A a mis:Batch ;
+    rdfs:label "Batch_A"^^xsd:string .
+
+mis:Batch_B a mis:Batch ;
+    rdfs:label "Batch_B"^^xsd:string .
+
+mis:CNC-TMV720 a sth:MachineCenter,
+        owl:NamedIndividual ;
+    mis:LocatedAt "TT" ;
+    mis:hasController mis:Syntec_21 ;
+    mis:hasSpindle mis:BT-40 .
+
+mis:Comm_Stable a mis:CommunicationState,
+        owl:NamedIndividual ;
+    dc:creator "hao" ;
+    dc:date "2026-05-15T06:04:12+00:00"^^xsd:dateTime .
+
+mis:Comm_Unstable a mis:CommunicationState,
+        owl:NamedIndividual ;
+    dc:creator "hao" ;
+    dc:date "2026-05-15T06:04:41+00:00"^^xsd:dateTime .
+
+mis:Light_Load a mis:LoadState,
+        owl:NamedIndividual ;
+    dc:creator "hao" ;
+    dc:date "2026-05-18T03:14:00+00:00"^^xsd:dateTime .
+
+mis:Machine a owl:DatatypeProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-05-17T20:29:50+00:00"^^xsd:dateTime .
+
+mis:NCBlock_N130 a sth:NCBlock ;
+    rdfs:label "NCBlock_N130"^^xsd:string .
+
+mis:Normal_Load a mis:LoadState,
+        owl:NamedIndividual ;
+    dc:creator "hao" ;
+    dc:date "2026-05-18T03:14:11+00:00"^^xsd:dateTime .
+
+mis:Progress a owl:DatatypeProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-05-02T13:20:38+00:00"^^xsd:dateTime .
+
+mis:RFF-Dahlih-2 a sth:MachineCenter,
+        owl:NamedIndividual ;
+    mis:LocatedAt "隆富發" ;
+    mis:hasController mis:FANUC_0i-MF ;
+    mis:hasSpindle mis:BT-50 ;
+    dc:creator "hao" ;
+    dc:date "2026-05-15T00:50:14+00:00"^^xsd:dateTime .
+
+mis:Router a owl:DatatypeProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-05-18T01:21:42+00:00"^^xsd:dateTime ;
+    rdfs:subPropertyOf mis:STH .
+
+mis:RunTime a owl:Class ;
+    dc:creator "hao" ;
+    dc:date "2026-04-28T23:44:33+00:00"^^xsd:dateTime ;
+    rdfs:subClassOf sth:CyberAsset .
+
+mis:STH_Available a mis:STHState,
+        owl:NamedIndividual ;
+    dc:creator "hao" ;
+    dc:date "2026-05-15T06:07:23+00:00"^^xsd:dateTime .
+
+mis:STH_Check a mis:STHState,
+        owl:NamedIndividual ;
+    dc:creator "hao" ;
+    dc:date "2026-05-15T06:07:40+00:00"^^xsd:dateTime .
+
+mis:STH_Comm_Fail a mis:STHCondition,
+        mis:STHKnowledgeRule,
+        mis:STHThresholdKnowledge ;
+    rdfs:label "STH_Comm_Fail"^^xsd:string ;
+    mis:confidence 9.1e-01 ;
+    mis:forState mis:Comm_Fail ;
+    mis:hasCondition mis:STH_Comm_Fail ;
+    mis:hasKnowledgeCategory "communication_quality"^^xsd:string ;
+    mis:hasKnowledgeId "STH_Comm_Fail"^^xsd:string ;
+    mis:hasProfile mis:STH_profile_v1 ;
+    mis:hasProfileId "STH_profile_v1"^^xsd:string ;
+    mis:hasRuleType "threshold"^^xsd:string ;
+    mis:hasStateClass mis:CommunicationState ;
+    mis:inferredProperty mis:hasCommunicationState ;
+    mis:maxExclusive true ;
+    mis:maxValue 4e-01 ;
+    mis:minInclusive true ;
+    mis:minValue 0e+00 ;
+    mis:observedProperty mis:hasCommScore ;
+    mis:priority 10 ;
+    rdfs:comment "Communication score indicates fail."^^xsd:string .
+
+mis:STH_Light_Load a mis:STHCondition,
+        mis:STHKnowledgeRule,
+        mis:STHThresholdKnowledge ;
+    rdfs:label "STH_Light_Load"^^xsd:string ;
+    mis:confidence 9.1e-01 ;
+    mis:forState mis:Light_Load ;
+    mis:hasCondition mis:STH_Light_Load ;
+    mis:hasKnowledgeCategory "load_state"^^xsd:string ;
+    mis:hasKnowledgeId "STH_Light_Load"^^xsd:string ;
+    mis:hasProfile mis:STH_profile_v1 ;
+    mis:hasProfileId "STH_profile_v1"^^xsd:string ;
+    mis:hasRuleType "threshold"^^xsd:string ;
+    mis:hasStateClass mis:LoadState ;
+    mis:inferredProperty mis:hasLoadState ;
+    mis:maxExclusive true ;
+    mis:maxValue 3.2e-01 ;
+    mis:minInclusive true ;
+    mis:minValue 0e+00 ;
+    mis:observedProperty mis:hasMaxTorque ;
+    mis:priority 10 ;
+    rdfs:comment "Maximum torque indicates light load."^^xsd:string .
+
+mis:STH_Low_Battery a mis:STHCondition,
+        mis:STHKnowledgeRule,
+        mis:STHThresholdKnowledge ;
+    rdfs:label "STH_Low_Battery"^^xsd:string ;
+    mis:confidence 9.3e-01 ;
+    mis:forState mis:Low_Battery ;
+    mis:hasCondition mis:STH_Low_Battery ;
+    mis:hasKnowledgeCategory "battery_condition"^^xsd:string ;
+    mis:hasKnowledgeId "STH_Low_Battery"^^xsd:string ;
+    mis:hasProfile mis:STH_profile_v1 ;
+    mis:hasProfileId "STH_profile_v1"^^xsd:string ;
+    mis:hasRuleType "threshold"^^xsd:string ;
+    mis:hasStateClass mis:BatteryState ;
+    mis:inferredProperty mis:hasBatteryState ;
+    mis:maxExclusive true ;
+    mis:maxValue 1.58e+00 ;
+    mis:minInclusive true ;
+    mis:minValue 1.22e+00 ;
+    mis:observedProperty mis:hasBatteryLevel ;
+    mis:priority 10 ;
+    rdfs:comment "Battery level indicates low battery."^^xsd:string .
+
+mis:STH_Need_Charge a mis:STHCondition,
+        mis:STHKnowledgeRule,
+        mis:STHThresholdKnowledge ;
+    rdfs:label "STH_Need_Charge"^^xsd:string ;
+    mis:confidence 9.2e-01 ;
+    mis:forState mis:Need_Charge ;
+    mis:hasCondition mis:STH_Need_Charge ;
+    mis:hasKnowledgeCategory "battery_condition"^^xsd:string ;
+    mis:hasKnowledgeId "STH_Need_Charge"^^xsd:string ;
+    mis:hasProfile mis:STH_profile_v1 ;
+    mis:hasProfileId "STH_profile_v1"^^xsd:string ;
+    mis:hasRuleType "threshold"^^xsd:string ;
+    mis:hasStateClass mis:BatteryState ;
+    mis:inferredProperty mis:hasBatteryState ;
+    mis:maxExclusive true ;
+    mis:maxValue 1.22e+00 ;
+    mis:minInclusive true ;
+    mis:minValue 0e+00 ;
+    mis:observedProperty mis:hasBatteryLevel ;
+    mis:priority 10 ;
+    rdfs:comment "Battery level indicates need charge."^^xsd:string .
+
+mis:STH_Normal_Load a mis:STHCondition,
+        mis:STHKnowledgeRule,
+        mis:STHThresholdKnowledge ;
+    rdfs:label "STH_Normal_Load"^^xsd:string ;
+    mis:confidence 8.8e-01 ;
+    mis:forState mis:Normal_Load ;
+    mis:hasCondition mis:STH_Normal_Load ;
+    mis:hasKnowledgeCategory "load_state"^^xsd:string ;
+    mis:hasKnowledgeId "STH_Normal_Load"^^xsd:string ;
+    mis:hasProfile mis:STH_profile_v1 ;
+    mis:hasProfileId "STH_profile_v1"^^xsd:string ;
+    mis:hasRuleType "threshold"^^xsd:string ;
+    mis:hasStateClass mis:LoadState ;
+    mis:inferredProperty mis:hasLoadState ;
+    mis:maxExclusive true ;
+    mis:maxValue 7.2e-01 ;
+    mis:minInclusive true ;
+    mis:minValue 3.2e-01 ;
+    mis:observedProperty mis:hasMaxTorque ;
+    mis:priority 10 ;
+    rdfs:comment "Maximum torque indicates normal load."^^xsd:string .
+
+mis:STH_STH_Available a mis:STHCompositeKnowledge,
+        mis:STHCompositeRuleKnowledge,
+        mis:STHCondition,
+        mis:STHKnowledgeRule ;
+    rdfs:label "STH_STH_Available"^^xsd:string ;
+    mis:conditionExpression "(STH_Normal_Battery) and (STH_Comm_Stable) and (STH_Normal_Load or STH_Light_Load)"^^xsd:string ;
+    mis:forState mis:STH_Available ;
+    mis:hasCondition mis:STH_STH_Available ;
+    mis:hasKnowledgeCategory "sth_availability"^^xsd:string ;
+    mis:hasKnowledgeId "STH_STH_Available"^^xsd:string ;
+    mis:hasProfile mis:STH_profile_v1 ;
+    mis:hasProfileId "STH_profile_v1"^^xsd:string ;
+    mis:hasRuleType "composite"^^xsd:string ;
+    mis:hasStateClass mis:STHState ;
+    mis:inferredProperty mis:hasSTHState ;
+    mis:priority 100 ;
+    mis:requiresCondition mis:STH_Comm_Stable,
+        mis:STH_Normal_Battery ;
+    mis:ruleExpression "(STH_Normal_Battery) and (STH_Comm_Stable) and (STH_Normal_Load or STH_Light_Load)"^^xsd:string ;
+    rdfs:comment "STH is available only when battery and communication are normal/stable and the load is normal or light."^^xsd:string .
+
+mis:STH_STH_Check a mis:STHCompositeKnowledge,
+        mis:STHCompositeRuleKnowledge,
+        mis:STHCondition,
+        mis:STHKnowledgeRule ;
+    rdfs:label "STH_STH_Check"^^xsd:string ;
+    mis:conditionExpression "(STH_Low_Battery) or (STH_Comm_Unstable) or (STH_Heavy_Load)"^^xsd:string ;
+    mis:forState mis:STH_Check ;
+    mis:hasCondition mis:STH_STH_Check ;
+    mis:hasKnowledgeCategory "sth_availability"^^xsd:string ;
+    mis:hasKnowledgeId "STH_STH_Check"^^xsd:string ;
+    mis:hasProfile mis:STH_profile_v1 ;
+    mis:hasProfileId "STH_profile_v1"^^xsd:string ;
+    mis:hasRuleType "composite"^^xsd:string ;
+    mis:hasStateClass mis:STHState ;
+    mis:inferredProperty mis:hasSTHState ;
+    mis:priority 90 ;
+    mis:requiresCondition mis:STH_Comm_Unstable,
+        mis:STH_Heavy_Load,
+        mis:STH_Low_Battery ;
+    mis:ruleExpression "(STH_Low_Battery) or (STH_Comm_Unstable) or (STH_Heavy_Load)"^^xsd:string ;
+    rdfs:comment "STH should be checked when battery is low communication is unstable or load is heavy."^^xsd:string .
+
+mis:Segment_02 a sth:ToolPathSegment ;
+    rdfs:label "Segment_02"^^xsd:string .
+
+mis:Specification a owl:DatatypeProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-05-16T07:40:10+00:00"^^xsd:dateTime ;
+    rdfs:domain mis:STHSpecification ;
+    rdfs:subPropertyOf mis:STH .
+
+sth:NC_FlexSpline_01 a sth:NCFile,
+        owl:NamedIndividual ;
+    mis:hasAe "" ;
+    mis:hasAp "" ;
+    mis:hasSpindleSpeed "3600.0"^^xsd:float ;
+    mis:usesMachine mis:CNC-TMV720 ;
+    sth:hasName "partA_op10.nc" ;
+    sth:mapsToJSONField sth:Field_ncfile ;
+    sth:mapsToMQTTTopic sth:Topic_NCFile ;
+    sth:mapsToOPCUANode sth:OPCUA_NCFile .
+
+sth:STH_001 a sth:SmartToolHolder ;
+    rdfs:label "STH_001"^^xsd:string .
+
+sth:STH_002 a sth:SmartToolHolder ;
+    rdfs:label "STH_002"^^xsd:string .
+
+mis:Chatter a owl:DatatypeProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-05-17T20:26:38+00:00"^^xsd:dateTime .
+
+mis:Coefficient a owl:DatatypeProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-05-16T07:40:48+00:00"^^xsd:dateTime ;
+    rdfs:subPropertyOf mis:STH .
+
+mis:Edge a owl:Class,
+        owl:DatatypeProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-05-18T01:24:46+00:00"^^xsd:dateTime,
+        "2026-05-18T01:27:05+00:00"^^xsd:dateTime ;
+    rdfs:subClassOf sth:PhysicalAsset ;
+    rdfs:subPropertyOf owl:topDataProperty .
+
+mis:EndMill-D6-F4 a sth:CuttingTool,
+        owl:NamedIndividual ;
+    mis:hasDiameter 6 ;
+    mis:hasFluteNum 4 ;
+    dc:creator "hao" ;
+    dc:date "2026-04-22T07:50:38+00:00"^^xsd:dateTime .
+
+mis:Normal_Battery a mis:BatteryState,
+        owl:NamedIndividual ;
+    dc:creator "hao" ;
+    dc:date "2026-05-15T06:06:56+00:00"^^xsd:dateTime .
+
+mis:RFF-Dahlih-1 a sth:MachineCenter,
+        owl:NamedIndividual ;
+    mis:LocatedAt "隆富發" ;
+    mis:hasController mis:FANUC_0i-MD ;
+    mis:hasSpindle mis:BT-50 ;
+    dc:creator "hao" ;
+    dc:date "2026-04-22T03:03:56+00:00"^^xsd:dateTime .
+
+mis:STH_Comm_Stable a mis:STHCondition,
+        mis:STHKnowledgeRule,
+        mis:STHThresholdKnowledge ;
+    rdfs:label "STH_Comm_Stable"^^xsd:string ;
+    mis:confidence 8.8e-01 ;
+    mis:forState mis:Comm_Stable ;
+    mis:hasCondition mis:STH_Comm_Stable ;
+    mis:hasKnowledgeCategory "communication_quality"^^xsd:string ;
+    mis:hasKnowledgeId "STH_Comm_Stable"^^xsd:string ;
+    mis:hasProfile mis:STH_profile_v1 ;
+    mis:hasProfileId "STH_profile_v1"^^xsd:string ;
+    mis:hasRuleType "threshold"^^xsd:string ;
+    mis:hasStateClass mis:CommunicationState ;
+    mis:inferredProperty mis:hasCommunicationState ;
+    mis:maxExclusive true ;
+    mis:maxValue 1e+00 ;
+    mis:minInclusive true ;
+    mis:minValue 7e-01 ;
+    mis:observedProperty mis:hasCommScore ;
+    mis:priority 10 ;
+    rdfs:comment "Communication score indicates stable communication."^^xsd:string .
+
+mis:STH_Comm_Unstable a mis:STHCondition,
+        mis:STHKnowledgeRule,
+        mis:STHThresholdKnowledge ;
+    rdfs:label "STH_Comm_Unstable"^^xsd:string ;
+    mis:confidence 8.9e-01 ;
+    mis:forState mis:Comm_Unstable ;
+    mis:hasCondition mis:STH_Comm_Unstable ;
+    mis:hasKnowledgeCategory "communication_quality"^^xsd:string ;
+    mis:hasKnowledgeId "STH_Comm_Unstable"^^xsd:string ;
+    mis:hasProfile mis:STH_profile_v1 ;
+    mis:hasProfileId "STH_profile_v1"^^xsd:string ;
+    mis:hasRuleType "threshold"^^xsd:string ;
+    mis:hasStateClass mis:CommunicationState ;
+    mis:inferredProperty mis:hasCommunicationState ;
+    mis:maxExclusive true ;
+    mis:maxValue 7e-01 ;
+    mis:minInclusive true ;
+    mis:minValue 4e-01 ;
+    mis:observedProperty mis:hasCommScore ;
+    mis:priority 10 ;
+    rdfs:comment "Communication score indicates unstable communication."^^xsd:string .
+
+mis:STH_Heavy_Load a mis:STHCondition,
+        mis:STHKnowledgeRule,
+        mis:STHThresholdKnowledge ;
+    rdfs:label "STH_Heavy_Load"^^xsd:string ;
+    mis:confidence 9.2e-01 ;
+    mis:forState mis:Heavy_Load ;
+    mis:hasCondition mis:STH_Heavy_Load ;
+    mis:hasKnowledgeCategory "load_state"^^xsd:string ;
+    mis:hasKnowledgeId "STH_Heavy_Load"^^xsd:string ;
+    mis:hasProfile mis:STH_profile_v1 ;
+    mis:hasProfileId "STH_profile_v1"^^xsd:string ;
+    mis:hasRuleType "threshold"^^xsd:string ;
+    mis:hasStateClass mis:LoadState ;
+    mis:inferredProperty mis:hasLoadState ;
+    mis:maxExclusive true ;
+    mis:maxValue 1e+00 ;
+    mis:minInclusive true ;
+    mis:minValue 7.2e-01 ;
+    mis:observedProperty mis:hasMaxTorque ;
+    mis:priority 10 ;
+    rdfs:comment "Maximum torque indicates heavy load."^^xsd:string .
+
+mis:Tool_Normal a mis:ToolCondition,
+        owl:NamedIndividual ;
+    rdfs:label "Tool normal" .
+
+mis:Torque a owl:DatatypeProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-05-02T13:14:05+00:00"^^xsd:dateTime .
+
+mis:hasBatteryLevel a owl:DatatypeProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-05-16T07:39:29+00:00"^^xsd:dateTime ;
+    rdfs:domain sth:MultiSensorWindow ;
+    rdfs:range xsd:double ;
+    rdfs:subPropertyOf mis:State .
+
+mis:hasBatteryState a owl:ObjectProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-05-18T21:26:11+00:00"^^xsd:dateTime ;
+    rdfs:domain sth:MultiSensorWindow ;
+    rdfs:range mis:BatteryState ;
+    rdfs:subPropertyOf owl:topObjectProperty .
+
+mis:hasCommScore a owl:DatatypeProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-05-16T07:39:13+00:00"^^xsd:dateTime ;
+    rdfs:domain sth:MultiSensorWindow ;
+    rdfs:range xsd:double ;
+    rdfs:subPropertyOf mis:State .
+
+mis:hasCommunicationState a owl:ObjectProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-05-18T21:26:24+00:00"^^xsd:dateTime ;
+    rdfs:domain sth:MultiSensorWindow ;
+    rdfs:range mis:CommunicationState ;
+    rdfs:subPropertyOf owl:topObjectProperty .
+
+mis:hasLoadState a owl:ObjectProperty ;
+    rdfs:domain sth:MultiSensorWindow ;
+    rdfs:range mis:LoadState ;
+    rdfs:subPropertyOf owl:topObjectProperty .
+
+mis:hasMaxTorque a owl:DatatypeProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-05-18T21:42:01+00:00"^^xsd:dateTime ;
+    rdfs:domain sth:MultiSensorWindow ;
+    rdfs:range xsd:double ;
+    rdfs:subPropertyOf mis:State .
+
+mis:hasSTHState a owl:ObjectProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-04-27T00:52:06+00:00"^^xsd:dateTime ;
+    rdfs:domain sth:MultiSensorWindow ;
+    rdfs:range mis:STHState ;
+    rdfs:subPropertyOf owl:topObjectProperty .
+
+sth:CommunicationAsset a owl:Class ;
+    rdfs:subClassOf sth:CyberAsset .
+
+sth:Entity a owl:Class .
+
+sth:QualityMetric a owl:Class ;
+    rdfs:subClassOf mis:Project .
+
+mis:PartQuality a owl:DatatypeProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-04-22T06:56:12+00:00"^^xsd:dateTime ;
+    rdfs:subPropertyOf owl:topDataProperty .
+
+mis:Ra_Warning a sth:SurfaceRoughness,
+        owl:NamedIndividual ;
+    dc:creator "hao" ;
+    dc:date "2026-04-26T21:40:33+00:00"^^xsd:dateTime .
+
+mis:STH a owl:DatatypeProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-05-02T13:12:20+00:00"^^xsd:dateTime ;
+    rdfs:subPropertyOf owl:topDataProperty .
+
+mis:STHCoefficient a owl:Class ;
+    dc:creator "hao" ;
+    dc:date "2026-05-16T08:30:01+00:00"^^xsd:dateTime .
+
+mis:STHSpecification a owl:Class ;
+    dc:creator "hao" ;
+    dc:date "2026-05-16T08:28:40+00:00"^^xsd:dateTime .
+
+mis:STH_Normal_Battery a mis:STHCondition,
+        mis:STHKnowledgeRule,
+        mis:STHThresholdKnowledge ;
+    rdfs:label "STH_Normal_Battery"^^xsd:string ;
+    mis:confidence 9e-01 ;
+    mis:forState mis:Normal_Battery ;
+    mis:hasCondition mis:STH_Normal_Battery ;
+    mis:hasKnowledgeCategory "battery_condition"^^xsd:string ;
+    mis:hasKnowledgeId "STH_Normal_Battery"^^xsd:string ;
+    mis:hasProfile mis:STH_profile_v1 ;
+    mis:hasProfileId "STH_profile_v1"^^xsd:string ;
+    mis:hasRuleType "threshold"^^xsd:string ;
+    mis:hasStateClass mis:BatteryState ;
+    mis:inferredProperty mis:hasBatteryState ;
+    mis:maxExclusive true ;
+    mis:maxValue 9.99e+00 ;
+    mis:minInclusive true ;
+    mis:minValue 1.58e+00 ;
+    mis:observedProperty mis:hasBatteryLevel ;
+    mis:priority 10 ;
+    rdfs:comment "Battery level indicates normal battery."^^xsd:string .
+
+mis:Tool_SevereWear a mis:ToolCondition,
+        owl:NamedIndividual ;
+    rdfs:label "Tool severe wear" .
+
+mis:Tool_Worn a mis:ToolCondition,
+        owl:NamedIndividual ;
+    rdfs:label "Tool worn" ;
+    dc:creator "hao" ;
+    dc:date "2026-04-26T21:45:47+00:00"^^xsd:dateTime .
+
+sth:ProcessState a owl:Class ;
+    rdfs:label "Process State" ;
+    rdfs:subClassOf sth:MachineCenter .
+
+sth:SurfaceRoughness a owl:Class ;
+    rdfs:subClassOf sth:QualityMetric .
+
+mis:Data a owl:DatatypeProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-05-02T13:19:43+00:00"^^xsd:dateTime .
+
+mis:ToolCondition a owl:Class ;
+    rdfs:label "Tool Condition" ;
+    rdfs:subClassOf sth:CuttingTool .
+
+sth:PhysicalAsset a owl:Class ;
+    rdfs:subClassOf sth:Entity .
+
+mis:Spindle a owl:Class ;
+    rdfs:subClassOf sth:MachineCenter .
+
+mis:State a owl:DatatypeProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-05-16T07:41:52+00:00"^^xsd:dateTime ;
+    rdfs:subPropertyOf mis:STH .
+
+mis:BatteryState a owl:Class ;
+    dc:creator "hao" ;
+    dc:date "2026-05-15T06:04:59+00:00"^^xsd:dateTime ;
+    rdfs:subClassOf mis:STHState .
+
+mis:CommunicationState a owl:Class ;
+    dc:creator "hao" ;
+    dc:date "2026-05-15T06:03:46+00:00"^^xsd:dateTime ;
+    rdfs:subClassOf mis:STHState .
+
+mis:Controller a owl:Class ;
+    dc:creator "hao" ;
+    dc:date "2026-04-22T02:33:16+00:00"^^xsd:dateTime ;
+    rdfs:subClassOf sth:MachineCenter .
+
+mis:ProcessParameter a owl:DatatypeProperty .
+
+sth:NCBlock a owl:Class ;
+    rdfs:subClassOf sth:NCFile .
+
+mis:ToolSpec a owl:DatatypeProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-04-22T02:42:13+00:00"^^xsd:dateTime .
+
+sth:CyberAsset a owl:Class ;
+    rdfs:subClassOf sth:Entity .
+
+mis:TMV720_Batch_A a mis:Batch ;
+    mis:derivedFromDataset "tmv720_2026_batch_A" ;
+    mis:hasBatchId "TMV720_Batch_A" .
+
+mis:TMV720_Batch_B a mis:Batch ;
+    mis:derivedFromDataset "tmv720_2026_batch_B" ;
+    mis:hasBatchId "TMV720_Batch_B" .
+
+mis:TMV720_Batch_C a mis:Batch ;
+    mis:derivedFromDataset "tmv720_2026_batch_C" ;
+    mis:hasBatchId "TMV720_Batch_C" .
+
+sth:MQTTTopic a owl:Class ;
+    rdfs:subClassOf sth:CommunicationAsset .
+
+mis:Material a owl:Class,
+        owl:DatatypeProperty ;
+    dc:creator "hao" ;
+    dc:date "2026-04-22T02:48:11+00:00"^^xsd:dateTime,
+        "2026-04-22T02:51:22+00:00"^^xsd:dateTime ;
+    rdfs:subClassOf mis:Project ;
+    rdfs:subPropertyOf owl:topDataProperty .
+
+mis:STHState a owl:Class ;
+    dc:creator "hao" ;
+    dc:date "2026-04-26T21:41:09+00:00"^^xsd:dateTime .
+
+mis:CSVColumn a owl:Class ;
+    rdfs:label "CSV Column" .
+
+mis:LoadState a owl:Class ;
+    dc:creator "hao" ;
+    dc:date "2026-05-16T23:44:21+00:00"^^xsd:dateTime ;
+    rdfs:subClassOf mis:STHState .
+
+sth:JSONField a owl:Class ;
+    rdfs:subClassOf sth:CommunicationAsset .
+
+sth:OPCUANode a owl:Class ;
+    rdfs:subClassOf sth:CommunicationAsset .
+
+mis:STH_profile_v1 a mis:STHKnowledgeProfile ;
+    rdfs:label "STH_profile_v1"^^xsd:string .
+
+sth:MachineCenter a owl:Class ;
+    rdfs:subClassOf sth:PhysicalAsset .
+
+mis:Batch a owl:Class ;
+    rdfs:label "Batch",
+        "Batch"@en ;
+    rdfs:comment "A machining batch, production batch, or experimental batch associated with calibrated knowledge."@en ;
+    rdfs:subClassOf sth:CyberAsset .
+
+sth:SmartToolHolder a owl:Class ;
+    rdfs:subClassOf sth:PhysicalAsset .
+
+sth:NCFile a owl:Class ;
+    rdfs:subClassOf mis:Project .
+
+mis:Project a sth:Entity,
+        owl:Class,
+        owl:NamedIndividual ;
+    dc:creator "hao" ;
+    dc:date "2026-04-22T02:23:58+00:00"^^xsd:dateTime,
+        "2026-04-22T02:24:23+00:00"^^xsd:dateTime ;
+    rdfs:subClassOf sth:PhysicalAsset .
+
+sth:CuttingTool a owl:Class ;
+    rdfs:subClassOf sth:PhysicalAsset .
+
+sth:MultiSensorWindow a owl:Class ;
+    rdfs:subClassOf sth:SensingWindow .
+
+mis:BatchKnowledge a owl:Class ;
+    rdfs:label "Batch Knowledge",
+        "Batch knowledge"@en ;
+    rdfs:comment "A batch-specific knowledge individual containing thresholds, state linkage, confidence, and dataset provenance for TMV-720 inference."@en ;
+    rdfs:subClassOf mis:Batch .
+

@@ -1,0 +1,76 @@
+@prefix mis: <http://nkust.edu.tw/mislab#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sth: <http://nkust.edu.tw/mislab/cnc/ontology/sth#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+mis:RuntimeWindow_w10233 a sth:MultiSensorWindow ;
+    mis:belongsToBatch mis:Batch_A ;
+    mis:belongsToProject mis:2026SBIR ;
+    mis:hasBatteryLevel 5.8e+00 ;
+    mis:hasBlockProgressRatio 3e-01 ;
+    mis:hasChatterScore 4.1e-01 ;
+    mis:hasChatterScoreObserved 4.1e-01 ;
+    mis:hasCommScore 9e-01 ;
+    mis:hasFeedRate 8e+02 ;
+    mis:hasMaxTorque 2e-01 ;
+    mis:hasMeasuredRa 1.12e+00 ;
+    mis:hasProgressRatio 6.2e-01 ;
+    mis:hasSequenceIndex 30 ;
+    mis:hasSmartToolHolder sth:STH_001 ;
+    mis:hasSpindleSpeed 1.2e+04 ;
+    mis:hasTimestamp "2026-04-27T08:01:00+08:00"^^xsd:dateTime ;
+    mis:hasTorqueRatio 1.28e+00 ;
+    mis:hasVibrationRMS 7.8e-01 ;
+    mis:hasWindowId "w10233"^^xsd:string ;
+    sth:alignedWithNCBlock mis:NCBlock_N130 ;
+    sth:alignedWithToolPathSegment mis:Segment_02 ;
+    sth:hasEndTime "2026-04-27T08:01:00.200000+08:00"^^xsd:dateTime ;
+    sth:hasStartTime "2026-04-27T08:01:00+08:00"^^xsd:dateTime ;
+    sth:usesSmartToolHolder sth:STH_001 .
+
+mis:RuntimeWindow_w10234 a sth:MultiSensorWindow ;
+    mis:belongsToBatch mis:Batch_B ;
+    mis:belongsToProject mis:2026SBIR ;
+    mis:hasBatteryLevel 4.8e+00 ;
+    mis:hasBlockProgressRatio 3.5e-01 ;
+    mis:hasChatterScore 9.9e-01 ;
+    mis:hasChatterScoreObserved 9.9e-01 ;
+    mis:hasCommScore 6e-01 ;
+    mis:hasFeedRate 8e+02 ;
+    mis:hasMaxTorque 6.5e-01 ;
+    mis:hasMeasuredRa 3.12e+00 ;
+    mis:hasProgressRatio 6.2e-01 ;
+    mis:hasSequenceIndex 34 ;
+    mis:hasSmartToolHolder sth:STH_002 ;
+    mis:hasSpindleSpeed 1.2e+04 ;
+    mis:hasTimestamp "2026-04-27T09:01:00+08:00"^^xsd:dateTime ;
+    mis:hasTorqueRatio 2.31e+00 ;
+    mis:hasVibrationRMS 1.82e+00 ;
+    mis:hasWindowId "w10234"^^xsd:string ;
+    sth:alignedWithNCBlock mis:NCBlock_N130 ;
+    sth:alignedWithToolPathSegment mis:Segment_02 ;
+    sth:hasEndTime "2026-04-27T09:01:00.200000+08:00"^^xsd:dateTime ;
+    sth:hasStartTime "2026-04-27T09:01:00+08:00"^^xsd:dateTime ;
+    sth:usesSmartToolHolder sth:STH_002 .
+
+mis:Batch_A a mis:Batch ;
+    rdfs:label "Batch_A"^^xsd:string .
+
+mis:Batch_B a mis:Batch ;
+    rdfs:label "Batch_B"^^xsd:string .
+
+mis:2026SBIR a mis:Project ;
+    rdfs:label "2026SBIR"^^xsd:string .
+
+mis:NCBlock_N130 a sth:NCBlock ;
+    rdfs:label "NCBlock_N130"^^xsd:string .
+
+mis:Segment_02 a sth:ToolPathSegment ;
+    rdfs:label "Segment_02"^^xsd:string .
+
+sth:STH_001 a sth:SmartToolHolder ;
+    rdfs:label "STH_001"^^xsd:string .
+
+sth:STH_002 a sth:SmartToolHolder ;
+    rdfs:label "STH_002"^^xsd:string .
+

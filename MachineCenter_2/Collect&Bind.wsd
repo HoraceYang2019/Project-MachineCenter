@@ -1,0 +1,60 @@
+@startuml
+title Sequence Diagrams of Ontology Services
+caption Diagnosis and Aggregation of Sensing Data.
+header Ontology Sequence Diagrams
+footer Page %page% of %lastpage%
+
+box "Data Layer" #LightBlue
+    actor SensingEdge
+    participant CheckSchema
+end box
+collections SampleFolder
+
+autonumber 1.0
+autonumber inc B
+activate SensingEdge
+group JSON Data Collection and Check
+    activate CheckSchema
+    SensingEdge -> CheckSchema: receive data
+        note right
+        *_runtime_w*.json:{
+        }
+        end note       
+    CheckSchema -> CheckSchema: check data schema
+        note left
+        check schema/*_knowledge_csv_schema.json:{
+        }
+        end note  
+    CheckSchema -> SampleFolder: store *_runtime_w*.json
+        note right
+        samples/*_runtime_w*.json:{
+        }
+         end note      
+    deactivate CheckSchema
+end
+
+box "Semantic Binding Layer" #LightGreen
+    participant GenObservationTTL
+end box
+collections RuntimeFolder
+autonumber 2.0
+autonumber inc B
+group Data Semantic Check
+    activate GenObservationTTL
+    activate RuntimeFolder
+    GenObservationTTL <-- SampleFolder: use samples/*_runtime_w*.json
+        note right
+        run runtime_observation_ttl_from_windows_json_multi.py
+        end note       
+    GenObservationTTL --> RuntimeFolder: save ttl file
+        note right
+        runtime/TMV720_runtime_observation.ttl:{
+        }
+        end note
+
+    deactivate GenObservationTTL
+    deactivate RuntimeFolder
+end
+deactivate SensingEdge
+
+@endum

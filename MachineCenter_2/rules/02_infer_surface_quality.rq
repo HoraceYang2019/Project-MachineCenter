@@ -1,0 +1,31 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX sth: <http://nkust.edu.tw/mislab/cnc/ontology/sth#>
+PREFIX mis: <http://nkust.edu.tw/mislab#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+CONSTRUCT {
+  ?window mis:hasSurfaceQuality ?state .
+}
+WHERE {
+  ?window rdf:type sth:MultiSensorWindow ;
+          mis:belongsToBatch ?runtimeBatch ;
+          mis:hasMeasuredRa ?measuredRa .
+
+  ?knowledge rdf:type mis:BatchKnowledge ;
+             mis:forBatch ?knowledgeBatch ;
+             mis:hasKnowledgeCategory ?category ;
+             mis:forState ?state ;
+             mis:minMeasuredRa ?minMeasuredRa ;
+             mis:maxMeasuredRa ?maxMeasuredRa .
+
+  FILTER(STR(?category) = "surface_quality")
+
+  # Runtime batch may be mis:Batch_A, while knowledge may be mis:TMV720_Batch_A.
+  BIND(REPLACE(STR(?runtimeBatch),  "^.*[#/]", "") AS ?runtimeBatchLocal)
+  BIND(REPLACE(STR(?knowledgeBatch), "^.*[#/]", "") AS ?knowledgeBatchLocalRaw)
+  BIND(REPLACE(?knowledgeBatchLocalRaw, "^TMV720_", "") AS ?knowledgeBatchLocal)
+  FILTER(?runtimeBatchLocal = ?knowledgeBatchLocal || ?runtimeBatchLocal = ?knowledgeBatchLocalRaw)
+
+  FILTER(xsd:double(?measuredRa) >= xsd:double(?minMeasuredRa))
+  FILTER(xsd:double(?measuredRa) <  xsd:double(?maxMeasuredRa))
+}

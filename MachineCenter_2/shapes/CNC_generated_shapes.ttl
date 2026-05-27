@@ -1,0 +1,847 @@
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix mis: <http://nkust.edu.tw/mislab#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix shape: <http://nkust.edu.tw/mislab/cnc/shapes#> .
+@prefix sth: <http://nkust.edu.tw/mislab/cnc/ontology/sth#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+shape:BatchKnowledgeShape a sh:NodeShape ;
+    rdfs:comment "Auto-generated SHACL shape for http://nkust.edu.tw/mislab#BatchKnowledge" ;
+    sh:property [ rdfs:comment "Generated from: manual-required-profile" ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path mis:forState ],
+        [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:datatype xsd:float ;
+            sh:path mis:hasTolerance ],
+        [ rdfs:comment "Generated from: manual-required-profile, ontology-domain-range" ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path mis:hasKnowledgeCategory ],
+        [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:datatype xsd:double ;
+            sh:path mis:maxMeasuredRa ],
+        [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:datatype xsd:double ;
+            sh:path mis:minTorqueRatio ],
+        [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:class mis:LoadState ;
+            sh:path mis:forProcessState ],
+        [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:class mis:Batch ;
+            sh:path mis:forBatch ],
+        [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:datatype xsd:double ;
+            sh:path mis:minMeasuredRa ],
+        [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:datatype xsd:double ;
+            sh:path mis:maxTorqueRatio ],
+        [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:datatype xsd:double ;
+            sh:path mis:confidence ],
+        [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:datatype xsd:string ;
+            sh:path mis:hasDescription ],
+        [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:datatype xsd:double ;
+            sh:path mis:hasMeasuredRa ],
+        [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:datatype xsd:string ;
+            sh:path mis:derivedFromDataset ],
+        [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:datatype xsd:double ;
+            sh:path mis:maxChatterScore ],
+        [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:datatype xsd:double ;
+            sh:path mis:minChatterScore ] ;
+    sh:targetClass mis:BatchKnowledge .
+
+shape:BatchShape a sh:NodeShape ;
+    rdfs:comment "Auto-generated SHACL shape for http://nkust.edu.tw/mislab#Batch" ;
+    sh:property [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:class sth:OPCUANode ;
+            sh:path sth:mapsToOPCUANode ],
+        [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:class sth:MQTTTopic ;
+            sh:path sth:mapsToMQTTTopic ],
+        [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:class sth:JSONField ;
+            sh:path sth:mapsToJSONField ],
+        [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:class sth:MultiSensorWindow ;
+            sh:path sth:belongsToWindow ] ;
+    sh:targetClass mis:Batch .
+
+shape:BatteryStateShape a sh:NodeShape ;
+    rdfs:comment "Auto-generated SHACL shape for http://nkust.edu.tw/mislab#BatteryState" ;
+    sh:property [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:string ;
+            sh:path dc:creator ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:dateTime ;
+            sh:path dc:date ] ;
+    sh:targetClass mis:BatteryState .
+
+shape:CommunicationStateShape a sh:NodeShape ;
+    rdfs:comment "Auto-generated SHACL shape for http://nkust.edu.tw/mislab#CommunicationState" ;
+    sh:property [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:dateTime ;
+            sh:path dc:date ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:string ;
+            sh:path dc:creator ] ;
+    sh:targetClass mis:CommunicationState .
+
+shape:ControllerShape a sh:NodeShape ;
+    rdfs:comment "Auto-generated SHACL shape for http://nkust.edu.tw/mislab#Controller" ;
+    sh:property [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:string ;
+            sh:path dc:creator ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:dateTime ;
+            sh:path dc:date ] ;
+    sh:targetClass mis:Controller .
+
+shape:CuttingToolShape a sh:NodeShape ;
+    rdfs:comment "Auto-generated SHACL shape for http://nkust.edu.tw/mislab/cnc/ontology/sth#CuttingTool" ;
+    sh:property [ rdfs:comment "Generated from: observed-data, ontology-domain-range" ;
+            sh:datatype xsd:float ;
+            sh:path mis:hasDiameter ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:string ;
+            sh:path dc:creator ],
+        [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:class mis:ToolCondition ;
+            sh:path mis:hasToolCondition ],
+        [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:datatype xsd:float ;
+            sh:path mis:hasHelixAngle ],
+        [ rdfs:comment "Generated from: observed-data, ontology-domain-range" ;
+            sh:datatype xsd:int ;
+            sh:path mis:hasFluteNum ],
+        [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:datatype xsd:float ;
+            sh:path mis:hasFullHeight ],
+        [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:datatype xsd:float ;
+            sh:path mis:hasToolNoseR ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:dateTime ;
+            sh:path dc:date ],
+        [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:datatype xsd:float ;
+            sh:path mis:hasFluteHeight ],
+        [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:datatype xsd:float ;
+            sh:path mis:hasMaxVb ],
+        [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:datatype xsd:float ;
+            sh:path mis:hasRakeAngle ] ;
+    sh:targetClass sth:CuttingTool .
+
+shape:DatatypePropertyShape a sh:NodeShape ;
+    rdfs:comment "Auto-generated SHACL shape for http://www.w3.org/2002/07/owl#DatatypeProperty" ;
+    sh:property [ rdfs:comment "Generated from: observed-data" ;
+            sh:class owl:DatatypeProperty ;
+            sh:path rdfs:domain ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:nodeKind sh:IRI ;
+            sh:path rdfs:range ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:dateTime ;
+            sh:path dc:date ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:string ;
+            sh:path dc:creator ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:class owl:DatatypeProperty ;
+            sh:path rdfs:subPropertyOf ] ;
+    sh:targetClass owl:DatatypeProperty .
+
+shape:DesignStlFileShape a sh:NodeShape ;
+    rdfs:comment "Auto-generated SHACL shape for http://nkust.edu.tw/mislab#DesignStlFile" ;
+    sh:property [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:string ;
+            sh:path dc:creator ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:dateTime ;
+            sh:path dc:date ] ;
+    sh:targetClass mis:DesignStlFile .
+
+shape:DiagnosisSequenceShape a sh:NodeShape ;
+    rdfs:comment "Auto-generated SHACL shape for http://nkust.edu.tw/mislab/cnc/ontology/sth#DiagnosisSequence" ;
+    sh:property [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:string ;
+            sh:path sth:hasName ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:class sth:JSONField ;
+            sh:path sth:mapsToJSONField ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:string ;
+            sh:path sth:hasMachineId ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:string ;
+            sh:path sth:hasHolderId ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:class sth:MQTTTopic ;
+            sh:path sth:mapsToMQTTTopic ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:class sth:OPCUANode ;
+            sh:path sth:mapsToOPCUANode ] ;
+    sh:targetClass sth:DiagnosisSequence .
+
+shape:EdgeShape a sh:NodeShape ;
+    rdfs:comment "Auto-generated SHACL shape for http://nkust.edu.tw/mislab#Edge" ;
+    sh:property [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:datatype rdf:langString ;
+            sh:path mis:hasURI ] ;
+    sh:targetClass mis:Edge .
+
+shape:JSONFieldShape a sh:NodeShape ;
+    rdfs:comment "Auto-generated SHACL shape for http://nkust.edu.tw/mislab/cnc/ontology/sth#JSONField" ;
+    sh:property [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:string ;
+            sh:path sth:hasJSONKey ] ;
+    sh:targetClass sth:JSONField .
+
+shape:LoadStateShape a sh:NodeShape ;
+    rdfs:comment "Auto-generated SHACL shape for http://nkust.edu.tw/mislab#LoadState" ;
+    sh:property [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:datatype xsd:double ;
+            sh:path mis:hasRoundOut ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:dateTime ;
+            sh:path dc:date ],
+        [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:datatype xsd:double ;
+            sh:path mis:hasRUL ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:string ;
+            sh:path dc:creator ],
+        [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:datatype xsd:double ;
+            sh:path mis:hasUnbalance ] ;
+    sh:targetClass mis:LoadState .
+
+shape:MQTTTopicShape a sh:NodeShape ;
+    rdfs:comment "Auto-generated SHACL shape for http://nkust.edu.tw/mislab/cnc/ontology/sth#MQTTTopic" ;
+    sh:property [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:string ;
+            sh:path sth:hasMQTTTopicString ] ;
+    sh:targetClass sth:MQTTTopic .
+
+shape:MachineCenterShape a sh:NodeShape ;
+    rdfs:comment "Auto-generated SHACL shape for http://nkust.edu.tw/mislab/cnc/ontology/sth#MachineCenter" ;
+    sh:property [ rdfs:comment "Generated from: observed-data, ontology-domain-range" ;
+            sh:class mis:Spindle ;
+            sh:path mis:hasSpindle ],
+        [ rdfs:comment "Generated from: observed-data, ontology-domain-range" ;
+            sh:class mis:Controller ;
+            sh:path mis:hasController ],
+        [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:datatype xsd:string ;
+            sh:path sth:hasMachineId ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:string ;
+            sh:path mis:LocatedAt ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:string ;
+            sh:path dc:creator ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:dateTime ;
+            sh:path dc:date ] ;
+    sh:targetClass sth:MachineCenter .
+
+shape:MaterialShape a sh:NodeShape ;
+    rdfs:comment "Auto-generated SHACL shape for http://nkust.edu.tw/mislab#Material" ;
+    sh:property [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:dateTime ;
+            sh:path dc:date ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:integer ;
+            sh:path mis:hasKC ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:integer ;
+            sh:path mis:hasHB ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:integer ;
+            sh:path mis:hasHRC ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:string ;
+            sh:path dc:creator ] ;
+    sh:targetClass mis:Material .
+
+shape:MultiSensorWindowShape a sh:NodeShape ;
+    rdfs:comment "Auto-generated SHACL shape for http://nkust.edu.tw/mislab/cnc/ontology/sth#MultiSensorWindow" ;
+    sh:property [ rdfs:comment "Generated from: manual-required-profile, ontology-domain-range" ;
+            sh:datatype xsd:double ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path mis:hasChatterScore ],
+        [ rdfs:comment "Generated from: manual-required-profile, ontology-domain-range" ;
+            sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path sth:hasStartTime ],
+        [ rdfs:comment "Generated from: manual-required-profile, ontology-domain-range" ;
+            sh:datatype xsd:double ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path mis:hasBlockProgressRatio ],
+        [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:class mis:ToolCondition ;
+            sh:path sth:indicatesToolCondition ],
+        [ rdfs:comment "Generated from: manual-required-profile, ontology-domain-range" ;
+            sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path sth:hasEndTime ],
+        [ rdfs:comment "Generated from: manual-required-profile, ontology-domain-range" ;
+            sh:datatype xsd:double ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path mis:hasBatteryLevel ],
+        [ rdfs:comment "Generated from: manual-required-profile" ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path mis:hasFeedRate ],
+        [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:class sth:ProcessState ;
+            sh:path sth:indicatesProcessState ],
+        [ rdfs:comment "Generated from: manual-required-profile, ontology-domain-range" ;
+            sh:datatype xsd:double ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path mis:hasProgressRatio ],
+        [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:datatype xsd:double ;
+            sh:path mis:hasRUL ],
+        [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:datatype xsd:double ;
+            sh:path mis:hasUnbalance ],
+        [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:class mis:BatteryState ;
+            sh:path mis:hasBatteryState ],
+        [ rdfs:comment "Generated from: manual-required-profile, ontology-domain-range" ;
+            sh:class mis:Project ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path mis:belongsToProject ],
+        [ rdfs:comment "Generated from: manual-required-profile, ontology-domain-range" ;
+            sh:class sth:NCBlock ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path sth:alignedWithNCBlock ],
+        [ rdfs:comment "Generated from: manual-required-profile, ontology-domain-range" ;
+            sh:datatype xsd:double ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path mis:hasMaxTorque ],
+        [ rdfs:comment "Generated from: manual-required-profile, ontology-domain-range" ;
+            sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path mis:hasTimestamp ],
+        [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:class mis:STHState ;
+            sh:path mis:hasSTHState ],
+        [ rdfs:comment "Generated from: manual-required-profile, ontology-domain-range" ;
+            sh:datatype xsd:double ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path mis:hasMeasuredRa ],
+        [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:class sth:NCFile ;
+            sh:path sth:belongsToNCFile ],
+        [ rdfs:comment "Generated from: manual-required-profile, ontology-domain-range" ;
+            sh:datatype xsd:double ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path mis:hasCommScore ],
+        [ rdfs:comment "Generated from: manual-required-profile, ontology-domain-range" ;
+            sh:datatype xsd:double ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path mis:hasSpindleSpeed ],
+        [ rdfs:comment "Generated from: manual-required-profile, ontology-domain-range" ;
+            sh:datatype xsd:double ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path mis:hasTorqueRatio ],
+        [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:class sth:QualityMetric ;
+            sh:path sth:affectsQuality ],
+        [ rdfs:comment "Generated from: manual-required-profile, ontology-domain-range" ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path mis:hasSequenceIndex ],
+        [ rdfs:comment "Generated from: manual-required-profile, ontology-domain-range" ;
+            sh:class mis:Batch ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path mis:belongsToBatch ],
+        [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:class mis:CommunicationState ;
+            sh:path mis:hasCommunicationState ],
+        [ rdfs:comment "Generated from: manual-required-profile" ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path sth:alignedWithToolPathSegment ],
+        [ rdfs:comment "Generated from: manual-required-profile, ontology-domain-range" ;
+            sh:datatype xsd:double ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path mis:hasVibrationRMS ],
+        [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:class mis:LoadState ;
+            sh:path mis:hasLoadState ],
+        [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:datatype xsd:double ;
+            sh:path mis:hasRoundOut ],
+        [ rdfs:comment "Generated from: manual-required-profile, ontology-domain-range" ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path mis:hasWindowId ],
+        [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:datatype xsd:double ;
+            sh:path mis:hasAcousticRMS ] ;
+    sh:targetClass sth:MultiSensorWindow .
+
+shape:NCBlockShape a sh:NodeShape ;
+    rdfs:comment "Auto-generated SHACL shape for http://nkust.edu.tw/mislab/cnc/ontology/sth#NCBlock" ;
+    sh:property [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:datatype xsd:double ;
+            sh:path mis:hasFeedRate ],
+        [ rdfs:comment "Generated from: observed-data, ontology-domain-range" ;
+            sh:datatype xsd:float ;
+            sh:path mis:hasAe ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:string ;
+            sh:path sth:hasName ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:class sth:NCFile ;
+            sh:path sth:belongsToNCFile ],
+        [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:datatype xsd:int ;
+            sh:path mis:hasCuttingSpeed ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:class sth:JSONField ;
+            sh:path sth:mapsToJSONField ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:class sth:OPCUANode ;
+            sh:path sth:mapsToOPCUANode ],
+        [ rdfs:comment "Generated from: observed-data, ontology-domain-range" ;
+            sh:datatype xsd:float ;
+            sh:path mis:hasAp ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:class sth:MQTTTopic ;
+            sh:path sth:mapsToMQTTTopic ] ;
+    sh:targetClass sth:NCBlock .
+
+shape:NCFileShape a sh:NodeShape ;
+    rdfs:comment "Auto-generated SHACL shape for http://nkust.edu.tw/mislab/cnc/ontology/sth#NCFile" ;
+    sh:property [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:decimal ;
+            sh:path mis:hasCuttingSpeed ],
+        [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:datatype xsd:double ;
+            sh:path mis:minMeasuredRa ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:float ;
+            sh:path mis:hasAe ],
+        [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:class sth:SurfaceRoughness ;
+            sh:path mis:hasSurfaceQuality ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:integer ;
+            sh:path mis:hasSpindleSpeed ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:class sth:JSONField ;
+            sh:path sth:mapsToJSONField ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:float ;
+            sh:path mis:hasAp ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:dateTime ;
+            sh:path dc:date ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:decimal ;
+            sh:path mis:hasMaxVb ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:string ;
+            sh:path dc:creator ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:class sth:OPCUANode ;
+            sh:path sth:mapsToOPCUANode ],
+        [ rdfs:comment "Generated from: observed-data, ontology-domain-range" ;
+            sh:datatype xsd:float ;
+            sh:path mis:hasTolerance ],
+        [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:datatype xsd:double ;
+            sh:path mis:maxMeasuredRa ],
+        [ rdfs:comment "Generated from: observed-data, ontology-domain-range" ;
+            sh:class sth:CuttingTool ;
+            sh:path mis:usesTool ],
+        [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:class sth:QualityMetric ;
+            sh:path mis:hasQualitySpec ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:string ;
+            sh:path sth:hasName ],
+        [ rdfs:comment "Generated from: observed-data, ontology-domain-range" ;
+            sh:datatype xsd:float ;
+            sh:path mis:hasToolOverhange ],
+        [ rdfs:comment "Generated from: observed-data, ontology-domain-range" ;
+            sh:datatype rdf:langString ;
+            sh:path mis:hasSTL ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:class sth:MachineCenter ;
+            sh:path mis:usesMachine ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:class sth:MQTTTopic ;
+            sh:path sth:mapsToMQTTTopic ] ;
+    sh:targetClass sth:NCFile .
+
+shape:OPCUANodeShape a sh:NodeShape ;
+    rdfs:comment "Auto-generated SHACL shape for http://nkust.edu.tw/mislab/cnc/ontology/sth#OPCUANode" ;
+    sh:property [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:string ;
+            sh:path sth:hasNodeId ] ;
+    sh:targetClass sth:OPCUANode .
+
+shape:ObjectPropertyShape a sh:NodeShape ;
+    rdfs:comment "Auto-generated SHACL shape for http://www.w3.org/2002/07/owl#ObjectProperty" ;
+    sh:property [ rdfs:comment "Generated from: observed-data" ;
+            sh:class sth:Entity ;
+            sh:path rdfs:domain ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:nodeKind sh:IRI ;
+            sh:path rdfs:subPropertyOf ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:class sth:Entity ;
+            sh:path rdfs:range ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:dateTime ;
+            sh:path dc:date ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:string ;
+            sh:path dc:creator ] ;
+    sh:targetClass owl:ObjectProperty .
+
+shape:ProcessStateShape a sh:NodeShape ;
+    rdfs:comment "Auto-generated SHACL shape for http://nkust.edu.tw/mislab/cnc/ontology/sth#ProcessState" ;
+    sh:property [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:dateTime ;
+            sh:path dc:date ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:string ;
+            sh:path dc:creator ] ;
+    sh:targetClass sth:ProcessState .
+
+shape:ProjectShape a sh:NodeShape ;
+    rdfs:comment "Auto-generated SHACL shape for http://nkust.edu.tw/mislab#Project" ;
+    sh:property [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:string ;
+            sh:path mis:LocatedAt ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:class sth:CuttingTool ;
+            sh:path mis:usesTool ],
+        [ rdfs:comment "Generated from: observed-data, ontology-domain-range" ;
+            sh:class sth:MachineCenter ;
+            sh:path mis:usesMachine ],
+        [ rdfs:comment "Generated from: observed-data, ontology-domain-range" ;
+            sh:class mis:Material ;
+            sh:path mis:cutsMaterial ],
+        [ rdfs:comment "Generated from: observed-data, ontology-domain-range" ;
+            sh:class sth:NCFile ;
+            sh:path mis:usesNCFile ],
+        [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:class mis:Edge ;
+            sh:path mis:hasEdge ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:dateTime ;
+            sh:path dc:date ],
+        [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:class mis:Batch ;
+            sh:path mis:activeBatch ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:string ;
+            sh:path dc:creator ] ;
+    sh:targetClass mis:Project .
+
+shape:RuntimeBatchSelectorShape a sh:NodeShape ;
+    rdfs:comment "Auto-generated SHACL shape for http://nkust.edu.tw/mislab#RuntimeBatchSelector" ;
+    sh:property [ rdfs:comment "Generated from: manual-required-profile" ;
+            sh:minCount 1 ;
+            sh:path mis:activeBatch ] ;
+    sh:targetClass mis:RuntimeBatchSelector .
+
+shape:STHCoefficientShape a sh:NodeShape ;
+    rdfs:comment "Auto-generated SHACL shape for http://nkust.edu.tw/mislab#STHCoefficient" ;
+    sh:property [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:datatype xsd:float ;
+            sh:path mis:hasBendingCoef ],
+        [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:datatype xsd:float ;
+            sh:path mis:hasTorqueCoef ],
+        [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:datatype xsd:string ;
+            sh:path sth:hasHolderId ] ;
+    sh:targetClass mis:STHCoefficient .
+
+shape:STHCompositeRuleKnowledgeShape a sh:NodeShape ;
+    rdfs:comment "Auto-generated SHACL shape for http://nkust.edu.tw/mislab#STHCompositeRuleKnowledge" ;
+    sh:property [ rdfs:comment "Generated from: manual-required-profile" ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path mis:inferredProperty ],
+        [ rdfs:comment "Generated from: manual-required-profile" ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path mis:priority ],
+        [ rdfs:comment "Generated from: manual-required-profile" ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path mis:ruleExpression ],
+        [ rdfs:comment "Generated from: manual-required-profile" ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path mis:profileId ],
+        [ rdfs:comment "Generated from: manual-required-profile" ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path mis:forState ],
+        [ rdfs:comment "Generated from: manual-required-profile" ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path mis:hasKnowledgeCategory ],
+        [ rdfs:comment "Generated from: manual-required-profile" ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path mis:appliesToDevice ] ;
+    sh:targetClass mis:STHCompositeRuleKnowledge .
+
+shape:STHSpecificationShape a sh:NodeShape ;
+    rdfs:comment "Auto-generated SHACL shape for http://nkust.edu.tw/mislab#STHSpecification" ;
+    sh:property [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:datatype xsd:string ;
+            sh:path mis:forSpindle ],
+        [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:datatype xsd:float ;
+            sh:path mis:hasSamplingRate ],
+        [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:path mis:Specification ] ;
+    sh:targetClass mis:STHSpecification .
+
+shape:STHStateShape a sh:NodeShape ;
+    rdfs:comment "Auto-generated SHACL shape for http://nkust.edu.tw/mislab#STHState" ;
+    sh:property [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:dateTime ;
+            sh:path dc:date ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:string ;
+            sh:path dc:creator ] ;
+    sh:targetClass mis:STHState .
+
+shape:STHThresholdKnowledgeShape a sh:NodeShape ;
+    rdfs:comment "Auto-generated SHACL shape for http://nkust.edu.tw/mislab#STHThresholdKnowledge" ;
+    sh:property [ rdfs:comment "Generated from: manual-required-profile" ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path mis:priority ],
+        [ rdfs:comment "Generated from: manual-required-profile" ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path mis:minValue ],
+        [ rdfs:comment "Generated from: manual-required-profile" ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path mis:maxValue ],
+        [ rdfs:comment "Generated from: manual-required-profile" ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path mis:minInclusive ],
+        [ rdfs:comment "Generated from: manual-required-profile" ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path mis:forState ],
+        [ rdfs:comment "Generated from: manual-required-profile" ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path mis:maxExclusive ],
+        [ rdfs:comment "Generated from: manual-required-profile" ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path mis:hasKnowledgeCategory ],
+        [ rdfs:comment "Generated from: manual-required-profile" ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path mis:appliesToDevice ],
+        [ rdfs:comment "Generated from: manual-required-profile" ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path mis:inferredProperty ],
+        [ rdfs:comment "Generated from: manual-required-profile" ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path mis:profileId ],
+        [ rdfs:comment "Generated from: manual-required-profile" ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path mis:observedProperty ] ;
+    sh:targetClass mis:STHThresholdKnowledge .
+
+shape:SmartToolHolderShape a sh:NodeShape ;
+    rdfs:comment "Auto-generated SHACL shape for http://nkust.edu.tw/mislab/cnc/ontology/sth#SmartToolHolder" ;
+    sh:property [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:class sth:CuttingTool ;
+            sh:path mis:holdsTool ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:string ;
+            sh:path dc:creator ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:string ;
+            sh:path mis:forSpindle ],
+        [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:datatype rdf:langString ;
+            sh:path mis:hasRouterIP ],
+        [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:datatype rdf:langString ;
+            sh:path mis:setDefaultRouterPass ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:string ;
+            sh:path mis:hasBendingCoef ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype owl:rational ;
+            sh:path mis:hasUnbalance ],
+        [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:class mis:STHCoefficient ;
+            sh:path mis:hasCoefficient ],
+        [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:class mis:STHSpecification ;
+            sh:path mis:hasSpecification ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:dateTime ;
+            sh:path dc:date ] ;
+    sh:targetClass sth:SmartToolHolder .
+
+shape:SpidleVibrationShape a sh:NodeShape ;
+    rdfs:comment "Auto-generated SHACL shape for http://nkust.edu.tw/mislab/cnc/ontology/sth#SpidleVibration" ;
+    sh:property [ rdfs:comment "Generated from: observed-data" ;
+            sh:class sth:OPCUANode ;
+            sh:path sth:mapsToOPCUANode ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:class sth:JSONField ;
+            sh:path sth:mapsToJSONField ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:decimal ;
+            sh:path sth:hasValue ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:class sth:MQTTTopic ;
+            sh:path sth:mapsToMQTTTopic ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:string ;
+            sh:path sth:hasUnit ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:string ;
+            sh:path sth:hasName ] ;
+    sh:targetClass sth:SpidleVibration .
+
+shape:SpindleCurrentShape a sh:NodeShape ;
+    rdfs:comment "Auto-generated SHACL shape for http://nkust.edu.tw/mislab/cnc/ontology/sth#SpindleCurrent" ;
+    sh:property [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:string ;
+            sh:path dc:creator ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:dateTime ;
+            sh:path dc:date ] ;
+    sh:targetClass sth:SpindleCurrent .
+
+shape:SpindleShape a sh:NodeShape ;
+    rdfs:comment "Auto-generated SHACL shape for http://nkust.edu.tw/mislab#Spindle" ;
+    sh:property [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:dateTime ;
+            sh:path dc:date ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:string ;
+            sh:path dc:creator ] ;
+    sh:targetClass mis:Spindle .
+
+shape:StrainSignalShape a sh:NodeShape ;
+    rdfs:comment "Auto-generated SHACL shape for http://nkust.edu.tw/mislab/cnc/ontology/sth#StrainSignal" ;
+    sh:property [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:string ;
+            sh:path dc:creator ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:dateTime ;
+            sh:path dc:date ] ;
+    sh:targetClass sth:StrainSignal .
+
+shape:SurfaceRoughnessShape a sh:NodeShape ;
+    rdfs:comment "Auto-generated SHACL shape for http://nkust.edu.tw/mislab/cnc/ontology/sth#SurfaceRoughness" ;
+    sh:property [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:string ;
+            sh:path dc:creator ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:dateTime ;
+            sh:path dc:date ] ;
+    sh:targetClass sth:SurfaceRoughness .
+
+shape:ToolConditionShape a sh:NodeShape ;
+    rdfs:comment "Auto-generated SHACL shape for http://nkust.edu.tw/mislab#ToolCondition" ;
+    sh:property [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:string ;
+            sh:path dc:creator ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:dateTime ;
+            sh:path dc:date ] ;
+    sh:targetClass mis:ToolCondition .
+
+shape:ToolMountingShape a sh:NodeShape ;
+    rdfs:comment "Auto-generated SHACL shape for http://nkust.edu.tw/mislab#ToolMounting" ;
+    sh:property [ rdfs:comment "Generated from: ontology-domain-range" ;
+            sh:class sth:SmartToolHolder ;
+            sh:path mis:mountedHolder ] ;
+    sh:targetClass mis:ToolMounting .
+
+shape:ToolTemperatureShape a sh:NodeShape ;
+    rdfs:comment "Auto-generated SHACL shape for http://nkust.edu.tw/mislab/cnc/ontology/sth#ToolTemperature" ;
+    sh:property [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:dateTime ;
+            sh:path dc:date ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:string ;
+            sh:path dc:creator ] ;
+    sh:targetClass sth:ToolTemperature .
+
+shape:TorqueSignalShape a sh:NodeShape ;
+    rdfs:comment "Auto-generated SHACL shape for http://nkust.edu.tw/mislab/cnc/ontology/sth#TorqueSignal" ;
+    sh:property [ rdfs:comment "Generated from: observed-data" ;
+            sh:class sth:OPCUANode ;
+            sh:path sth:mapsToOPCUANode ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:decimal ;
+            sh:path sth:hasValue ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:class sth:MQTTTopic ;
+            sh:path sth:mapsToMQTTTopic ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:class sth:JSONField ;
+            sh:path sth:mapsToJSONField ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:string ;
+            sh:path sth:hasName ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:float ;
+            sh:path mis:hasCuttingSpeed ],
+        [ rdfs:comment "Generated from: observed-data" ;
+            sh:datatype xsd:string ;
+            sh:path sth:hasUnit ] ;
+    sh:targetClass sth:TorqueSignal .
+

@@ -1,0 +1,10 @@
+batch_id,knowledge_id,category,state_uri,min_property,min_value,max_property,max_value,confidence,dataset_id,description
+TMV720_Batch_A,Knowledge_A_ToolNormal,tool_condition,mis:Tool_Normal,mis:minTorqueRatio,0,mis:maxTorqueRatio,1.15,0.92,tmv720_2026_batch_A,Normal tool condition based on torque ratio
+TMV720_Batch_A,Knowledge_A_ToolWorn,tool_condition,mis:Tool_Worn,mis:minTorqueRatio,1.15,mis:maxTorqueRatio,1.48,0.93,tmv720_2026_batch_A,Worn tool condition based on torque ratio
+TMV720_Batch_A,Knowledge_A_ToolSevereWear,tool_condition,mis:Tool_SevereWear,mis:minTorqueRatio,1.48,mis:maxTorqueRatio,9.99,0.9,tmv720_2026_batch_A,Severe tool wear based on torque ratio
+TMV720_Batch_A,Knowledge_A_Ra_OK,surface_quality,mis:Ra_OK,mis:minMeasuredRa,0,mis:maxMeasuredRa,0.75,0.91,tmv720_2026_batch_A,Surface roughness within acceptable range
+TMV720_Batch_A,Knowledge_A_Ra_Warning,surface_quality,mis:Ra_Warning,mis:minMeasuredRa,0.75,mis:maxMeasuredRa,1.5,0.89,tmv720_2026_batch_A,Surface roughness warning range
+TMV720_Batch_A,Knowledge_A_Ra_Bad,surface_quality,mis:Ra_Bad,mis:minMeasuredRa,1.5,mis:maxMeasuredRa,9.99,0.88,tmv720_2026_batch_A,Surface roughness unacceptable range
+TMV720_Batch_A,Knowledge_A_ProcessStable,process_state,sth:State_Stable,mis:minChatterScore,0,mis:maxChatterScore,0.28,0.91,tmv720_2026_batch_A,Stable process based on chatter score
+TMV720_Batch_A,Knowledge_A_ProcessTransition,process_state,sth:State_Transition,mis:minChatterScore,0.28,mis:maxChatterScore,0.68,0.88,tmv720_2026_batch_A,Transition process based on chatter score
+TMV720_Batch_A,Knowledge_A_ProcessChatter,process_state,sth:State_Chatter,mis:minChatterScore,0.68,mis:maxChatterScore,1,0.92,tmv720_2026_batch_A,Chatter process based on chatter score

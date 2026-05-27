@@ -1,0 +1,294 @@
+@prefix mis: <http://nkust.edu.tw/mislab#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+mis:Comm_Fail a mis:CommunicationState .
+
+mis:Comm_Stable a mis:CommunicationState .
+
+mis:Comm_Unstable a mis:CommunicationState .
+
+mis:Heavy_Load a mis:LoadState .
+
+mis:Light_Load a mis:LoadState .
+
+mis:Low_Battery a mis:BatteryState .
+
+mis:Need_Charge a mis:BatteryState .
+
+mis:Normal_Battery a mis:BatteryState .
+
+mis:Normal_Load a mis:LoadState .
+
+mis:STH_Available a mis:STHState .
+
+mis:STH_Check a mis:STHState .
+
+mis:STH_Light_Load a mis:STHCondition,
+        mis:STHKnowledgeRule,
+        mis:STHThresholdKnowledge ;
+    rdfs:label "STH_Light_Load"^^xsd:string ;
+    mis:confidence 9.1e-01 ;
+    mis:forState mis:Light_Load ;
+    mis:hasCondition mis:STH_Light_Load ;
+    mis:hasKnowledgeCategory "load_state"^^xsd:string ;
+    mis:hasKnowledgeId "STH_Light_Load"^^xsd:string ;
+    mis:hasProfile mis:STH_profile_v1 ;
+    mis:hasProfileId "STH_profile_v1"^^xsd:string ;
+    mis:hasRuleType "threshold"^^xsd:string ;
+    mis:hasStateClass mis:LoadState ;
+    mis:inferredProperty mis:hasLoadState ;
+    mis:maxExclusive true ;
+    mis:maxValue 3.2e-01 ;
+    mis:minInclusive true ;
+    mis:minValue 0e+00 ;
+    mis:observedProperty mis:hasMaxTorque ;
+    mis:priority 10 ;
+    rdfs:comment "Maximum torque indicates light load."^^xsd:string .
+
+mis:STH_NA a mis:STHState .
+
+mis:STH_Normal_Load a mis:STHCondition,
+        mis:STHKnowledgeRule,
+        mis:STHThresholdKnowledge ;
+    rdfs:label "STH_Normal_Load"^^xsd:string ;
+    mis:confidence 8.8e-01 ;
+    mis:forState mis:Normal_Load ;
+    mis:hasCondition mis:STH_Normal_Load ;
+    mis:hasKnowledgeCategory "load_state"^^xsd:string ;
+    mis:hasKnowledgeId "STH_Normal_Load"^^xsd:string ;
+    mis:hasProfile mis:STH_profile_v1 ;
+    mis:hasProfileId "STH_profile_v1"^^xsd:string ;
+    mis:hasRuleType "threshold"^^xsd:string ;
+    mis:hasStateClass mis:LoadState ;
+    mis:inferredProperty mis:hasLoadState ;
+    mis:maxExclusive true ;
+    mis:maxValue 7.2e-01 ;
+    mis:minInclusive true ;
+    mis:minValue 3.2e-01 ;
+    mis:observedProperty mis:hasMaxTorque ;
+    mis:priority 10 ;
+    rdfs:comment "Maximum torque indicates normal load."^^xsd:string .
+
+mis:STH_STH_Available a mis:STHCompositeKnowledge,
+        mis:STHCompositeRuleKnowledge,
+        mis:STHCondition,
+        mis:STHKnowledgeRule ;
+    rdfs:label "STH_STH_Available"^^xsd:string ;
+    mis:conditionExpression "(STH_Normal_Battery) and (STH_Comm_Stable) and (STH_Normal_Load or STH_Light_Load)"^^xsd:string ;
+    mis:forState mis:STH_Available ;
+    mis:hasCondition mis:STH_STH_Available ;
+    mis:hasKnowledgeCategory "sth_availability"^^xsd:string ;
+    mis:hasKnowledgeId "STH_STH_Available"^^xsd:string ;
+    mis:hasProfile mis:STH_profile_v1 ;
+    mis:hasProfileId "STH_profile_v1"^^xsd:string ;
+    mis:hasRuleType "composite"^^xsd:string ;
+    mis:hasStateClass mis:STHState ;
+    mis:inferredProperty mis:hasSTHState ;
+    mis:priority 100 ;
+    mis:requiresCondition mis:STH_Comm_Stable,
+        mis:STH_Normal_Battery ;
+    mis:ruleExpression "(STH_Normal_Battery) and (STH_Comm_Stable) and (STH_Normal_Load or STH_Light_Load)"^^xsd:string ;
+    rdfs:comment "STH is available only when battery and communication are normal/stable and the load is normal or light."^^xsd:string .
+
+mis:STH_STH_Check a mis:STHCompositeKnowledge,
+        mis:STHCompositeRuleKnowledge,
+        mis:STHCondition,
+        mis:STHKnowledgeRule ;
+    rdfs:label "STH_STH_Check"^^xsd:string ;
+    mis:conditionExpression "(STH_Low_Battery) or (STH_Comm_Unstable) or (STH_Heavy_Load)"^^xsd:string ;
+    mis:forState mis:STH_Check ;
+    mis:hasCondition mis:STH_STH_Check ;
+    mis:hasKnowledgeCategory "sth_availability"^^xsd:string ;
+    mis:hasKnowledgeId "STH_STH_Check"^^xsd:string ;
+    mis:hasProfile mis:STH_profile_v1 ;
+    mis:hasProfileId "STH_profile_v1"^^xsd:string ;
+    mis:hasRuleType "composite"^^xsd:string ;
+    mis:hasStateClass mis:STHState ;
+    mis:inferredProperty mis:hasSTHState ;
+    mis:priority 90 ;
+    mis:requiresCondition mis:STH_Comm_Unstable,
+        mis:STH_Heavy_Load,
+        mis:STH_Low_Battery ;
+    mis:ruleExpression "(STH_Low_Battery) or (STH_Comm_Unstable) or (STH_Heavy_Load)"^^xsd:string ;
+    rdfs:comment "STH should be checked when battery is low communication is unstable or load is heavy."^^xsd:string .
+
+mis:STH_STH_NA a mis:STHCompositeKnowledge,
+        mis:STHCompositeRuleKnowledge,
+        mis:STHCondition,
+        mis:STHKnowledgeRule ;
+    rdfs:label "STH_STH_NA"^^xsd:string ;
+    mis:conditionExpression "(STH_Need_Charge) or (STH_Comm_Fail) or (STH_Heavy_Load)"^^xsd:string ;
+    mis:forState mis:STH_NA ;
+    mis:hasCondition mis:STH_STH_NA ;
+    mis:hasKnowledgeCategory "sth_availability"^^xsd:string ;
+    mis:hasKnowledgeId "STH_STH_NA"^^xsd:string ;
+    mis:hasProfile mis:STH_profile_v1 ;
+    mis:hasProfileId "STH_profile_v1"^^xsd:string ;
+    mis:hasRuleType "composite"^^xsd:string ;
+    mis:hasStateClass mis:STHState ;
+    mis:inferredProperty mis:hasSTHState ;
+    mis:priority 100 ;
+    mis:requiresCondition mis:STH_Comm_Fail,
+        mis:STH_Heavy_Load,
+        mis:STH_Need_Charge ;
+    mis:ruleExpression "(STH_Need_Charge) or (STH_Comm_Fail) or (STH_Heavy_Load)"^^xsd:string ;
+    rdfs:comment "STH is not available when charging is needed communication fails or the referenced STH-3 heavy-load condition is active."^^xsd:string .
+
+mis:STH_Comm_Fail a mis:STHCondition,
+        mis:STHKnowledgeRule,
+        mis:STHThresholdKnowledge ;
+    rdfs:label "STH_Comm_Fail"^^xsd:string ;
+    mis:confidence 9.1e-01 ;
+    mis:forState mis:Comm_Fail ;
+    mis:hasCondition mis:STH_Comm_Fail ;
+    mis:hasKnowledgeCategory "communication_quality"^^xsd:string ;
+    mis:hasKnowledgeId "STH_Comm_Fail"^^xsd:string ;
+    mis:hasProfile mis:STH_profile_v1 ;
+    mis:hasProfileId "STH_profile_v1"^^xsd:string ;
+    mis:hasRuleType "threshold"^^xsd:string ;
+    mis:hasStateClass mis:CommunicationState ;
+    mis:inferredProperty mis:hasCommunicationState ;
+    mis:maxExclusive true ;
+    mis:maxValue 4e-01 ;
+    mis:minInclusive true ;
+    mis:minValue 0e+00 ;
+    mis:observedProperty mis:hasCommScore ;
+    mis:priority 10 ;
+    rdfs:comment "Communication score indicates fail."^^xsd:string .
+
+mis:STH_Comm_Stable a mis:STHCondition,
+        mis:STHKnowledgeRule,
+        mis:STHThresholdKnowledge ;
+    rdfs:label "STH_Comm_Stable"^^xsd:string ;
+    mis:confidence 8.8e-01 ;
+    mis:forState mis:Comm_Stable ;
+    mis:hasCondition mis:STH_Comm_Stable ;
+    mis:hasKnowledgeCategory "communication_quality"^^xsd:string ;
+    mis:hasKnowledgeId "STH_Comm_Stable"^^xsd:string ;
+    mis:hasProfile mis:STH_profile_v1 ;
+    mis:hasProfileId "STH_profile_v1"^^xsd:string ;
+    mis:hasRuleType "threshold"^^xsd:string ;
+    mis:hasStateClass mis:CommunicationState ;
+    mis:inferredProperty mis:hasCommunicationState ;
+    mis:maxExclusive true ;
+    mis:maxValue 1e+00 ;
+    mis:minInclusive true ;
+    mis:minValue 7e-01 ;
+    mis:observedProperty mis:hasCommScore ;
+    mis:priority 10 ;
+    rdfs:comment "Communication score indicates stable communication."^^xsd:string .
+
+mis:STH_Comm_Unstable a mis:STHCondition,
+        mis:STHKnowledgeRule,
+        mis:STHThresholdKnowledge ;
+    rdfs:label "STH_Comm_Unstable"^^xsd:string ;
+    mis:confidence 8.9e-01 ;
+    mis:forState mis:Comm_Unstable ;
+    mis:hasCondition mis:STH_Comm_Unstable ;
+    mis:hasKnowledgeCategory "communication_quality"^^xsd:string ;
+    mis:hasKnowledgeId "STH_Comm_Unstable"^^xsd:string ;
+    mis:hasProfile mis:STH_profile_v1 ;
+    mis:hasProfileId "STH_profile_v1"^^xsd:string ;
+    mis:hasRuleType "threshold"^^xsd:string ;
+    mis:hasStateClass mis:CommunicationState ;
+    mis:inferredProperty mis:hasCommunicationState ;
+    mis:maxExclusive true ;
+    mis:maxValue 7e-01 ;
+    mis:minInclusive true ;
+    mis:minValue 4e-01 ;
+    mis:observedProperty mis:hasCommScore ;
+    mis:priority 10 ;
+    rdfs:comment "Communication score indicates unstable communication."^^xsd:string .
+
+mis:STH_Low_Battery a mis:STHCondition,
+        mis:STHKnowledgeRule,
+        mis:STHThresholdKnowledge ;
+    rdfs:label "STH_Low_Battery"^^xsd:string ;
+    mis:confidence 9.3e-01 ;
+    mis:forState mis:Low_Battery ;
+    mis:hasCondition mis:STH_Low_Battery ;
+    mis:hasKnowledgeCategory "battery_condition"^^xsd:string ;
+    mis:hasKnowledgeId "STH_Low_Battery"^^xsd:string ;
+    mis:hasProfile mis:STH_profile_v1 ;
+    mis:hasProfileId "STH_profile_v1"^^xsd:string ;
+    mis:hasRuleType "threshold"^^xsd:string ;
+    mis:hasStateClass mis:BatteryState ;
+    mis:inferredProperty mis:hasBatteryState ;
+    mis:maxExclusive true ;
+    mis:maxValue 1.58e+00 ;
+    mis:minInclusive true ;
+    mis:minValue 1.22e+00 ;
+    mis:observedProperty mis:hasBatteryLevel ;
+    mis:priority 10 ;
+    rdfs:comment "Battery level indicates low battery."^^xsd:string .
+
+mis:STH_Need_Charge a mis:STHCondition,
+        mis:STHKnowledgeRule,
+        mis:STHThresholdKnowledge ;
+    rdfs:label "STH_Need_Charge"^^xsd:string ;
+    mis:confidence 9.2e-01 ;
+    mis:forState mis:Need_Charge ;
+    mis:hasCondition mis:STH_Need_Charge ;
+    mis:hasKnowledgeCategory "battery_condition"^^xsd:string ;
+    mis:hasKnowledgeId "STH_Need_Charge"^^xsd:string ;
+    mis:hasProfile mis:STH_profile_v1 ;
+    mis:hasProfileId "STH_profile_v1"^^xsd:string ;
+    mis:hasRuleType "threshold"^^xsd:string ;
+    mis:hasStateClass mis:BatteryState ;
+    mis:inferredProperty mis:hasBatteryState ;
+    mis:maxExclusive true ;
+    mis:maxValue 1.22e+00 ;
+    mis:minInclusive true ;
+    mis:minValue 0e+00 ;
+    mis:observedProperty mis:hasBatteryLevel ;
+    mis:priority 10 ;
+    rdfs:comment "Battery level indicates need charge."^^xsd:string .
+
+mis:STH_Normal_Battery a mis:STHCondition,
+        mis:STHKnowledgeRule,
+        mis:STHThresholdKnowledge ;
+    rdfs:label "STH_Normal_Battery"^^xsd:string ;
+    mis:confidence 9e-01 ;
+    mis:forState mis:Normal_Battery ;
+    mis:hasCondition mis:STH_Normal_Battery ;
+    mis:hasKnowledgeCategory "battery_condition"^^xsd:string ;
+    mis:hasKnowledgeId "STH_Normal_Battery"^^xsd:string ;
+    mis:hasProfile mis:STH_profile_v1 ;
+    mis:hasProfileId "STH_profile_v1"^^xsd:string ;
+    mis:hasRuleType "threshold"^^xsd:string ;
+    mis:hasStateClass mis:BatteryState ;
+    mis:inferredProperty mis:hasBatteryState ;
+    mis:maxExclusive true ;
+    mis:maxValue 9.99e+00 ;
+    mis:minInclusive true ;
+    mis:minValue 1.58e+00 ;
+    mis:observedProperty mis:hasBatteryLevel ;
+    mis:priority 10 ;
+    rdfs:comment "Battery level indicates normal battery."^^xsd:string .
+
+mis:STH_Heavy_Load a mis:STHCondition,
+        mis:STHKnowledgeRule,
+        mis:STHThresholdKnowledge ;
+    rdfs:label "STH_Heavy_Load"^^xsd:string ;
+    mis:confidence 9.2e-01 ;
+    mis:forState mis:Heavy_Load ;
+    mis:hasCondition mis:STH_Heavy_Load ;
+    mis:hasKnowledgeCategory "load_state"^^xsd:string ;
+    mis:hasKnowledgeId "STH_Heavy_Load"^^xsd:string ;
+    mis:hasProfile mis:STH_profile_v1 ;
+    mis:hasProfileId "STH_profile_v1"^^xsd:string ;
+    mis:hasRuleType "threshold"^^xsd:string ;
+    mis:hasStateClass mis:LoadState ;
+    mis:inferredProperty mis:hasLoadState ;
+    mis:maxExclusive true ;
+    mis:maxValue 1e+00 ;
+    mis:minInclusive true ;
+    mis:minValue 7.2e-01 ;
+    mis:observedProperty mis:hasMaxTorque ;
+    mis:priority 10 ;
+    rdfs:comment "Maximum torque indicates heavy load."^^xsd:string .
+
+mis:STH_profile_v1 a mis:STHKnowledgeProfile ;
+    rdfs:label "STH_profile_v1"^^xsd:string .
+

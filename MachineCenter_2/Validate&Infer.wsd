@@ -1,0 +1,108 @@
+@startuml
+title Sequence Diagrams of Ontology Services
+caption Diagnosis and Aggregation of Sensing Data.
+header Ontology Sequence Diagrams
+footer Page %page% of %lastpage%
+
+box "Ontology Layer" #LightBlue
+    participant BuildThresoldKnowledge
+    participant BuildRuleKnowledge
+end box
+
+collections KnowledgeFolder
+collections OntologyFolder
+collections RunTimeFolder
+collections RulesFolder
+collections OutputFolder
+
+autonumber 3.0
+autonumber inc B
+
+group RDF / Ontology Layer Building
+    activate BuildThresoldKnowledge
+    activate BuildRuleKnowledge
+    BuildThresoldKnowledge <-> KnowledgeFolder: build knowledge 
+        note right
+        run knowledge_ttl_from_threshold_csv.py
+        *_batch_*.ttl, 
+        batch_registry.ttl
+        end note 
+    OntologyFolder <-> OntologyFolder: use protege
+    BuildRuleKnowledge -> RulesFolder: save rules
+        note right
+        01_infer_tool_condition.rq, 
+        02_infer_tool_status.rq, 
+        03_infer_machine_status.rq 
+        end note     
+    deactivate BuildThresoldKnowledge
+end
+
+box "Validation + Inference Layer" #LightGreen
+    participant ValidateSHACL
+    participant InferbyAPARQL
+end box
+
+autonumber 4.0
+autonumber inc B
+activate ValidateSHACL
+group Validation + Inference Layer
+    ValidateSHACL <--> RunTimeFolder: validate TMV720_runtime_observation.ttl    
+        note right
+        run validation/validate_runtime_layer.py
+        run validation/validate_knowledge_layer.py   
+        end note
+    deactivate ValidateSHACL   
+    
+    activate InferbyAPARQL
+    InferbyAPARQL <-- RulesFolder: use rules*.rq  
+        note right
+        01_infer_tool_condition.rq, 
+        02_infer_tool_status.rq, 
+        03_infer_machine_status.rq 
+        end note     
+    InferbyAPARQL <-- RunTimeFolder: use runtime ttl
+        note right
+        TMV720_runtime_observation.ttl, 
+            runtime_batch_selector.ttl
+        end note
+    InferbyAPARQL <-- KnowledgeFolder: use knoledge ttl
+        note right
+            *_batch_*.ttl, 
+            batch_registry.ttl
+        end note
+    InferbyAPARQL <-- OntologyFolder: use ontology ttl
+        note right
+            TMV-720_ontology_0.ttl,
+            TMV-720_ontology_auto_from_schema.ttl
+        end note
+
+    InferbyAPARQL --> OutputFolder: save inferred results
+        note right
+            run rdf_native_infer_sparql.py
+            output TMV720_runtime_inferred_aligned.ttl
+        end note      
+
+    deactivate BuildRuleKnowledge
+    deactivate BuildThresoldKnowledge
+    deactivate InferbyAPARQL
+
+end
+
+box "UI Layer" #LightYellow
+    participant PublishResult
+    actor User
+end box
+
+activate PublishResult
+group Publish Result    
+    PublishResult <-- OutputFolder: save inference results
+        note left
+        output/TMV720_runtime_inferred_aligned.ttl:{
+        }
+        end note     
+    PublishResult --> User: publish inference results
+  
+    deactivate PublishResult
+end
+
+@endum
