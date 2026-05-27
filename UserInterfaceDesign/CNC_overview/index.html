@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CNC 加工監控系統</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/loaders/STLLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/controls/OrbitControls.js"></script>
+    <style>
+        body, html {
+            margin: 0; padding: 0; height: 100vh;
+            background-color: #f0f2f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden; 
+        }
+
+        #app {
+            display: grid; height: 100vh; gap: 15px; padding: 15px; box-sizing: border-box;
+            grid-template-columns: 250px 1fr 350px;
+            grid-template-rows: 120px 1fr 100px;
+            grid-template-areas:
+                "left-panel top-center right-panel"
+                "left-panel main-center right-panel"
+                "bottom-panel bottom-panel bottom-panel";
+        }
+
+        .panel {
+            background-color: white; border: 2px dashed #5f27cd; border-radius: 8px;
+            padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            display: flex; flex-direction: column; 
+        }
+
+        .left-panel { grid-area: left-panel; overflow-y: auto; padding: 15px;}
+        .top-center { grid-area: top-center; flex-direction: row; justify-content: space-around; align-items: center;}
+        
+        .main-center { 
+            grid-area: main-center; 
+            padding: 0; 
+            overflow: hidden; 
+            position: relative;
+            background-color: #eef2f3;
+        }
+
+        .bottom-panel { grid-area: bottom-panel; align-items: center; justify-content: center; flex-direction: row;}
+        
+        .right-panel { grid-area: right-panel; padding: 15px; display: flex; flex-direction: column;}
+        .right-header {
+            flex: 0 0 auto; margin-top: 0; margin-bottom: 10px; font-size: 1.2rem;
+            font-weight: bold; border-bottom: 2px solid #5f27cd; padding-bottom: 5px;
+        }
+        .tool-list {
+            flex: 1 1 auto; overflow-y: auto; display: flex; flex-direction: column;
+            gap: 10px; padding-right: 5px; 
+        }
+
+        .tool-card {
+            border: 2px solid #2c3e50; background-color: #fff;
+            min-height: calc((100% - 20px) / 3); 
+            display: flex; flex-direction: column; box-sizing: border-box;
+        }
+        .tool-header {
+            background-color: #2c3e50; color: white; padding: 4px 10px;
+            font-weight: bold; font-size: 1rem; flex: 0 0 auto;
+        }
+        .tool-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+            background-color: #bdc3c7; flex: 1 1 auto; 
+        }
+        .tool-cell {
+            background-color: white; padding: 4px; text-align: center;
+            display: flex; flex-direction: column; justify-content: center;
+        }
+        
+        .cell-full { 
+            grid-column: span 2; 
+            flex-direction: row; 
+            justify-content: center; 
+            align-items: center;
+            gap: 15px; 
+        }
+        .cell-full .cell-title { margin-bottom: 0; } 
+        
+        .cell-title { font-size: 0.75rem; color: #7f8c8d; margin-bottom: 2px; }
+        .cell-data { font-size: 1.05rem; font-weight: bold; color: #2c3e50; }
+
+        .input-group { margin-bottom: 15px; }
+        .input-group label { display: block; font-weight: bold; margin-bottom: 5px; font-size: 0.85rem;}
+        .param-box {
+            background-color: #f8f9fa; border: 1px solid #dee2e6; border-radius: 4px;
+            padding: 8px; margin-bottom: 10px; text-align: center;
+        }
+        .param-label { font-size: 0.8rem; color: #6c757d; margin-bottom: 4px; }
+        .param-value { font-size: 1.1rem; font-weight: bold; color: #212529; }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="panel left-panel">
+            <h3 style="margin-top: 0; border-bottom: 2px solid #5f27cd; padding-bottom: 10px;">專案控制面板</h3>
+            
+            <div class="input-group">
+                <label>載入工件模型 (STL)</label>
+                <input type="file" accept=".stl" @change="loadSTLFile" style="width: 100%;">
+            </div>
+
+            <div class="input-group">
+                <label>載入 NC 程式檔</label>
+                <input type="file" accept=".nc, .txt, .gcode" @change="parseNCFile" style="width: 100%;">
+            </div>
+            
+            <div class="param-box">
+                <div class="param-label">主軸轉速 (Spindle Speed)</div>
+                <div class="param-value">{{ spindleSpeed }} RPM</div>
+            </div>
+            <div class="param-box">
+                <div class="param-label">進給速率 (Feed Rate)</div>
+                <div class="param-value">{{ feedRate }} mm/min</div>
+            </div>
+        </div>
+
+        <div class="panel top-center">
+            <div style="text-align: center;">
+                <div style="font-size: 0.9rem; color: #666; font-weight: bold;">CNC 機台狀態</div>
+                <div style="font-size: 1.5rem; color: #27ae60; font-weight: bold; margin-top: 5px;">連線正常 (RUNNING)</div>
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 0.9rem; color: #666; font-weight: bold;">目前 Batch 剩餘時間</div>
+                <div style="font-size: 1.5rem; color: #e15f41; font-weight: bold; margin-top: 5px;">{{ remainingTime }} 分鐘</div>
+            </div>
+        </div>
+
+        <div class="panel main-center" style="position: relative; padding: 0;">
+            <div id="stl-container" style="width: 100%; height: 100%; position: absolute; top: 0; left: 0;"></div>
+            
+            <div v-show="!isStlLoaded" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #7f8c8d; text-align: center; font-weight: bold; font-size: 1.2rem; pointer-events: none;">
+                中央：工件完成品 3D 顯示區<br>
+                <span style="font-size: 0.9rem; font-weight: normal;">(請從左側載入 STL 檔案)</span>
+            </div>
+
+            <div v-show="isStlLoaded" style="position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); background: rgba(255,255,255,0.8); padding: 8px 20px; border-radius: 20px; font-size: 0.85rem; color: #2c3e50; pointer-events: none; white-space: nowrap; box-shadow: 0 2px 6px rgba(0,0,0,0.15); font-weight: bold;">
+                滑鼠左鍵拖曳：旋轉視角 ｜ 滾輪：縮放 ｜ 滑鼠右鍵拖曳：平移
+            </div>
+        </div>
+
+        <div class="panel right-panel">
+            <div class="right-header">
+                刀具狀態 (Batch: {{ currentBatch }})
+            </div>
+            <div class="tool-list">
+                <div v-for="tool in toolsData" :key="tool.id" class="tool-card">
+                    <div class="tool-header">刀把 {{ tool.id }}</div>
+                    <div class="tool-grid">
+                        <div class="tool-cell">
+                            <span class="cell-title">Tool wear</span>
+                            <span class="cell-data">{{ tool.wear }}</span>
+                        </div>
+                        <div class="tool-cell">
+                            <span class="cell-title">State</span>
+                            <span class="cell-data" :style="{ color: tool.state === '異常' ? '#e74c3c' : '#27ae60' }">{{ tool.state }}</span>
+                        </div>
+                        <div class="tool-cell">
+                            <span class="cell-title">Torque</span>
+                            <span class="cell-data">{{ tool.torque }}</span>
+                        </div>
+                        <div class="tool-cell">
+                            <span class="cell-title">Bending</span>
+                            <span class="cell-data">{{ tool.bending }}</span>
+                        </div>
+                        <div class="tool-cell cell-full">
+                            <span class="cell-title">Ra</span>
+                            <span class="cell-data">{{ tool.ra }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel bottom-panel">
+            <label for="batchSlider" style="font-size: 1.2rem; font-weight: bold; margin-right: 20px;">
+                目前批次: Batch {{ currentBatch }}
+            </label>
+            <input type="range" id="batchSlider" min="-3" max="2" v-model="currentBatch" @input="updateData" style="width: 50%;">
+        </div>
+    </div>
+
+    <script>
+        // 【新增】：將 controls 加入獨立變數區，避免被 Vue 的 Proxy 影響
+        let scene, camera, renderer, mesh, controls;
+
+        const { createApp } = Vue
+        
+        createApp({
+            data() {
+                return {
+                    currentBatch: 0,
+                    toolsData: [],
+                    remainingTime: 10,
+                    spindleSpeed: '--',
+                    feedRate: '--',
+                    isStlLoaded: false
+                }
+            },
+            methods: {
+                generateRandomData() {
+                    const data = [];
+                    for (let i = 1; i <= 6; i++) {
+                        data.push({
+                            id: `T${i}`,
+                            state: Math.random() > 0.85 ? '異常' : '正常',
+                            wear: (Math.random() * 2).toFixed(3),
+                            torque: (Math.random() * 50 + 10).toFixed(1),
+                            bending: (Math.random() * 0.5).toFixed(3),
+                            ra: (Math.random() * 3 + 0.5).toFixed(2)
+                        });
+                    }
+                    this.toolsData = data;
+                },
+                updateData() {
+                    this.generateRandomData();
+                    if (this.currentBatch < 0) {
+                        this.remainingTime = 0;
+                    } else if (this.currentBatch == 0) {
+                        this.remainingTime = Math.floor(Math.random() * 10) + 1;
+                    } else {
+                        this.remainingTime = 10;
+                    }
+                },
+                parseNCFile(event) {
+                    const file = event.target.files[0];
+                    if (!file) return;
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const content = e.target.result;
+                        const sMatch = content.match(/S(\d+)/i);
+                        const fMatch = content.match(/F(\d+\.?\d*)/i);
+                        this.spindleSpeed = sMatch ? sMatch[1] : '--';
+                        this.feedRate = fMatch ? fMatch[1] : '--';
+                    };
+                    reader.readAsText(file);
+                },
+                initThreeJS() {
+                    const container = document.getElementById('stl-container');
+                    
+                    scene = new THREE.Scene();
+                    scene.background = new THREE.Color(0xeef2f3);
+
+                    camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 1, 1000);
+                    camera.position.set(80, 80, 80); 
+                    camera.lookAt(0, 0, 0);
+
+                    // 【新增】：初始化 OrbitControls
+                    renderer = new THREE.WebGLRenderer({ antialias: true });
+                    renderer.setSize(container.clientWidth, container.clientHeight);
+                    container.appendChild(renderer.domElement);
+
+                    controls = new THREE.OrbitControls(camera, renderer.domElement);
+                    controls.enableDamping = true; // 開啟滑鼠慣性滑動效果
+                    controls.dampingFactor = 0.05; // 慣性阻尼係數
+
+                    const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 1.2);
+                    hemiLight.position.set(0, 200, 0);
+                    scene.add(hemiLight);
+
+                    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+                    directionalLight.position.set(1, 1, 1).normalize();
+                    scene.add(directionalLight);
+
+                    const animate = () => {
+                        requestAnimationFrame(animate);
+                        // 【更新】：取消原本的自動旋轉，改為更新控制器狀態 (讓慣性生效)
+                        if (controls) {
+                            controls.update(); 
+                        }
+                        renderer.render(scene, camera);
+                    };
+                    animate();
+
+                    window.addEventListener('resize', () => {
+                        camera.aspect = container.clientWidth / container.clientHeight;
+                        camera.updateProjectionMatrix();
+                        renderer.setSize(container.clientWidth, container.clientHeight);
+                    });
+                },
+                loadSTLFile(event) {
+                    const file = event.target.files[0];
+                    if (!file) return;
+
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const contents = e.target.result;
+                        const loader = new THREE.STLLoader();
+                        const geometry = loader.parse(contents);
+                        
+                        const material = new THREE.MeshPhongMaterial({ color: 0x2980b9, specular: 0x111111, shininess: 100 });
+                        
+                        if (mesh) {
+                            scene.remove(mesh);
+                        }
+
+                        mesh = new THREE.Mesh(geometry, material);
+                        
+                        geometry.center(); 
+                        geometry.computeBoundingBox();
+                        const size = new THREE.Vector3();
+                        geometry.boundingBox.getSize(size);
+                        
+                        const maxDim = Math.max(size.x, size.y, size.z);
+                        const scale = 50 / maxDim; 
+                        mesh.scale.set(scale, scale, scale);
+
+                        scene.add(mesh);
+                        
+                        // 當載入新模型時，重置控制器的中心點
+                        if (controls) {
+                            controls.target.set(0, 0, 0);
+                            controls.update();
+                        }
+
+                        this.isStlLoaded = true;
+                    };
+                    reader.readAsArrayBuffer(file); 
+                }
+            },
+            mounted() {
+                this.generateRandomData();
+                this.updateData();
+                this.initThreeJS();
+            }
+        }).mount('#app')
+    </script>
+</body>
+</html>
