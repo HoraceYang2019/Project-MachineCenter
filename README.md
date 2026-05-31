@@ -30,7 +30,7 @@
    *Validate inferred TTL: shapes\CNC_generated_shapes.ttl*
 
 ---
-6. **Prepare SPARQL inference**:
+6. **Prepare SPARQL inference**:<br>
   location: rules/01_infer_tool_condition.rq <br>
   location: rules/02_infer_surface_quality.rq <br>
   location: rules/03_infer_process_state.rq <br>
