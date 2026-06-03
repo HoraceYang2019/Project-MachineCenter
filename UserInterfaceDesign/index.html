@@ -19,8 +19,7 @@
         #app {
             display: grid; height: 100vh; gap: 15px; padding: 15px; box-sizing: border-box;
             grid-template-columns: 260px 1fr 350px;
-            /* 【微調 1】：將底部高度從 180px 增加到 210px，確保文字不會被裁切 */
-            grid-template-rows: 1fr 210px; 
+            grid-template-rows: minmax(0, 1fr) 210px; 
             grid-template-areas:
                 "left-panel main-center right-panel"
                 "bottom-panel bottom-panel bottom-panel"; 
@@ -28,15 +27,15 @@
 
         .panel {
             background-color: white; border: 1px solid #ced4da; border-radius: 8px;
-            padding: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            display: flex; flex-direction: column; 
+            padding: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex; flex-direction: column; min-height: 0;
         }
 
         /* --- 左側面板 --- */
-        .left-panel { grid-area: left-panel; padding: 15px;}
+        .left-panel { grid-area: left-panel; overflow-y: auto;}
         .machine-btn {
             background-color: #f1f3f4; border: 2px solid transparent; border-radius: 6px;
-            padding: 12px; margin-bottom: 10px; font-size: 1.1rem; font-weight: bold;
+            padding: 10px; margin-bottom: 10px; font-size: 1.1rem; font-weight: bold;
             color: #5f6368; cursor: pointer; text-align: center; transition: all 0.2s;
         }
         .machine-btn:hover { background-color: #e8eaed; }
@@ -44,7 +43,7 @@
 
         .status-box {
             background-color: #f8f9fa; border: 1px solid #dee2e6; border-radius: 6px;
-            padding: 12px 10px; margin-top: 12px; text-align: center;
+            padding: 10px; margin-top: 10px; text-align: center;
         }
         .status-label { font-size: 0.85rem; color: #6c757d; margin-bottom: 5px; font-weight: bold;}
         .status-value { font-size: 1.3rem; font-weight: bold; color: #212529; }
@@ -56,47 +55,52 @@
         }
 
         /* --- 右側刀具區 --- */
-        .right-panel { 
-            grid-area: right-panel; padding: 15px; display: flex; flex-direction: column; 
-            overflow: hidden; 
-        }
+        .right-panel { grid-area: right-panel; padding: 15px; display: flex; flex-direction: column;}
         .right-header {
             flex: 0 0 auto; margin-top: 0; margin-bottom: 10px; font-size: 1.2rem;
             font-weight: bold; border-bottom: 3px solid #1a73e8; padding-bottom: 5px; color: #202124;
         }
         
         .tool-list { 
-            flex: 1 1 auto; 
+            flex: 1 1 0; 
             overflow-y: auto; 
             display: flex; flex-direction: column; gap: 10px; padding-right: 5px; 
-            /* 確保底部有一點 padding，避免最後一個元素貼死 */
             padding-bottom: 2px;
         }
         
-        /* 【微調 2】：將減去的像素從 20px 增加到 24px，給予邊框與渲染誤差容錯空間，確保剛好顯示 3 把刀 */
         .tool-card { 
-            flex: 0 0 calc((100% - 24px) / 3); 
+            height: calc((100% - 24px) / 3); 
+            min-height: calc((100% - 24px) / 3); 
+            flex-shrink: 0; 
             border: 2px solid #5f6368; background-color: #fff; 
             display: flex; flex-direction: column; box-sizing: border-box; 
         }
         
-        .tool-header { background-color: #5f6368; color: white; padding: 4px 10px; font-weight: bold; font-size: 1rem; flex: 0 0 auto; }
-        .tool-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background-color: #bdc3c7; flex: 1 1 auto; }
-        .tool-cell { background-color: white; padding: 4px; text-align: center; display: flex; flex-direction: column; justify-content: center; }
+        /* 修正文字為"刀具" */
+        .tool-header { background-color: #5f6368; color: white; padding: 4px 10px; font-weight: bold; font-size: 0.95rem; flex: 0 0 auto; }
+        
+        /* 【修復】：加入 grid-template-rows 確保三排高度絕對平均，解決 Ra 擠壓問題 */
+        .tool-grid { 
+            display: grid; grid-template-columns: 1fr 1fr; 
+            grid-template-rows: repeat(3, minmax(0, 1fr)); 
+            gap: 1px; background-color: #bdc3c7; flex: 1 1 auto; min-height: 0;
+        }
+        
+        .tool-cell { background-color: white; padding: 2px; text-align: center; display: flex; flex-direction: column; justify-content: center; min-height: 0;}
         .cell-full { grid-column: span 2; flex-direction: row; justify-content: center; align-items: center; gap: 15px; }
         .cell-full .cell-title { margin-bottom: 0; } 
-        .cell-title { font-size: 0.75rem; color: #7f8c8d; margin-bottom: 2px; }
-        .cell-data { font-size: 1.05rem; font-weight: bold; color: #202124; }
+        .cell-title { font-size: 0.7rem; color: #7f8c8d; margin-bottom: 2px; }
+        .cell-data { font-size: 0.95rem; font-weight: bold; color: #202124; }
 
         /* --- 底部時間軸面板 --- */
         .bottom-panel { 
             grid-area: bottom-panel; 
-            padding: 15px 40px; 
+            padding: 10px 40px; 
             display: flex; flex-direction: column; 
             box-sizing: border-box;
         }
         
-        .timeline-title { margin-top: 0; margin-bottom: 15px; font-size: 1.3rem; color: #202124; font-weight: bold;}
+        .timeline-title { margin-top: 0; margin-bottom: 5px; font-size: 1.1rem; color: #202124; font-weight: bold;}
         
         .timeline-container {
             display: flex; justify-content: space-between; align-items: flex-end; 
@@ -104,7 +108,7 @@
         }
         
         .timeline-line {
-            position: absolute; bottom: 35px; left: 3%; right: 3%; height: 4px;
+            position: absolute; bottom: 28px; left: 3%; right: 3%; height: 4px;
             background-color: #1a73e8; z-index: 1;
         }
 
@@ -112,27 +116,27 @@
             position: relative; z-index: 2; display: flex; flex-direction: column; 
             align-items: center; width: 12%; cursor: pointer; transition: transform 0.2s;
         }
-        .timeline-node:hover { transform: translateY(-5px); }
+        .timeline-node:hover { transform: translateY(-3px); }
         
         .timeline-node.active .batch-label { background-color: #1a73e8; color: white; border-radius: 12px; padding: 2px 10px; }
         .timeline-node.active .timeline-dot { border: 3px solid #202124; transform: scale(1.3); }
 
-        .mini-stl-canvas { width: 70px; height: 70px; margin-bottom: 5px; background-color: transparent; }
-        .yield-text { font-size: 1.3rem; font-weight: bold; margin-bottom: 10px; }
+        .mini-stl-canvas { width: 55px; height: 55px; margin-bottom: 2px; background-color: transparent; }
+        .yield-text { font-size: 1.1rem; font-weight: bold; margin-bottom: 5px; }
         .timeline-dot {
-            width: 16px; height: 16px; border-radius: 50%; background-color: white;
-            border: 3px solid #1a73e8; margin-bottom: 8px; transition: all 0.2s;
+            width: 14px; height: 14px; border-radius: 50%; background-color: white;
+            border: 3px solid #1a73e8; margin-bottom: 5px; transition: all 0.2s;
         }
-        .batch-label { font-size: 1rem; font-weight: bold; color: #5f6368; transition: all 0.2s; white-space: nowrap; }
+        .batch-label { font-size: 0.9rem; font-weight: bold; color: #5f6368; transition: all 0.2s; white-space: nowrap; }
 
     </style>
 </head>
 <body>
     <div id="app">
         <div class="panel left-panel">
-            <h2 style="margin-top: 0; color: #202124; font-size: 1.4rem;">現場設備總覽與監控</h2>
+            <h2 style="margin-top: 0; margin-bottom: 15px; color: #202124; font-size: 1.3rem;">現場設備總覽與監控</h2>
             
-            <div style="margin-bottom: 20px;">
+            <div style="margin-bottom: 15px;">
                 <label style="display: block; font-weight: bold; font-size: 0.85rem; margin-bottom: 5px;">載入工件 STL 檔</label>
                 <input type="file" accept=".stl" @change="loadSTLFile" style="width: 100%;">
             </div>
@@ -170,7 +174,7 @@
             </div>
             <div class="tool-list">
                 <div v-for="tool in toolsData" :key="tool.id" class="tool-card">
-                    <div class="tool-header">刀把 {{ tool.id }}</div>
+                    <div class="tool-header">刀具 {{ tool.id }}</div>
                     <div class="tool-grid">
                         <div class="tool-cell"><span class="cell-title">Tool wear</span><span class="cell-data">{{ tool.wear }}</span></div>
                         <div class="tool-cell"><span class="cell-title">State</span><span class="cell-data" :style="{ color: tool.state === '異常' ? '#d93025' : '#1e8e3e' }">{{ tool.state }}</span></div>
@@ -180,7 +184,7 @@
                     </div>
                 </div>
             </div>
-            <div style="flex: 0 0 auto; margin-top: 10px; font-size: 0.8rem; font-weight: bold; color: #ced4da; font-style: italic; text-align: center;">*(可滾動顯示其餘刀具)*</div>
+            <div style="flex: 0 0 auto; margin-top: 8px; font-size: 0.75rem; font-weight: bold; color: #ced4da; font-style: italic; text-align: center;">*(滾動以檢視全 {{toolsData.length}} 把刀具)*</div>
         </div>
 
         <div class="panel bottom-panel">
@@ -227,11 +231,13 @@
                         { id: 1, yield: 89, label: 'Batch +1' },
                         { id: 2, yield: 86, label: 'Batch +2' }
                     ],
-                    currentBatch: null 
+                    currentBatch: null,
+                    yieldRate: 100 // 用來同步當前選取批次的良率
                 }
             },
             created() {
                 this.currentBatch = this.batchList[3]; 
+                this.yieldRate = this.currentBatch.yield;
             },
             methods: {
                 generateRandomData() {
@@ -260,11 +266,15 @@
                 },
                 selectBatch(batch) {
                     this.currentBatch = batch;
+                    this.yieldRate = batch.yield;
                     this.generateRandomData(); 
                     
                     if (batch.id < 0) this.remainingTime = 0;
                     else if (batch.id === 0) this.remainingTime = Math.floor(Math.random() * 10) + 1;
                     else this.remainingTime = 12;
+
+                    // 當切換批次時，更新主模型上的紅色瑕疵標記
+                    this.updateMainDefects();
                 },
                 switchMachine(mId) {
                     this.activeMachine = mId;
@@ -348,6 +358,8 @@
                         
                         this.updateMainModel();
                         this.updateMiniModels();
+                        // 載入後根據當前批次立刻計算瑕疵
+                        this.updateMainDefects();
                     };
                     reader.readAsArrayBuffer(file); 
                 },
@@ -364,6 +376,45 @@
                     meshMain.scale.set(scaleMain, scaleMain, scaleMain);
                     sceneMain.add(meshMain);
                     if (controlsMain) { controlsMain.target.set(0, 0, 0); controlsMain.update(); }
+                },
+                // 【核心新功能】：在模型表面動態附著紅色瑕疵標記
+                updateMainDefects() {
+                    if (!meshMain || !globalGeometry) return;
+
+                    // 1. 清除舊的紅色瑕疵標記 (確保切換批次時重新計算)
+                    // 因為子物件是動態加入的，所以要用 slice() 複製陣列再移除
+                    meshMain.children.slice().forEach(child => meshMain.remove(child));
+
+                    // 2. 如果良率是優良 (大於等於 95)，表示工件完美，不需加上瑕疵標記
+                    if (this.yieldRate >= 95) return;
+
+                    // 3. 根據良率決定瑕疵的數量 (良率越低，紅點越多)
+                    let numDefects = this.yieldRate < 80 ? 6 : (this.yieldRate < 90 ? 3 : 1);
+
+                    // 抓取原本模型的所有的頂點座標資料
+                    let posArray = globalGeometry.attributes.position.array;
+                    let vertexCount = posArray.length / 3;
+
+                    // 根據工件總大小計算紅點的大小，確保比例和諧
+                    const size = new THREE.Vector3();
+                    globalGeometry.boundingBox.getSize(size);
+                    const maxDim = Math.max(size.x, size.y, size.z);
+                    const sphereRadius = maxDim * 0.04; // 瑕疵大小設定為最大尺寸的 4%
+
+                    // 建立紅色的反光材質與球體幾何
+                    const defectMat = new THREE.MeshPhongMaterial({ color: 0xff0000, shininess: 100 });
+                    const sphereGeo = new THREE.SphereGeometry(sphereRadius, 16, 16);
+
+                    // 4. 在隨機的表面頂點上長出紅點
+                    for(let i = 0; i < numDefects; i++) {
+                        let rIdx = Math.floor(Math.random() * vertexCount) * 3;
+                        let defectMesh = new THREE.Mesh(sphereGeo, defectMat);
+                        // 將紅點放置在模型的隨機頂點上
+                        defectMesh.position.set(posArray[rIdx], posArray[rIdx+1], posArray[rIdx+2]);
+                        
+                        // 把紅點變成主模型的子物件，這樣旋轉視角時紅點就會完美跟隨
+                        meshMain.add(defectMesh);
+                    }
                 },
                 updateMiniModels() {
                     if (!globalGeometry) return;
