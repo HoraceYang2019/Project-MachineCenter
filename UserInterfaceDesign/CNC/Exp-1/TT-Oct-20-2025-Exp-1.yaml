@@ -1,0 +1,73 @@
+TimeTag: Fri-Aug-15-2025-16:35:05-GMT+0800-(台北標準時間)
+YAMLVersion: IP-250814
+State: Project
+Description:
+  MCID: 01
+  NativeName: TMV-720A
+  Controller: Syntec-21MA-E
+  Location: TT
+  HolderType: BT-40
+Job:
+  NcFile:
+    FileName: O1020D6
+    FileLink: ./20251020_TT/NC/O1020D6.nc
+  DesignStlFile:
+    FileName: 6.1HSSNACHI
+    FileLink: ./20251020_TT/Simulation/6.1HSSNACHI.stl
+  Material:
+    Type: S45C
+  Workpiece:
+    PartIDList: W-01
+  Controller:
+    CoordinateTable:
+      G54: ''
+      G55: ''
+    GeomOffset: ''
+  CompensationTable:
+    No1:
+      AxialIdealLength: ''
+      AxialWear: ''
+      IdealRadius: ''
+      RadialWear: ''
+CNCSpindle:
+  S1:
+    FileName: ''
+    FileLink: ./20251020_TT/EXP-1/CTL/
+    CmdSpeed: 1352
+    FeedRate: 206
+ToolRelated:
+  ToolHolder:
+    STH1:
+      HolderID: 84f703ce2d10
+      Data:
+        FileName: 84f703ce2d10_2025-08-15__16_35_05_272750_conv_out
+        FileLink: ./20251020_TT/EXP-1/STH/84f703ce2d10_2025-08-15__16_35_05_272750_conv_out.csv
+      Summary:
+        Voltage: ''
+        RUL: 1
+        FluteShape: ''
+        MaxTorque: 0
+        Unblance: 0
+        RoundOut: 2
+  Binding:
+    No1:
+      HolderID: 84f703ce2d10
+      ToolID: 202508151635
+      State: true
+  ToolHouse:
+    T1:
+      ToolID: 202508151635
+      Type: 6.1-HSS-NACHI
+      Apt:
+        Diameter: 6.1
+        FullHeight: 102
+        FluteHeight: 70
+        AlphaAngle: 0
+        BetaAngle: 0
+      Sculp:
+        FluteNum: 2
+        HelixAngle: ''
+        RakeAngle: ''
+      ActualWear:
+        Before: 0
+        After: 0

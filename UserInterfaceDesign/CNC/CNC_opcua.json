@@ -1,0 +1,31 @@
+{
+    "Time": "2024-06-01T12:00:00Z",
+    "NC_File": "O3333",
+    "Prog_No": "O3333",
+    "Blk_No": "119",
+    "NC_Text": "G01 X50.000 Y25.000 F500",
+    "Seq_No": "120",
+
+    "Actual_Spindle_RPM": "800",
+    "Actual_Feed_mm_min": "600",
+    "Manufacturer": "Fanuc",
+    "Model": "0i-MF",
+
+    "Offset_X": -20.000,
+    "Offset_Y": -10.000,
+    "Offset_Z": 5.000,
+    "G54_X": -253.000,  
+    "G54_Y": -263.000,  
+    "G54_Z": 0.000,  
+
+    "Tool_Code": "12",
+    "Tool_Life": "150",
+    "Radius_Comp": "0.020",
+    "Radius_Wear": "0.005",
+    "Length_Comp": "0.015",
+    "Length_Wear": "0.003",
+    "Tool_Group": "1",
+    "Tool_Group_Info": "5",
+    "Spindle_Number": "03",
+    "Status": "Start"
+}
