@@ -874,22 +874,14 @@ app.layout = dbc.Container(
                         html.Div(
                             style={"display": "flex", "flexDirection": "column", "alignItems": "stretch"},
                             children=[
+                                # --- 替換為 Iframe 顯示外部 HTML ---
                                 html.Div(
-                                    style={"position": "relative", "minHeight": "220px", "width": "100%"},
+                                    style={"position": "relative", "height": "800px", "width": "100%"},
                                     children=[
-                                        dcc.Graph(
-                                            id="stl-graph",
-                                            figure=build_stl_figure(STL_OPTIONS[0]["value"] if STL_OPTIONS else None),
-                                            config={"displayModeBar": False, "responsive": False},
-                                            style={"height": "800px", "width": "100%"},
-                                        ),
-                                        html.Div(
-                                            style={"position": "absolute", "top": "8px", "left": "8px", "width": "220px", "zIndex": 5,"disabled":"none"},
-                                            children=[
-                                                dcc.Dropdown(id="stl-dropdown", options=STL_OPTIONS, placeholder="Select STL", persistence=True, value=(STL_OPTIONS[0]["value"] if STL_OPTIONS else None) ),
-                                                html.Div("Part View", style={"marginTop": "6px", "fontSize": "12px", "fontWeight": "600"}),
-                                            ],
-                                        ),
+                                        html.Iframe(
+                                            src="assets\path_on_stl_torque_value.html",
+                                            style={"width": "100%", "height": "100%", "border": "none"}
+                                        )
                                     ],
                                 ),
                                 html.Div(style={"marginTop": "12px"},children=[
@@ -993,13 +985,12 @@ app.layout = dbc.Container(
     Output("tool-response-content", "children"), # 新增輸出 2
     Output("quality-states-content", "children"),   # 新增輸出 3
     Output("quality-response-content", "children"), # 新增輸出 4
-    Output("nc-path-content", "children"),  # 新增輸出 5
-    Output("summary-tools-state", "children"),  # 新增輸出 6
+    Output("nc-path-content", "children"),
+    Output("summary-tools-state", "children"),
     Input("mqtt-refresh", "n_intervals"),
-    Input("stl-dropdown", "value"),
     Input("workpiece-slider", "value"),
 )
-def update_figures(_n_intervals, stl_path, slider_value):    
+def update_figures(_n_intervals, slider_value):    
     if CSV_SNAPSHOTS:
         # 2. 將滑桿目前的位置數字 (0, 1, 2...) 轉為安全的整數索引
         current_idx = to_int(slider_value, 0) % len(CSV_SNAPSHOTS)
@@ -1033,7 +1024,7 @@ def update_figures(_n_intervals, stl_path, slider_value):
     bending_values = [to_float(item.get("Bending", bending_base), bending_base) for item in history if isinstance(item, dict)]
     x_positions = list(range(len(history)))
     wear_figure = build_history_trend_figure("Tool Wear", wear_values, 0.25, 0.35, labels=window_labels, now_pos=now_pos, x_values=x_positions)
-    toque_figure = build_history_trend_figure("Torque", toque_values, 0.23, 0.32, labels=window_labels, now_pos=now_pos, x_values=x_positions)
+    toque_figure = build_history_trend_figure("Torque", toque_values, 38, 48, labels=window_labels, now_pos=now_pos, x_values=x_positions)
     bending_figure = build_history_trend_figure("Bending", bending_values, 7.7, 12.0, labels=window_labels, now_pos=now_pos, x_values=x_positions)
     heatmap_figure = build_history_heatmap_figure(history, labels=window_labels, now_pos=now_pos)
     box_figure = build_history_box_figure(history, "RA", ra_base, labels=window_labels, now_pos=now_pos)
@@ -1056,7 +1047,7 @@ def update_figures(_n_intervals, stl_path, slider_value):
     tool_state_elements = [html.Div(f"Current Tool: T{tool_code}")]
     if wear_base > 0.25:
         tool_state_elements.append(html.Div("State: Bending Torque Warning", style={"color": "#d0021b", "fontWeight": "bold"}))
-    elif toque_base > 0.8:
+    elif toque_base > 40:
         tool_state_elements.append(html.Div("State: Overload Warning", style={"color": "#f5a623", "fontWeight": "bold"}))
     else:
         tool_state_elements.append(html.Div("State: Normal", style={"color": "#43A047"}))
@@ -1117,16 +1108,16 @@ def update_figures(_n_intervals, stl_path, slider_value):
 # 1. 擷取工件名稱
     current_wid = str(snapshot.get("workpiece_id", current_idx))
 
-    # 2. 擷取 STL 檔名 (透過 pathlib 取得純檔名)
-    if stl_path:
-        stl_name = Path(stl_path).name
-    elif STL_OPTIONS: # 預設載入第一個檔案的名稱
-        stl_name = STL_OPTIONS[0]["label"]
-    else:
-        stl_name = "未選擇 STL"
+    # # 2. 擷取 STL 檔名 (透過 pathlib 取得純檔名)
+    # if stl_path:
+    #     stl_name = Path(stl_path).name
+    # elif STL_OPTIONS: # 預設載入第一個檔案的名稱
+    #     stl_name = STL_OPTIONS[0]["label"]
+    # else:
+    #     stl_name = "未選擇 STL"
 
     # 3. 組合顯示字串
-    center_display_text = f"{stl_name} - {current_wid}"
+    center_display_text = f"325BTM - {current_wid}"
     # 判斷是否因 Torque 超標造成異常負載
     if toque_base > 0.3:
         nc_path_elements.append(html.Div("[警告] 異常負載發生於:", style={"color": "#d0021b", "fontWeight": "bold"}))
@@ -1176,32 +1167,6 @@ def update_figures(_n_intervals, stl_path, slider_value):
         nc_path_elements,           # 對應 nc-path-content
         summary_tools_elements,     # 2. 加在最後面 (對應 summary-tools-state)
     )
-
-
-_stl_component_cache = None
-
-
-@app.callback(
-    Output("stl-graph", "figure"), 
-    Input("stl-dropdown", "value"), 
-    Input("workpiece-slider", "value")  # 1. 這裡改成新的 Slider ID
-)
-def update_stl_graph(stl_path, slider_value): # 2. 參數名稱跟著改，避免混淆
-    current_idx = to_int(slider_value, 0) % len(CSV_SNAPSHOTS) if CSV_SNAPSHOTS else 0
-    
-    snapshot = {}
-    if CSV_SNAPSHOTS:
-        history = build_csv_window(CSV_SNAPSHOTS, current_idx)
-        window_indices = compute_window_indices(CSV_SNAPSHOTS, current_idx)
-        start = window_indices[0] if window_indices else current_idx
-        now_pos = current_idx - start if window_indices else None
-        
-        # 確保有抓到當下的快照資料
-        if now_pos is not None and 0 <= now_pos < len(history) and isinstance(history[now_pos], dict):
-            snapshot = history[now_pos]
-            
-    # 將帶有 RA 數值的 snapshot 傳給繪圖函數，點點就會出現了
-    return build_stl_figure(stl_path, snapshot)
 
 
 if __name__ == "__main__":
