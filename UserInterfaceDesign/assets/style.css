@@ -1,0 +1,135 @@
+.background-gradient {
+  background: linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%);
+}
+.metric-card {
+  border: 1px solid #d9dee8;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  background: linear-gradient(180deg, #ffffff 0%, #f7f9fc 100%);
+}
+
+.metric-title {
+  font-size: 0.85rem;
+  color: #5b6472;
+}
+
+.metric-value {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-top: 0.35rem;
+}
+
+.metric-subtitle,
+.help-text {
+  color: #6b7280;
+  font-size: 0.85rem;
+}
+
+
+.drawing-card {
+  min-height: 220px;
+  border: 2px dashed #aab7c4;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+}
+
+.tool-caption {
+  margin-left: 80px;
+  margin-top: 0.5rem;
+  font-weight: 600px ;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.45rem 0.8rem;
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+.status-ok { background: #e7f7ec; color: #146c2e; }
+.status-warn { background: #fff3cd; color: #8a5a00; }
+.status-error { background: #fde2e2; color: #a61b1b; }
+
+.question-panel {
+  border-radius: 16px;
+}
+
+.raw-json {
+  background: #0f172a;
+  color: #d6e4ff;
+  border-radius: 16px;
+  padding: 1rem;
+  max-height: 320px;
+  overflow: auto;
+}
+
+.page-root {
+  background: linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%);
+  min-height: 100vh;
+  padding: 12px 18px 24px 18px;
+}
+
+.main-three-column {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 16px;
+  align-items: stretch;
+}
+
+.left-panel,
+.center-panel,
+.right-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+
+.left-panel {
+  width: 22%;
+}
+
+.center-panel {
+  width: 52%;
+}
+
+.right-panel {
+  width: 22%;
+}
+
+/* Height constraints handled by inline styles in dcc.Graph components */
+
+.center-panel .drawing-card {
+  min-height: 330px;
+}
+
+.center-panel .help-text {
+  text-align: center;
+}
+
+.status-gauge-card {
+  display: flex;
+  align-items: center;
+}
+
+.d-none {
+  display: none !important;
+}
+
+@media (max-width: 1200px) {
+  .main-three-column {
+    flex-direction: column;
+  }
+
+  .left-panel,
+  .center-panel,
+  .right-panel {
+    width: 100%;
+  }
+}
+
