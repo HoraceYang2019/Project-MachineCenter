@@ -1,332 +1,571 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CNC 加工監控系統</title>
+    <title>YAML Configuration Dashboard</title>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/loaders/STLLoader.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
     <style>
-        body, html {
-            margin: 0; padding: 0; height: 100vh;
-            background-color: #f0f2f5;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            overflow: hidden; 
-        }
-
-        #app {
-            display: grid; height: 100vh; gap: 15px; padding: 15px; box-sizing: border-box;
-            grid-template-columns: 250px 1fr 350px;
-            grid-template-rows: 120px 1fr 100px;
-            grid-template-areas:
-                "left-panel top-center right-panel"
-                "left-panel main-center right-panel"
-                "bottom-panel bottom-panel bottom-panel";
-        }
-
-        .panel {
-            background-color: white; border: 2px dashed #5f27cd; border-radius: 8px;
-            padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            display: flex; flex-direction: column; 
-        }
-
-        .left-panel { grid-area: left-panel; overflow-y: auto; padding: 15px;}
-        .top-center { grid-area: top-center; flex-direction: row; justify-content: space-around; align-items: center;}
+        body, html { margin: 0; padding: 0; height: 100vh; overflow: hidden; background-color: #f1f3f4; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; box-sizing: border-box; }
         
-        .main-center { 
-            grid-area: main-center; 
-            padding: 0; 
-            overflow: hidden; 
-            position: relative;
-            background-color: #eef2f3;
-        }
+        #app { display: grid; height: 100vh; gap: 15px; padding: 15px; box-sizing: border-box; grid-template-columns: 260px 1fr 260px; grid-template-rows: 1fr 140px; grid-template-areas: "left-panel main-center right-panel" "bottom-panel bottom-panel bottom-panel"; }
+        .panel { background-color: white; border: 1px solid #ced4da; border-radius: 8px; padding: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; flex-direction: column; min-height: 0; position: relative;}
 
-        .bottom-panel { grid-area: bottom-panel; align-items: center; justify-content: center; flex-direction: row;}
-        
-        .right-panel { grid-area: right-panel; padding: 15px; display: flex; flex-direction: column;}
-        .right-header {
-            flex: 0 0 auto; margin-top: 0; margin-bottom: 10px; font-size: 1.2rem;
-            font-weight: bold; border-bottom: 2px solid #5f27cd; padding-bottom: 5px;
-        }
-        .tool-list {
-            flex: 1 1 auto; overflow-y: auto; display: flex; flex-direction: column;
-            gap: 10px; padding-right: 5px; 
-        }
+        /* Left Panel */
+        .left-panel { grid-area: left-panel; overflow-y: auto;}
+        .machine-info-card { background-color: #f8f9fa; border: 2px solid #5f6368; border-radius: 6px; padding: 12px; margin-bottom: 15px; }
+        .machine-info-title { font-size: 0.8rem; color: #5f6368; font-weight: bold; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px;}
+        .machine-info-name { font-size: 1.2rem; font-weight: bold; color: #1a73e8; margin-bottom: 2px; word-break: break-all; }
+        .machine-info-id { font-size: 0.85rem; color: #7f8c8d; font-family: monospace; word-break: break-all; }
+        .status-box { background-color: #f8f9fa; border: 1px solid #dee2e6; border-radius: 6px; padding: 10px; margin-top: 10px; text-align: center; }
+        .status-label { font-size: 0.85rem; color: #6c757d; margin-bottom: 5px; font-weight: bold;}
+        .status-value { font-size: 1.2rem; font-weight: bold; color: #212529; }
+        .btn-action { background-color: #1a73e8; color: white; border: none; border-radius: 6px; padding: 12px; width: 100%; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: all 0.2s; display: flex; justify-content: center; align-items: center; gap: 8px;}
+        .btn-action:hover { background-color: #1557b0; }
 
-        .tool-card {
-            border: 2px solid #2c3e50; background-color: #fff;
-            min-height: calc((100% - 20px) / 3); 
-            display: flex; flex-direction: column; box-sizing: border-box;
-        }
-        .tool-header {
-            background-color: #2c3e50; color: white; padding: 4px 10px;
-            font-weight: bold; font-size: 1rem; flex: 0 0 auto;
-        }
-        .tool-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
-            background-color: #bdc3c7; flex: 1 1 auto; 
-        }
-        .tool-cell {
-            background-color: white; padding: 4px; text-align: center;
-            display: flex; flex-direction: column; justify-content: center;
-        }
+        /* Central Window */
+        .main-center { grid-area: main-center; background-color: #f8f9fa; border: 2px solid #bdc3c7; overflow: hidden; display: flex; justify-content: center; align-items: center; padding: 30px; }
+        .workflow-section { width: 100%; height: 100%; position: relative; }
+        .workflow-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 1fr 1fr 1fr; gap: 25px; width: 100%; height: 100%; align-items: stretch; justify-items: stretch; position: relative; }
+        .workflow-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
         
-        .cell-full { 
-            grid-column: span 2; 
-            flex-direction: row; 
-            justify-content: center; 
-            align-items: center;
-            gap: 15px; 
-        }
-        .cell-full .cell-title { margin-bottom: 0; } 
+        /* Flow Nodes */
+        .flow-node { z-index: 2; background-color: white; border: 3px solid #bdc3c7; border-radius: 12px; padding: 20px; width: 100%; height: 100%; text-align: center; cursor: pointer; box-shadow: 0 6px 12px rgba(0,0,0,0.08); transition: all 0.2s ease; display: flex; flex-direction: column; align-items: center; justify-content: center; box-sizing: border-box; }
+        .flow-node:hover { transform: translateY(-5px); border-color: #1a73e8; box-shadow: 0 10px 20px rgba(26,115,232,0.2); }
+        .node-icon { font-size: 3.5rem; margin-bottom: 12px; }
+        .node-title { font-weight: bold; font-size: 1.3rem; color: #202124; margin-bottom: 12px; line-height: 1.4; word-break: break-word;}
+        .node-tag { font-size: 0.9rem; font-weight: bold; padding: 6px 16px; border-radius: 20px; color: white; letter-spacing: 1px;}
         
-        .cell-title { font-size: 0.75rem; color: #7f8c8d; margin-bottom: 2px; }
-        .cell-data { font-size: 1.05rem; font-weight: bold; color: #2c3e50; }
+        .tag-before { background-color: #f29900; }
+        .tag-tt { background-color: #1a73e8; }
+        .tag-after { background-color: #1e8e3e; }
+        
+        /* Flow Hub */
+        .flow-hub { z-index: 2; background-color: #5f6368; color: white; border-radius: 50%; width: 180px; height: 180px; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 6px 15px rgba(0,0,0,0.3); justify-self: center; align-self: center; }
+        .hub-title { font-size: 1.3rem; font-weight: bold; text-align: center; line-height: 1.3; margin-top: 5px; }
+        
+        .n1 { grid-column: 1; grid-row: 1; } .n2 { grid-column: 1; grid-row: 3; } .n-hub { grid-column: 2; grid-row: 2; } .n3 { grid-column: 3; grid-row: 1; } .n4 { grid-column: 3; grid-row: 3; } .n5 { grid-column: 2; grid-row: 3; }
 
-        .input-group { margin-bottom: 15px; }
-        .input-group label { display: block; font-weight: bold; margin-bottom: 5px; font-size: 0.85rem;}
-        .param-box {
-            background-color: #f8f9fa; border: 1px solid #dee2e6; border-radius: 4px;
-            padding: 8px; margin-bottom: 10px; text-align: center;
-        }
-        .param-label { font-size: 0.8rem; color: #6c757d; margin-bottom: 4px; }
-        .param-value { font-size: 1.1rem; font-weight: bold; color: #212529; }
+        /* Right Panel */
+        .right-panel { grid-area: right-panel; }
+        .right-header { flex: 0 0 auto; margin-top: 0; margin-bottom: 10px; font-size: 1.1rem; font-weight: bold; border-bottom: 3px solid #1a73e8; padding-bottom: 5px; color: #202124; }
+        .tool-list { flex: 1 1 0; overflow: hidden; display: flex; flex-direction: column; gap: 10px; }
+        .tool-card { flex: 1; border: 2px solid #bdc3c7; border-radius: 8px; background-color: #f8f9fa; display: flex; flex-direction: column; box-sizing: border-box; overflow: hidden;}
+        .tool-header { background-color: #5f6368; color: white; padding: 6px 15px; font-weight: bold; font-size: 1rem; flex: 0 0 auto; text-align: center;}
+        .tool-status-container { flex: 1; display: flex; justify-content: center; align-items: center; background-color: white;}
+        .status-badge { width: 80%; padding: 12px 0; border-radius: 8px; font-size: 1.1rem; font-weight: bold; text-align: center; }
+        .badge-empty { background-color: #f1f3f4; color: #9aa0a6; border: 2px dashed #bdc3c7; }
+
+        /* Bottom Panel */
+        .bottom-panel { grid-area: bottom-panel; padding: 10px 40px; display: flex; flex-direction: column; box-sizing: border-box; }
+        .timeline-title { margin-top: 0; margin-bottom: 10px; font-size: 1.1rem; color: #202124; font-weight: bold;}
+        .timeline-container { display: flex; justify-content: space-between; align-items: center; position: relative; flex: 1; }
+        .timeline-line { position: absolute; top: 50%; left: 3%; right: 3%; height: 6px; background-color: #1a73e8; z-index: 1; transform: translateY(-50%); border-radius: 3px;}
+        .timeline-node { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; width: 12%; cursor: pointer; background-color: white; padding: 10px 0; border-radius: 8px;}
+        .yield-circle { width: 45px; height: 45px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-weight: bold; font-size: 1rem; color: white; margin-bottom: 5px; border: 3px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.2); background-color: #bdc3c7;}
+        .batch-label { font-size: 0.9rem; font-weight: bold; color: #5f6368; }
+
+        /* Form Modal */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; display: flex; justify-content: center; align-items: center; backdrop-filter: blur(2px); }
+        .modal-content { background: white; border-radius: 8px; width: 700px; max-height: 85%; display: flex; flex-direction: column; box-shadow: 0 10px 30px rgba(0,0,0,0.3); overflow: hidden; }
+        .modal-header { background-color: #1a73e8; color: white; padding: 15px 20px; font-size: 1.3rem; font-weight: bold; display: flex; justify-content: space-between; align-items: center;}
+        .modal-body { padding: 25px; overflow-y: auto; flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 20px;}
+        .modal-section-title { grid-column: span 2; font-size: 1.1rem; color: #1a73e8; font-weight: bold; border-bottom: 2px solid #e8eaed; padding-bottom: 5px; margin-top: 10px; margin-bottom: 5px; font-family: monospace;}
+        .modal-footer { padding: 15px 20px; border-top: 1px solid #ced4da; display: flex; justify-content: flex-end; gap: 15px; background-color: #f8f9fa;}
+        
+        .form-group { display: flex; flex-direction: column; }
+        .form-group.full-width { grid-column: span 2; }
+        .form-group label { font-size: 0.85rem; font-weight: bold; color: #5f6368; margin-bottom: 8px; font-family: monospace; }
+        .form-group input { padding: 10px 15px; border: 1px solid #ced4da; border-radius: 6px; font-size: 1rem; outline: none; font-family: monospace; }
+        .form-group input:focus { border-color: #1a73e8; box-shadow: 0 0 0 3px rgba(26,115,232,0.2); }
+        
+        /* 檔案選取器專屬樣式 */
+        .file-group { background-color: #f1f3f4; padding: 15px; border-radius: 8px; border: 1px dashed #9aa0a6; }
+        .file-picker-container { display: flex; flex-direction: column; gap: 10px; }
+        .btn-file { background-color: #5f6368; color: white; border: none; border-radius: 4px; padding: 10px 15px; font-weight: bold; cursor: pointer; transition: 0.2s; font-family: monospace; font-size: 0.9rem;}
+        .btn-file:hover { background-color: #3c4043; }
+        .file-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        
+        .btn-cancel { padding: 12px 25px; font-weight: bold; font-size: 1rem; border-radius: 6px; border: 1px solid #ced4da; background-color: white; cursor: pointer; transition: all 0.2s;}
+        .btn-cancel:hover { background-color: #f1f3f4; }
+        .btn-save { padding: 12px 25px; font-weight: bold; font-size: 1rem; border-radius: 6px; border: none; background-color: #d93025; color: white; cursor: pointer; display: flex; align-items: center; gap: 5px; transition: all 0.2s;}
+        .btn-save:hover { background-color: #b3261e; }
     </style>
 </head>
 <body>
     <div id="app">
         <div class="panel left-panel">
-            <h3 style="margin-top: 0; border-bottom: 2px solid #5f27cd; padding-bottom: 10px;">專案控制面板</h3>
+            <h2 style="margin-top: 0; margin-bottom: 15px; color: #202124; font-size: 1.3rem;">Review Dashboard</h2>
             
-            <div class="input-group">
-                <label>載入工件模型 (STL)</label>
-                <input type="file" accept=".stl" @change="loadSTLFile" style="width: 100%;">
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; font-weight: bold; font-size: 0.85rem; margin-bottom: 5px;">File Binding</label>
+                <button class="btn-action" @click="bindLocalYamlFile">
+                    📂 Select & Bind YAML
+                </button>
+                <div v-if="isDataLoaded" style="font-size: 0.8rem; color: #1e8e3e; font-weight: bold; margin-top: 8px; text-align: center;">
+                    ✅ File Bound Successfully
+                </div>
             </div>
 
-            <div class="input-group">
-                <label>載入 NC 程式檔</label>
-                <input type="file" accept=".nc, .txt, .gcode" @change="parseNCFile" style="width: 100%;">
+            <div class="machine-info-card">
+                <div class="machine-info-title">Description.NativeName</div>
+                <div class="machine-info-name">{{ machineInfo.name }}</div>
+                <div class="machine-info-id">ToolHolder.STH1.HolderID:<br>{{ machineInfo.macId }}</div>
+            </div>
+
+            <div class="status-box">
+                <div class="status-label">State</div>
+                <div class="status-value" :style="{ color: isDataLoaded ? '#1a73e8' : '#f29900' }">
+                    {{ isDataLoaded ? 'EDITING MODE' : 'WAITING FOR BIND' }}
+                </div>
             </div>
             
-            <div class="param-box">
-                <div class="param-label">主軸轉速 (Spindle Speed)</div>
-                <div class="param-value">{{ spindleSpeed }} RPM</div>
-            </div>
-            <div class="param-box">
-                <div class="param-label">進給速率 (Feed Rate)</div>
-                <div class="param-value">{{ feedRate }} mm/min</div>
+            <div class="status-box">
+                <div class="status-label">Batch ID</div>
+                <div class="status-value" style="color: #1a73e8;">Batch 0</div>
             </div>
         </div>
 
-        <div class="panel top-center">
-            <div style="text-align: center;">
-                <div style="font-size: 0.9rem; color: #666; font-weight: bold;">CNC 機台狀態</div>
-                <div style="font-size: 1.5rem; color: #27ae60; font-weight: bold; margin-top: 5px;">連線正常 (RUNNING)</div>
-            </div>
-            <div style="text-align: center;">
-                <div style="font-size: 0.9rem; color: #666; font-weight: bold;">目前 Batch 剩餘時間</div>
-                <div style="font-size: 1.5rem; color: #e15f41; font-weight: bold; margin-top: 5px;">{{ remainingTime }} 分鐘</div>
-            </div>
-        </div>
+        <div class="panel main-center">
+            <div class="workflow-section" :style="{ opacity: isDataLoaded ? 1 : 0.4, pointerEvents: isDataLoaded ? 'auto' : 'none' }">
+                <div class="workflow-grid">
+                    <svg class="workflow-svg">
+                        <line x1="16.6%" y1="16.6%" x2="50%" y2="50%" stroke="#bdc3c7" stroke-width="6"/>
+                        <line x1="16.6%" y1="83.3%" x2="50%" y2="50%" stroke="#bdc3c7" stroke-width="6"/>
+                        <line x1="83.3%" y1="16.6%" x2="50%" y2="50%" stroke="#bdc3c7" stroke-width="6"/>
+                        <line x1="83.3%" y1="83.3%" x2="50%" y2="50%" stroke="#bdc3c7" stroke-width="6"/>
+                        <line x1="50%" y1="83.3%" x2="50%" y2="50%" stroke="#bdc3c7" stroke-width="6"/>
+                    </svg>
 
-        <div class="panel main-center" style="position: relative; padding: 0;">
-            <div id="stl-container" style="width: 100%; height: 100%; position: absolute; top: 0; left: 0;"></div>
-            
-            <div v-show="!isStlLoaded" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #7f8c8d; text-align: center; font-weight: bold; font-size: 1.2rem; pointer-events: none;">
-                中央：工件完成品 3D 顯示區<br>
-                <span style="font-size: 0.9rem; font-weight: normal;">(請從左側載入 STL 檔案)</span>
-            </div>
+                    <div class="flow-hub n-hub">
+                        <div style="font-size: 3rem;">📝</div>
+                        <div class="hub-title">YAML<br>Workflow</div>
+                    </div>
 
-            <div v-show="isStlLoaded" style="position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); background: rgba(255,255,255,0.8); padding: 8px 20px; border-radius: 20px; font-size: 0.85rem; color: #2c3e50; pointer-events: none; white-space: nowrap; box-shadow: 0 2px 6px rgba(0,0,0,0.15); font-weight: bold;">
-                滑鼠左鍵拖曳：旋轉視角 ｜ 滾輪：縮放 ｜ 滑鼠右鍵拖曳：平移
+                    <div class="flow-node n1" @click="openModal('n1')">
+                        <div class="node-icon">📦</div>
+                        <div class="node-title">Job</div>
+                        <div class="node-tag tag-before">Before</div>
+                    </div>
+                    <div class="flow-node n2" @click="openModal('n2')">
+                        <div class="node-icon">📐</div>
+                        <div class="node-title">Job.Quality &<br>ToolHouse</div>
+                        <div class="node-tag tag-before">Before</div>
+                    </div>
+                    <div class="flow-node n3" @click="openModal('n3')">
+                        <div class="node-icon">⚙️</div>
+                        <div class="node-title">Controller &<br>CompensationTable</div>
+                        <div class="node-tag tag-tt">TT</div>
+                    </div>
+                    <div class="flow-node n4" @click="openModal('n4')">
+                        <div class="node-icon">📊</div>
+                        <div class="node-title">Prediction &<br>Summary (TT)</div>
+                        <div class="node-tag tag-tt">TT</div>
+                    </div>
+                    <div class="flow-node n5" @click="openModal('n5')">
+                        <div class="node-icon">✅</div>
+                        <div class="node-title">CNCSpindle &<br>Binding</div>
+                        <div class="node-tag tag-after">After</div>
+                    </div>
+                </div>
             </div>
         </div>
 
         <div class="panel right-panel">
-            <div class="right-header">
-                刀具狀態 (Batch: {{ currentBatch }})
-            </div>
+            <div class="right-header">ToolHouse State</div>
             <div class="tool-list">
-                <div v-for="tool in toolsData" :key="tool.id" class="tool-card">
-                    <div class="tool-header">刀把 {{ tool.id }}</div>
-                    <div class="tool-grid">
-                        <div class="tool-cell">
-                            <span class="cell-title">Tool wear</span>
-                            <span class="cell-data">{{ tool.wear }}</span>
-                        </div>
-                        <div class="tool-cell">
-                            <span class="cell-title">State</span>
-                            <span class="cell-data" :style="{ color: tool.state === '異常' ? '#e74c3c' : '#27ae60' }">{{ tool.state }}</span>
-                        </div>
-                        <div class="tool-cell">
-                            <span class="cell-title">Torque</span>
-                            <span class="cell-data">{{ tool.torque }}</span>
-                        </div>
-                        <div class="tool-cell">
-                            <span class="cell-title">Bending</span>
-                            <span class="cell-data">{{ tool.bending }}</span>
-                        </div>
-                        <div class="tool-cell cell-full">
-                            <span class="cell-title">Ra</span>
-                            <span class="cell-data">{{ tool.ra }}</span>
-                        </div>
+                <div v-for="index in 3" :key="index" class="tool-card">
+                    <div class="tool-header">ToolHouse.T{{ index }}</div>
+                    <div class="tool-status-container">
+                        <div class="status-badge badge-empty">--</div>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="panel bottom-panel">
-            <label for="batchSlider" style="font-size: 1.2rem; font-weight: bold; margin-right: 20px;">
-                目前批次: Batch {{ currentBatch }}
-            </label>
-            <input type="range" id="batchSlider" min="-3" max="2" v-model="currentBatch" @input="updateData" style="width: 50%;">
+            <h3 class="timeline-title">Batch Overview</h3>
+            <div class="timeline-container">
+                <div class="timeline-line"></div>
+                <div v-for="batch in batchList" :key="batch.id" class="timeline-node">
+                    <div class="yield-circle">{{ batch.yield }}</div>
+                    <div class="batch-label">{{ batch.label }}</div>
+                </div>
+            </div>
         </div>
+
+        <div class="modal-overlay" v-if="activeModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span>{{ modalConfig[activeModal].title }}</span>
+                    <span style="cursor:pointer;" @click="closeModal">✖</span>
+                </div>
+                <div class="modal-body">
+                    <template v-for="field in modalConfig[activeModal].fields" :key="field.id">
+                        <div v-if="field.isTitle" class="modal-section-title">{{ field.label }}</div>
+                        
+                        <div v-else-if="field.type === 'filePicker'" class="form-group full-width file-group">
+                            <label>{{ field.label }}</label>
+                            <div class="file-picker-container">
+                                <button class="btn-file" @click="pickFileAndMap(field)">📂 Select File (Load Path Automatically)</button>
+                                <div class="file-inputs">
+                                    <input type="text" v-model="formData[field.id + '_name']" placeholder="FileName">
+                                    <input type="text" v-model="formData[field.id + '_link']" placeholder="FileLink (Path)">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div v-else class="form-group" :class="{'full-width': field.fullWidth}">
+                            <label>{{ field.label }}</label>
+                            <input type="text" v-model="formData[field.id]" placeholder="''">
+                        </div>
+                    </template>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn-cancel" @click="closeModal">Cancel</button>
+                    <button class="btn-save" @click="overwriteLocalYaml">🔥 Overwrite Local YAML</button>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <script>
-        // 【新增】：將 controls 加入獨立變數區，避免被 Vue 的 Proxy 影響
-        let scene, camera, renderer, mesh, controls;
+        let globalFileHandle = null;
 
         const { createApp } = Vue
         
         createApp({
             data() {
                 return {
-                    currentBatch: 0,
-                    toolsData: [],
-                    remainingTime: 10,
-                    spindleSpeed: '--',
-                    feedRate: '--',
-                    isStlLoaded: false
+                    isDataLoaded: false,
+                    selectedFileName: '',
+                    rawYamlText: '', 
+                    parsedYamlData: {},
+                    machineInfo: { name: 'Unbound', macId: '--' },
+                    
+                    batchList: [
+                        { id: -3, yield: '--', label: 'Batch -3' },
+                        { id: -2, yield: '--', label: 'Batch -2' },
+                        { id: -1, yield: '--', label: 'Batch -1' },
+                        { id: 0, yield: '--', label: 'Batch 0' },
+                        { id: 1, yield: '--', label: 'Batch +1' },
+                        { id: 2, yield: '--', label: 'Batch +2' }
+                    ],
+                    activeModal: null,
+                    
+                    modalConfig: {
+                        n1: {
+                            title: 'Job',
+                            fields: [
+                                { isTitle: true, label: 'Job' },
+                                // ✅ 升級為 FilePicker 類型，自動生成 FileName 和 FileLink
+                                { id: 'ncFile', type: 'filePicker', folderPrefix: 'NC', label: 'Job.NcFile', namePath: ['Job', 'NcFile', 'FileName'], linkPath: ['Job', 'NcFile', 'FileLink'] },
+                                { id: 'stlFile', type: 'filePicker', folderPrefix: 'STL', label: 'Job.DesignStlFile', namePath: ['Job', 'DesignStlFile', 'FileName'], linkPath: ['Job', 'DesignStlFile', 'FileLink'] },
+                                { id: 'material', label: 'Job.Material.Type', yamlPath: ['Job', 'Material', 'Type'] },
+                                { id: 'workpiece', label: 'Job.Workpiece.PartIDList', yamlPath: ['Job', 'Workpiece', 'PartIDList'] },
+                                { isTitle: true, label: 'ToolRelated.ToolHolder' },
+                                { id: 'sthId', label: 'ToolRelated.ToolHolder.STH1.HolderID', yamlPath: ['ToolRelated', 'ToolHolder', 'STH1', 'HolderID'] }
+                            ]
+                        },
+                        n2: {
+                            title: 'Job.Quality & ToolRelated.ToolHouse',
+                            fields: [
+                                { isTitle: true, label: 'Job.Quality' },
+                                { id: 'qPos', label: 'Job.Quality.SurfaceRoughness.position', yamlPath: ['Job', 'Quality', 'SurfaceRoughness', 'position'] },
+                                { id: 'qTol', label: 'Job.Quality.SurfaceRoughness.Tolerance', yamlPath: ['Job', 'Quality', 'SurfaceRoughness', 'Tolerance'] },
+                                { isTitle: true, label: 'ToolRelated.ToolHolder.STH1.Data.UCL' },
+                                { id: 'uclTorque', label: 'ToolRelated.ToolHolder.STH1.Data.UCL.Torque', yamlPath: ['ToolRelated', 'ToolHolder', 'STH1', 'Data', 'UCL', 'Torque'] },
+                                { id: 'uclBending', label: 'ToolRelated.ToolHolder.STH1.Data.UCL.Bending', yamlPath: ['ToolRelated', 'ToolHolder', 'STH1', 'Data', 'UCL', 'Bending'] },
+                                { isTitle: true, label: 'ToolRelated.ToolHouse.T1' },
+                                { id: 'thMat', label: 'ToolRelated.ToolHouse.T1.Material', yamlPath: ['ToolRelated', 'ToolHouse', 'T1', 'Material'] },
+                                { id: 'thCoat', label: 'ToolRelated.ToolHouse.T1.Coated', yamlPath: ['ToolRelated', 'ToolHouse', 'T1', 'Coated'] },
+                                { isTitle: true, label: 'ToolRelated.ToolHouse.T1.Apt' },
+                                { id: 'aptDia', label: 'T1.Apt.Diameter', yamlPath: ['ToolRelated', 'ToolHouse', 'T1', 'Apt', 'Diameter'] },
+                                { id: 'aptFull', label: 'T1.Apt.FullHeight', yamlPath: ['ToolRelated', 'ToolHouse', 'T1', 'Apt', 'FullHeight'] },
+                                { id: 'aptFlute', label: 'T1.Apt.FluteHeight', yamlPath: ['ToolRelated', 'ToolHouse', 'T1', 'Apt', 'FluteHeight'] },
+                                { isTitle: true, label: 'ToolRelated.ToolHouse.T1.Sculp' },
+                                { id: 'scpNum', label: 'T1.Sculp.FluteNum', yamlPath: ['ToolRelated', 'ToolHouse', 'T1', 'Sculp', 'FluteNum'] },
+                                { id: 'scpHlx', label: 'T1.Sculp.HelixAngle', yamlPath: ['ToolRelated', 'ToolHouse', 'T1', 'Sculp', 'HelixAngle'] },
+                                { id: 'scpClr', label: 'T1.Sculp.ClearanceAngle', yamlPath: ['ToolRelated', 'ToolHouse', 'T1', 'Sculp', 'ClearanceAngle'] },
+                                { id: 'scpWdg', label: 'T1.Sculp.WedgeAngle', yamlPath: ['ToolRelated', 'ToolHouse', 'T1', 'Sculp', 'WedgeAngle'] },
+                                { id: 'scpRk', label: 'T1.Sculp.RakeAngle', yamlPath: ['ToolRelated', 'ToolHouse', 'T1', 'Sculp', 'RakeAngle'] }
+                            ]
+                        },
+                        n3: {
+                            title: 'Controller & CompensationTable',
+                            fields: [
+                                { isTitle: true, label: 'Description & Job.Controller' },
+                                { id: 'controller', label: 'Description.Controller', yamlPath: ['Description', 'Controller'] },
+                                { id: 'g54', label: 'Job.Controller.CoordinateTable.G54', yamlPath: ['Job', 'Controller', 'CoordinateTable', 'G54'] },
+                                { id: 'geomOff', label: 'Job.Controller.GeomOffset', yamlPath: ['Job', 'Controller', 'GeomOffset'] },
+                                { id: 'fluid', label: 'Job.Cutting_Fluid', yamlPath: ['Job', 'Cutting_Fluid'] },
+                                { id: 'sensOff', label: 'ToolRelated.ToolHolder.STH1.Sensing_length', yamlPath: ['ToolRelated', 'ToolHolder', 'STH1', 'Sensing_length'] },
+                                { isTitle: true, label: 'Job.CompensationTable & ToolRelated.ToolHouse' },
+                                { id: 'axIdLen', label: 'Job.CompensationTable.T1.AxialIdealLength', yamlPath: ['Job', 'CompensationTable', 'T1', 'AxialIdealLength'] },
+                                { id: 'axWear', label: 'Job.CompensationTable.T1.AxialWear', yamlPath: ['Job', 'CompensationTable', 'T1', 'AxialWear'] },
+                                { id: 'radWear', label: 'Job.CompensationTable.T1.RadialWear', yamlPath: ['Job', 'CompensationTable', 'T1', 'RadialWear'] },
+                                { id: 'thType', label: 'ToolRelated.ToolHouse.T1.Type', yamlPath: ['ToolRelated', 'ToolHouse', 'T1', 'Type'] },
+                                { id: 'thOver', label: 'ToolRelated.ToolHouse.T1.Overhang_length', yamlPath: ['ToolRelated', 'ToolHouse', 'T1', 'Overhang_length'] }
+                            ]
+                        },
+                        n4: {
+                            title: 'Quality.Prediction & Summary (TT)',
+                            fields: [
+                                { isTitle: true, label: 'Job.Quality & ToolRelated.ToolHolder.STH1.Summary' },
+                                { id: 'qualPred', label: 'Job.Quality.SurfaceRoughness.Prediction', yamlPath: ['Job', 'Quality', 'SurfaceRoughness', 'Prediction'] },
+                                { id: 'sumUnbal', label: 'ToolRelated.ToolHolder.STH1.Summary.Unbalance', yamlPath: ['ToolRelated', 'ToolHolder', 'STH1', 'Summary', 'Unbalance'] }
+                                // ✅ 動態 VB 將由 JS 自動載入至此
+                            ]
+                        },
+                        n5: {
+                            title: 'CNCSpindle, Binding & Summary (After)',
+                            fields: [
+                                { isTitle: true, label: 'Job.Quality & CNCSpindle & ToolRelated.Data' },
+                                { id: 'qualMeas', label: 'Job.Quality.SurfaceRoughness.Measurement', yamlPath: ['Job', 'Quality', 'SurfaceRoughness', 'Measurement'] },
+                                
+                                // ✅ 升級為 FilePicker 類型
+                                { id: 'spindleFile', type: 'filePicker', folderPrefix: 'CTL', label: 'CNCSpindle.S1', namePath: ['CNCSpindle', 'S1', 'FileName'], linkPath: ['CNCSpindle', 'S1', 'FileLink'] },
+                                { id: 'sthDataFile', type: 'filePicker', folderPrefix: 'STH', label: 'ToolRelated.ToolHolder.STH1.Data', namePath: ['ToolRelated', 'ToolHolder', 'STH1', 'Data', 'FileName'], linkPath: ['ToolRelated', 'ToolHolder', 'STH1', 'Data', 'FileLink'] },
+                                
+                                { isTitle: true, label: 'ToolRelated.ToolHolder.STH1.Summary (After)' },
+                                { id: 'sumVlt', label: 'Summary.Voltage', yamlPath: ['ToolRelated', 'ToolHolder', 'STH1', 'Summary', 'Voltage'] },
+                                { id: 'sumRul', label: 'Summary.RUL', yamlPath: ['ToolRelated', 'ToolHolder', 'STH1', 'Summary', 'RUL'] },
+                                { id: 'sumFlute', label: 'Summary.FluteShape', yamlPath: ['ToolRelated', 'ToolHolder', 'STH1', 'Summary', 'FluteShape'] },
+                                { id: 'sumMaxTq', label: 'Summary.MaxTorque', yamlPath: ['ToolRelated', 'ToolHolder', 'STH1', 'Summary', 'MaxTorque'] },
+                                { id: 'sumRunout', label: 'Summary.Runout', yamlPath: ['ToolRelated', 'ToolHolder', 'STH1', 'Summary', 'Runout'] },
+                                { isTitle: true, label: 'ToolRelated.Binding' },
+                                { id: 'bindId', label: 'ToolRelated.Binding.No1.ToolID', yamlPath: ['ToolRelated', 'Binding', 'No1', 'ToolID'] },
+                                { id: 'bindState', label: 'ToolRelated.Binding.No1.State', yamlPath: ['ToolRelated', 'Binding', 'No1', 'State'] }
+                                // ✅ 動態 VB 將由 JS 自動載入至此
+                            ]
+                        }
+                    },
+                    formData: {}
                 }
             },
             methods: {
-                generateRandomData() {
-                    const data = [];
-                    for (let i = 1; i <= 6; i++) {
-                        data.push({
-                            id: `T${i}`,
-                            state: Math.random() > 0.85 ? '異常' : '正常',
-                            wear: (Math.random() * 2).toFixed(3),
-                            torque: (Math.random() * 50 + 10).toFixed(1),
-                            bending: (Math.random() * 0.5).toFixed(3),
-                            ra: (Math.random() * 3 + 0.5).toFixed(2)
+                async bindLocalYamlFile() {
+                    try {
+                        const [handle] = await window.showOpenFilePicker({
+                            types: [{ description: 'YAML Configuration', accept: {'text/yaml': ['.yaml', '.yml']} }],
+                            multiple: false
+                        });
+                        
+                        globalFileHandle = handle;
+                        this.selectedFileName = handle.name;
+                        
+                        const file = await handle.getFile();
+                        this.rawYamlText = await file.text();
+                        
+                        let safeYamlText = this.rawYamlText
+                            .replace(/\t/g, '  ')                     
+                            .replace(/\u00A0/g, ' ')                  
+                            .replace(/:\s*(\?+|X+|(?:X,)+X|X,Y,Z)\s*$/gm, ': ""');
+
+                        try {
+                            this.parsedYamlData = jsyaml.load(safeYamlText) || {};
+                            
+                            this.machineInfo.name = this.getSafeValue(this.parsedYamlData, ['Description', 'NativeName']) || 'Unknown';
+                            this.machineInfo.macId = this.getSafeValue(this.parsedYamlData, ['ToolRelated', 'ToolHolder', 'STH1', 'HolderID']) || '--';
+                            
+                            // ✅ 動態載入 VB 數量核心函數
+                            this.buildDynamicVBFields();
+                            
+                            this.mapYamlToForm();
+                            this.isDataLoaded = true;
+                        } catch (e) {
+                            console.warn("Syntax warning, running under tolerant configuration.", e);
+                            alert(`⚠️ Format Notification:\n\nSyntax mismatch captured (${e.message}). Initializing fault-tolerant backup protocol to enable manual data override.`);
+                            
+                            this.parsedYamlData = {};
+                            this.machineInfo.name = 'Tolerant Framework Active';
+                            this.machineInfo.macId = 'Overridden';
+                            
+                            this.buildDynamicVBFields();
+                            this.mapYamlToForm();
+                            this.isDataLoaded = true;
+                        }
+                    } catch (error) {
+                        if(error.name !== "AbortError") {
+                            console.error('File resolution crash', error);
+                        }
+                    }
+                },
+
+                // 【全新功能】：自動掃描 YAML，偵測並生成對應數量的 VB
+                buildDynamicVBFields() {
+                    // 先把舊的動態欄位清空，避免重複疊加
+                    this.modalConfig.n4.fields = this.modalConfig.n4.fields.filter(f => !f.isDynamicVB);
+                    this.modalConfig.n5.fields = this.modalConfig.n5.fields.filter(f => !f.isDynamicVB);
+
+                    const beforeWear = this.parsedYamlData?.ToolRelated?.ToolHouse?.T1?.ActualWear?.Before || {};
+                    const afterWear = this.parsedYamlData?.ToolRelated?.ToolHouse?.T1?.ActualWear?.After || {};
+
+                    const beforeVBs = Object.keys(beforeWear).filter(k => k.startsWith('VB'));
+                    const afterVBs = Object.keys(afterWear).filter(k => k.startsWith('VB'));
+
+                    if (beforeVBs.length > 0) {
+                        this.modalConfig.n4.fields.push({ isTitle: true, label: 'ToolRelated.ToolHouse.T1.ActualWear.Before', isDynamicVB: true });
+                        beforeVBs.forEach(vb => {
+                            this.modalConfig.n4.fields.push({
+                                id: `awBf${vb}`,
+                                label: `ActualWear.Before.${vb}`,
+                                yamlPath: ['ToolRelated', 'ToolHouse', 'T1', 'ActualWear', 'Before', vb],
+                                isDynamicVB: true
+                            });
                         });
                     }
-                    this.toolsData = data;
-                },
-                updateData() {
-                    this.generateRandomData();
-                    if (this.currentBatch < 0) {
-                        this.remainingTime = 0;
-                    } else if (this.currentBatch == 0) {
-                        this.remainingTime = Math.floor(Math.random() * 10) + 1;
-                    } else {
-                        this.remainingTime = 10;
+
+                    if (afterVBs.length > 0) {
+                        this.modalConfig.n5.fields.push({ isTitle: true, label: 'ToolRelated.ToolHouse.T1.ActualWear.After', isDynamicVB: true });
+                        afterVBs.forEach(vb => {
+                            this.modalConfig.n5.fields.push({
+                                id: `awAf${vb}`,
+                                label: `ActualWear.After.${vb}`,
+                                yamlPath: ['ToolRelated', 'ToolHouse', 'T1', 'ActualWear', 'After', vb],
+                                isDynamicVB: true
+                            });
+                        });
                     }
                 },
-                parseNCFile(event) {
-                    const file = event.target.files[0];
-                    if (!file) return;
-                    const reader = new FileReader();
-                    reader.onload = (e) => {
-                        const content = e.target.result;
-                        const sMatch = content.match(/S(\d+)/i);
-                        const fMatch = content.match(/F(\d+\.?\d*)/i);
-                        this.spindleSpeed = sMatch ? sMatch[1] : '--';
-                        this.feedRate = fMatch ? fMatch[1] : '--';
-                    };
-                    reader.readAsText(file);
+
+                // 【全新功能】：點擊 FilePicker 打開瀏覽器選檔，並自動填入
+                async pickFileAndMap(field) {
+                    try {
+                        const [handle] = await window.showOpenFilePicker({ multiple: false });
+                        const fullFileName = handle.name;
+                        // 移除副檔名作為 FileName
+                        const nameWithoutExt = fullFileName.substring(0, fullFileName.lastIndexOf('.')) || fullFileName;
+                        
+                        // 動態寫入綁定的 Vue 模型中
+                        this.formData[field.id + '_name'] = nameWithoutExt;
+                        this.formData[field.id + '_link'] = `./${field.folderPrefix}/${fullFileName}`;
+                    } catch (e) {
+                        // User canceled file picking
+                    }
                 },
-                initThreeJS() {
-                    const container = document.getElementById('stl-container');
-                    
-                    scene = new THREE.Scene();
-                    scene.background = new THREE.Color(0xeef2f3);
 
-                    camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 1, 1000);
-                    camera.position.set(80, 80, 80); 
-                    camera.lookAt(0, 0, 0);
+                getSafeValue(obj, pathArray) {
+                    if (!pathArray || !Array.isArray(pathArray)) return '';
+                    let current = obj;
+                    for (let i = 0; i < pathArray.length; i++) {
+                        if (current == null || typeof current !== 'object') return '';
+                        if (current[pathArray[i]] === undefined || current[pathArray[i]] === null) return '';
+                        current = current[pathArray[i]];
+                    }
+                    return String(current);
+                },
 
-                    // 【新增】：初始化 OrbitControls
-                    renderer = new THREE.WebGLRenderer({ antialias: true });
-                    renderer.setSize(container.clientWidth, container.clientHeight);
-                    container.appendChild(renderer.domElement);
-
-                    controls = new THREE.OrbitControls(camera, renderer.domElement);
-                    controls.enableDamping = true; // 開啟滑鼠慣性滑動效果
-                    controls.dampingFactor = 0.05; // 慣性阻尼係數
-
-                    const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 1.2);
-                    hemiLight.position.set(0, 200, 0);
-                    scene.add(hemiLight);
-
-                    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
-                    directionalLight.position.set(1, 1, 1).normalize();
-                    scene.add(directionalLight);
-
-                    const animate = () => {
-                        requestAnimationFrame(animate);
-                        // 【更新】：取消原本的自動旋轉，改為更新控制器狀態 (讓慣性生效)
-                        if (controls) {
-                            controls.update(); 
-                        }
-                        renderer.render(scene, camera);
-                    };
-                    animate();
-
-                    window.addEventListener('resize', () => {
-                        camera.aspect = container.clientWidth / container.clientHeight;
-                        camera.updateProjectionMatrix();
-                        renderer.setSize(container.clientWidth, container.clientHeight);
+                mapYamlToForm() {
+                    Object.values(this.modalConfig).forEach(node => {
+                        node.fields.forEach(field => {
+                            if(field.isTitle) return;
+                            
+                            // 判斷是否為 FilePicker 類型，如果是，就分別讀取 Name 和 Link
+                            if(field.type === 'filePicker') {
+                                this.formData[field.id + '_name'] = this.getSafeValue(this.parsedYamlData, field.namePath);
+                                this.formData[field.id + '_link'] = this.getSafeValue(this.parsedYamlData, field.linkPath);
+                            } else {
+                                this.formData[field.id] = this.getSafeValue(this.parsedYamlData, field.yamlPath);
+                            }
+                        });
                     });
                 },
-                loadSTLFile(event) {
-                    const file = event.target.files[0];
-                    if (!file) return;
 
-                    const reader = new FileReader();
-                    reader.onload = (e) => {
-                        const contents = e.target.result;
-                        const loader = new THREE.STLLoader();
-                        const geometry = loader.parse(contents);
-                        
-                        const material = new THREE.MeshPhongMaterial({ color: 0x2980b9, specular: 0x111111, shininess: 100 });
-                        
-                        if (mesh) {
-                            scene.remove(mesh);
+                replaceYamlValueInString(originalYaml, pathArray, newValue) {
+                    let currentIndex = 0;
+                    for (let i = 0; i < pathArray.length - 1; i++) {
+                        const parentKey = pathArray[i];
+                        const parentRegex = new RegExp(`^\\s*${parentKey}\\s*:`, 'm');
+                        const match = originalYaml.substring(currentIndex).match(parentRegex);
+                        if (match) {
+                            currentIndex += match.index;
+                        }
+                    }
+                    
+                    const targetKey = pathArray[pathArray.length - 1];
+                    const targetRegex = new RegExp(`^(\\s*${targetKey}\\s*:).*$`, 'm');
+                    const match = originalYaml.substring(currentIndex).match(targetRegex);
+                    
+                    if (match) {
+                        const fullMatchIndex = currentIndex + match.index;
+                        const beforeStr = originalYaml.substring(0, fullMatchIndex);
+                        let valStr = (newValue === '' || newValue == null) ? " ''" : ` ${newValue}`;
+                        const afterStr = originalYaml.substring(fullMatchIndex).replace(targetRegex, `$1${valStr}`);
+                        return beforeStr + afterStr;
+                    }
+                    return originalYaml; 
+                },
+
+                async overwriteLocalYaml() {
+                    if (!globalFileHandle) return;
+
+                    try {
+                        const options = { mode: 'readwrite' };
+                        if ((await globalFileHandle.queryPermission(options)) !== 'granted') {
+                            if ((await globalFileHandle.requestPermission(options)) !== 'granted') {
+                                alert("❌ Security clearance denied.");
+                                return;
+                            }
                         }
 
-                        mesh = new THREE.Mesh(geometry, material);
-                        
-                        geometry.center(); 
-                        geometry.computeBoundingBox();
-                        const size = new THREE.Vector3();
-                        geometry.boundingBox.getSize(size);
-                        
-                        const maxDim = Math.max(size.x, size.y, size.z);
-                        const scale = 50 / maxDim; 
-                        mesh.scale.set(scale, scale, scale);
+                        let updatedYamlText = this.rawYamlText;
 
-                        scene.add(mesh);
-                        
-                        // 當載入新模型時，重置控制器的中心點
-                        if (controls) {
-                            controls.target.set(0, 0, 0);
-                            controls.update();
-                        }
+                        Object.values(this.modalConfig).forEach(node => {
+                            node.fields.forEach(field => {
+                                if (field.isTitle) return;
 
-                        this.isStlLoaded = true;
-                    };
-                    reader.readAsArrayBuffer(file); 
-                }
-            },
-            mounted() {
-                this.generateRandomData();
-                this.updateData();
-                this.initThreeJS();
+                                // 針對 FilePicker 類型，分兩次存檔 (Name 和 Link)
+                                if (field.type === 'filePicker') {
+                                    const newName = this.formData[field.id + '_name'];
+                                    const oldName = this.getSafeValue(this.parsedYamlData, field.namePath);
+                                    if (newName !== undefined && newName !== oldName) {
+                                        updatedYamlText = this.replaceYamlValueInString(updatedYamlText, field.namePath, newName);
+                                    }
+                                    
+                                    const newLink = this.formData[field.id + '_link'];
+                                    const oldLink = this.getSafeValue(this.parsedYamlData, field.linkPath);
+                                    if (newLink !== undefined && newLink !== oldLink) {
+                                        updatedYamlText = this.replaceYamlValueInString(updatedYamlText, field.linkPath, newLink);
+                                    }
+                                } else {
+                                    // 一般輸入框存檔
+                                    const newVal = this.formData[field.id];
+                                    const oldVal = this.getSafeValue(this.parsedYamlData, field.yamlPath);
+                                    
+                                    if (newVal !== undefined && newVal !== oldVal) {
+                                        updatedYamlText = this.replaceYamlValueInString(updatedYamlText, field.yamlPath, newVal);
+                                    }
+                                }
+                            });
+                        });
+
+                        const writable = await globalFileHandle.createWritable();
+                        await writable.write(updatedYamlText);
+                        await writable.close();
+
+                        this.rawYamlText = updatedYamlText;
+                        
+                        let safeYamlText = this.rawYamlText
+                            .replace(/\t/g, '  ')
+                            .replace(/\u00A0/g, ' ')
+                            .replace(/:\s*(\?+|X+|(?:X,)+X|X,Y,Z)\s*$/gm, ': ""');
+                            
+                        this.parsedYamlData = jsyaml.load(safeYamlText) || {};
+                        
+                        alert('✅ Target sync completed successfully.');
+                        this.closeModal();
+
+                    } catch (error) {
+                        console.error('Buffer flush termination', error);
+                        alert('❌ IO write error: ' + error.message);
+                    }
+                },
+
+                openModal(nodeId) { this.activeModal = nodeId; },
+                closeModal() { this.activeModal = null; }
             }
         }).mount('#app')
     </script>
