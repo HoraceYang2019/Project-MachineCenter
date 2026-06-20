@@ -1,8 +1,7 @@
 import json
 import threading
 from pathlib import Path
-import csv
-
+import yaml
 import dash
 import dash_bootstrap_components as dbc
 import plotly.express as px
@@ -10,24 +9,49 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 from dash import Input, Output, State, dcc, html
 import numpy as np
-
+from flask import send_from_directory
 
 ROOT = Path(__file__).parent
 DATA_FILE = ROOT / "CNC_opcua.json"
-CSV_FILE = ROOT / "machining_6stage.csv"
 MQTT_TOPIC = "cnc/snapshot"
 MQTT_BROKER = "localhost" 
 MQTT_PORT = 1883
 
-RaWARN_LEVEL = 0.9
-RaDANGER_LEVEL = 1.35
+RaWARN_LEVEL = 0.5
+RaDANGER_LEVEL = 0.8
+
+Torque_WARN_LEVEL = 0.1
+Torque_DANGER_LEVEL = 0.12
+
+Banding_WARN_LEVEL = 2.0
+Banding_DANGER_LEVEL = 2.6
+
+Wear_WARN_LEVEL = 0.23
+Wear_DANGER_LEVEL = 0.28
 
 STATE_LOCK = threading.Lock()
 LATEST_DATA = {}
 LATEST_HISTORY = []
 STL_CACHE = None
 
-
+def build_empty_figure(message="沒有數值"):
+    """產生一個只包含置中文字提示的空圖表"""
+    fig = go.Figure()
+    fig.add_annotation(
+        text=message,
+        xref="paper", yref="paper",
+        x=0.5, y=0.5,
+        showarrow=False,
+        font=dict(size=20, color="#888", family="sans-serif")
+    )
+    fig.update_layout(
+        xaxis=dict(visible=False),  # 隱藏 X 軸
+        yaxis=dict(visible=False),  # 隱藏 Y 軸
+        plot_bgcolor="rgba(0,0,0,0)",
+        paper_bgcolor="rgba(0,0,0,0)",
+        margin=dict(l=0, r=0, t=0, b=0)
+    )
+    return fig
 
 def list_stl_files():
     candidates = []
@@ -67,7 +91,7 @@ def point_color_for_ra(value):
 
 
 def build_stl_figure(stl_path=None, measurement_snapshot=None):
-    default_path = ROOT / "!Back Plate.stl"
+    default_path = ROOT / "325BTM.STL"
     target_path = Path(stl_path) if stl_path else default_path
     if not target_path.exists():
         target_path = default_path
@@ -102,32 +126,46 @@ def build_stl_figure(stl_path=None, measurement_snapshot=None):
         )
         if measurement_snapshot:
             point_values = extract_ra_points(measurement_snapshot)
-            xmin = float(np.min(vertices[:, 0]))
-            xmax = float(np.max(vertices[:, 0]))
-            ymin = float(np.min(vertices[:, 1]))
-            ymax = float(np.max(vertices[:, 1]))
-            zmax = float(np.max(vertices[:, 2]))
-            width = max(xmax - xmin, 1e-6)
-            depth = max(ymax - ymin, 1e-6)
-            x_positions = np.linspace(xmin + width * 0.15, xmax - width * 0.15, len(point_values))
-            y_positions = np.linspace(ymin + depth * 0.25, ymin + depth * 0.75, len(point_values))
-            z_positions = np.full(len(point_values), zmax + max((zmax - float(np.min(vertices[:, 2]))) * 0.02, 0.01))
-            marker_colors = [point_color_for_ra(value) for value in point_values]
-            # 標籤改為 P1~P6，並在下一行顯示 RA 值，保持簡潔同時提供必要資訊
-            labels = [f"P{index + 1}<br>{value:.2f}" for index, value in enumerate(point_values)]
-            figure.add_trace(
-                go.Scatter3d(
-                    x=x_positions,
-                    y=y_positions,
-                    z=z_positions,
-                    mode="markers+text",
-                    text=labels,
-                    textposition="top center",
-                    marker=dict(size=7, color=marker_colors, opacity=0.95),
-                    name="量測點",
-                    hovertemplate="check point %{text}<br>X %{x:.3f}<br>Y %{y:.3f}<br>Z %{z:.3f}<extra></extra>",
+            N = len(point_values)
+            
+            if N > 0:
+                xmin = float(np.min(vertices[:, 0]))
+                xmax = float(np.max(vertices[:, 0]))
+                ymin = float(np.min(vertices[:, 1]))
+                ymax = float(np.max(vertices[:, 1]))
+                zmax = float(np.max(vertices[:, 2]))
+                
+                width = xmax - xmin
+                y_center = (ymin + ymax) / 2  # Y 固定在模型正中間 (y=0 的概念)
+                
+                x_positions = []
+                y_positions = []
+                z_positions = []
+                
+                # 根據 N 個點，將寬度切成 N+1 等份
+                for i in range(1, N + 1):
+                    x_val = xmin + (i / (N + 1)) * width
+                    x_positions.append(x_val)
+                    y_positions.append(y_center)
+                    # Z 軸稍微浮貼在模型上方
+                    z_positions.append(zmax + max((zmax - float(np.min(vertices[:, 2]))) * 0.02, 0.01))
+                
+                marker_colors = [point_color_for_ra(value) for value in point_values]
+                labels = [f"P{index + 1}<br>{value:.2f}" for index, value in enumerate(point_values)]
+                
+                figure.add_trace(
+                    go.Scatter3d(
+                        x=x_positions,
+                        y=y_positions,
+                        z=z_positions,
+                        mode="markers+text",
+                        text=labels,
+                        textposition="top center",
+                        marker=dict(size=7, color=marker_colors, opacity=0.95),
+                        name="量測點",
+                        hovertemplate="check point %{text}<br>X %{x:.3f}<br>Y %{y:.3f}<br>Z %{z:.3f}<extra></extra>",
+                    )
                 )
-            )
         figure.update_layout(margin=dict(l=0, r=0, t=0, b=0), height=800)
         figure.update_scenes(aspectmode="data")
         return figure
@@ -150,26 +188,116 @@ def build_stl_figure(stl_path=None, measurement_snapshot=None):
         )
         return fallback
 
+def to_float(value, default=0.0):
+    """
+    將傳入的 value 安全地轉換為 float。
+    若 value 為 None 或無法轉換的字串（如 "-"、"N/A" 等），則回傳預設值 default。
+    """
+    if value is None:
+        return float(default)
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return float(default)
 
-def load_csv_snapshots(csv_path=CSV_FILE):
-    if not csv_path.exists():
-        return []
-    snapshots = []
-    with open(csv_path, "r", encoding="utf-8") as f:
-        reader = csv.DictReader(f)
-        for row in reader:
-            snapshots.append(dict(row))
-    return snapshots
+# 1. 建立一個全域字典，將 sub_num 1 與 2 分開存放
+REAL_DATA_CACHE = {
+    "1": [],
+    "2": []
+}
+
+BASE_DIR = ROOT / "承威data" / "step1_ucl_pipeline_2" / "data" / "exp"
+
+def load_real_experiment_data():
+    REAL_DATA_CACHE["1"].clear()
+    REAL_DATA_CACHE["2"].clear()
+    
+    for exp_num in range(29, 35):
+        for sub_num in range(1, 3):
+            folder_name = f"EXP-{exp_num}-{sub_num}"
+            folder_path = BASE_DIR / folder_name
+            
+            if not folder_path.exists():
+                continue # 若資料夾不存在則跳過
+                
+            # 1. 搜尋資料夾底下副檔名為 .yaml 或 .yml 的所有檔案
+            yaml_files = list(folder_path.glob("*.yaml")) + list(folder_path.glob("*.yml"))
+            
+            if not yaml_files:
+                print(f"提示: 資料夾 {folder_name} 內找不到任何 YAML 檔案。")
+                continue
+                
+            # 2. 取得唯一的 YAML 檔案路徑
+            target_yaml_path = yaml_files[0]
+            
+            try:
+                # 3. 開啟並安全載入 YAML 檔案
+                with open(target_yaml_path, "r", encoding="utf-8") as f:
+                    yaml_content = yaml.safe_load(f)
+                
+                if not yaml_content:
+                    continue
+                    
+                # 假設 yaml_content 已經由 yaml.safe_load(f) 成功讀取
+
+                # 1. 安全地逐層往下挖取，直到取得 Summary 字典
+                tool_related = yaml_content.get("ToolRelated", {})
+                tool_holder = tool_related.get("ToolHolder", {})
+                sth1 = tool_holder.get("STH1", {})
+                summary = sth1.get("Summary", {})
+
+                if not summary:
+                    print(f"提示: {folder_name} 的 YAML 中找不到 Summary 資料。")
+                    # 可以決定要 continue 跳過，或是給予預設值
+
+                # 2. 從 Summary 中精準取出你要的數值
+                max_torque = summary.get("MaxTorque", 0)  # 找不到時預設給 0.5
+                max_bending = summary.get("MaxBending", 0)
+                rms_torque = summary.get("rmsTorque", 0.0)  
+                std_torque = summary.get("stdTorque", 0.0)
+
+                # 3. 再往下挖取 VisualizationLinks 裡面的 HTML 檔名
+                vis_links = summary.get("VisualizationLinks", {})
+                torque_value_html = vis_links.get("Torque_Value_HTML", "")
+                # 讀取RA欄位
+                # 假設你已經取得了 yaml_content
+                job = yaml_content.get("Job", {})
+                quality = job.get("Quality", {})
+
+                # 1. 提取 Tolerance (找不到時預設給 0.8)
+                tolerance = to_float(quality.get("Tolerance", 0.8), 0.8)
+
+                # 2. 提取 Measurement 列表 (找不到時給空陣列 [])
+                raw_measurements = quality.get("Measurement", [])
+
+                # 防呆機制：如果 YAML 裡面寫錯格式，確保它真的是一個 list
+                if not isinstance(raw_measurements, list):
+                    raw_measurements = []
+
+                # 3. 透過串列生成式，將陣列裡的每一個值安全地轉成 float
+                ra_list = [to_float(m, 0.0) for m in raw_measurements if m is not None]
+                
+                # 4. 寫入你的 snapshot 準備給 Dash 畫圖使用
+                snapshot = {
+                    "workpiece_id": folder_name,
+                    "Toque": to_float(max_torque, 0.0),      # 對應 Dashboard 上的 Torque
+                    "Bending": to_float(max_bending, 0.0),  # 對應 Dashboard 上的 Bending
+                    "rmsTorque": to_float(rms_torque, 0.0),
+                    "Torque_Value_HTML": torque_value_html,      # 把 Iframe 需要的路徑也存起來
+                    "RA_List": ra_list,
+                    "Tolerance": tolerance
+                }
+                
+                # 5. 依據 sub_num (1 或 2) 存入對應的快取分組
+                REAL_DATA_CACHE[str(sub_num)].append(snapshot)
+                
+            except Exception as error:
+                print(f"解析檔案 {target_yaml_path.name} 時發生異常: {error}")
+
+# 啟動時執行一次讀取
+load_real_experiment_data()
 
 
-def build_csv_window(snapshots, current_index):
-    if not snapshots:
-        return []
-    n = len(snapshots)
-    current_index = max(0, min(current_index, n - 1))
-    start = max(0, current_index - 3)
-    end = min(n - 1, current_index + 2)
-    return [snapshots[i] for i in range(start, end + 1)]
 
 # RA盒狀圖
 def compute_window_indices(snapshots, current_index):
@@ -186,7 +314,7 @@ def compute_window_labels(snapshots, current_index):
     # 取得當前時間窗口內的所有絕對索引清單（例如 [0, 1, 2, 3, 4, 5]）
     inds = compute_window_indices(snapshots, current_index)
     
-    # 如果有 CSV 數據，就用索引去查出真正的 workpiece_id；查不到才用數字代替
+    # 如果有數據，就用索引去查出真正的 workpiece_id；查不到才用數字代替
     if snapshots:
         return [str(snapshots[i].get("workpiece_id", i)) for i in inds]
     return [str(i) for i in inds]
@@ -242,23 +370,21 @@ def history_series(history, key, default_value):
 
 
 def extract_ra_points(snapshot):
-    points = []
-    for i in range(1, 7):
-        key = f"RA_P{i}"
-        if key not in snapshot:
-            continue
-        value = snapshot.get(key)
-        if value in (None, ""):
-            continue
-        points.append(to_float(value, 0.0))
-    return points
+    # [修正] 既然現在資料已經是乾淨的 List，直接拿出來即可
+    return snapshot.get("RA_List", [])
 
 
 def to_float(value, default=0.0):
+    """
+    將傳入的 value 安全地轉換為 float。
+    允許 default 傳入 None，以配合前端的「無數值 (Empty State)」判定。
+    """
+    if value is None or str(value).strip() == "" or value == "-":
+        return default if default is None else float(default)
     try:
         return float(value)
     except (TypeError, ValueError):
-        return float(default)
+        return default if default is None else float(default)
 
 
 def to_int(value, default=0):
@@ -545,54 +671,55 @@ def build_box_figure(base_value, batch_offset):
     return figure
 
 
-def build_history_box_figure(history, key, default_value, labels=None, now_pos=None):
-    global RaWARN_LEVEL, RaDANGER_LEVEL
-    # history: 列表，為 build_csv_window 返回的快照序列（不環回）
-    figure = go.Figure()
-    # 逐一檢查 history 中的每一個位置；有多少個 RA_P* 就畫多少個，不補值、不推算
-    for idx, snap in enumerate(history):
-        if not isinstance(snap, dict):
-            continue
-        pts = extract_ra_points(snap)
-        if not pts:
-            continue
-        label = labels[idx] if (labels and idx < len(labels)) else f"Stage {idx}"
-        # NOW 位置用特殊顏色
-        if now_pos is not None and idx < now_pos:
-            marker_color = "#1f77b4"
-        elif now_pos is not None and idx == now_pos:
-            marker_color = "#2ecc71"
-        elif now_pos is not None and idx > now_pos:
-            marker_color = "#f39c12"
-        else:
-            marker_color = "#6a8caf"
-        # 使用數字 x 座標對齊位置，避免類別軸與 vline 不對齊
-        figure.add_trace(go.Box(x=[idx] * len(pts), y=pts, name=label, marker_color=marker_color))
+def build_history_box_figure(history, labels=None, now_pos=None, tolerance=None):
+    if not history:
+        return build_empty_figure("無歷史數據")
 
-    if now_pos is not None and labels and 0 <= now_pos < len(labels):
-        # vline/annotations 使用數字座標（位置索引），x 軸顯示文字標籤
-        figure.add_vline(x=now_pos, line_color="#2ecc71", line_width=3, line_dash="solid")
-        figure.add_annotation(x=now_pos, y=1.02, xref="x", yref="paper", text="NOW", showarrow=False, font=dict(color="#2ecc71", size=12))
-        if now_pos > 0:
-            figure.add_annotation(x=0, y=1.02, xref="x", yref="paper", text="before", showarrow=False, font=dict(color="#1f77b4", size=12))
-        if now_pos + 1 < len(labels):
-            figure.add_annotation(x=len(labels) - 1, y=1.02, xref="x", yref="paper", text="after", showarrow=False, font=dict(color="#f39c12", size=12))
+    fig = go.Figure()
     
-    figure.add_hline(y=RaDANGER_LEVEL, line_dash="dash", line_color="#d0021b")
-    figure.add_hline(y=RaWARN_LEVEL, line_dash="dot", line_color="#f5a623")
-    figure.update_layout(
-        title="Ra Statistics",
-        margin=dict(l=16, r=16, t=42, b=16),
-        height=230,
-        autosize=False,
-        showlegend=False,
-        yaxis_title="um",
-        xaxis_title="Workpiece No.",
+    x_vals = []
+    y_vals = []
+    
+    # 把歷史資料中的陣列攤平 (Flatten) 給 Plotly 畫箱型圖
+    for snap in history:
+        w_id = snap.get("workpiece_id", "Unknown")
+        ra_list = snap.get("RA_List", [])
+        
+        for ra in ra_list:
+            x_vals.append(w_id)
+            y_vals.append(ra)
+
+    fig.add_trace(go.Box(
+        x=x_vals, 
+        y=y_vals,
+        marker_color="#3182bd",
+        name="RA Spread"
+    ))
+
+    # 標示當前選擇的工件位置 (如果有傳入 now_pos)
+    if now_pos is not None and now_pos < len(history):
+        current_wid = history[now_pos].get("workpiece_id")
+        fig.add_vrect(
+            x0=now_pos - 0.5, x1=now_pos + 0.5,
+            fillcolor="rgba(255, 165, 0, 0.2)", layer="below", line_width=0
+        )
+
+    # === 新增：畫上 Tolerance 虛線 ===
+    if tolerance is not None:
+        fig.add_hline(
+            y=tolerance, 
+            line_dash="dash", 
+            line_color="red", 
+            annotation_text=f"Tolerance: {tolerance}", 
+            annotation_position="top left"
+        )
+
+    fig.update_layout(
+        title="Historical RA Spread (Boxplot)",
+        margin=dict(l=20, r=20, t=40, b=20),
+        plot_bgcolor="rgba(0,0,0,0)"
     )
-    # 設定 x 軸顯示的文字標籤
-    if labels:
-        figure.update_xaxes(tickmode="array", tickvals=list(range(len(labels))), ticktext=labels)
-    return figure
+    return fig
 
 
 def build_ra_histogram_figure(base_value, batch_offset):
@@ -605,56 +732,53 @@ def build_ra_histogram_figure(base_value, batch_offset):
     return figure
 
 
-def build_history_ra_histogram_figure(snapshot, base_value):
-    # 顯示當前（NOW）快照中實際存在的 RA_P 點位
-    if isinstance(snapshot, dict):
-        points = extract_ra_points(snapshot)
-    else:
-        points = []
-    labels = [f"P{i + 1}" for i in range(len(points))]
-    figure = go.Figure()
-    if points:
-        if points:
-        # 將 go.Bar 改為 go.Scatter
-            figure.add_trace(go.Scatter(
-            x=labels, 
-            y=points, 
-            mode="lines+markers",  # 顯示線段和點
-            line=dict(
-                color="#1f77b4", 
-                width=3, 
-                shape='spline'     # 讓線段變成平滑曲線
-            ),
-            marker=dict(
-                size=8, 
-                color="#1f77b4",
-                symbol="circle"
-            ),
-            name="RA 數值"
-        ))
-    else:
-        figure.add_annotation(
-            text="目前沒有可用的 RA_P1~RA_P6 資料",
-            x=0.5,
-            y=0.5,
-            xref="paper",
-            yref="paper",
-            showarrow=False,
-            font=dict(size=12, color="#666"),
-        )
-    global RaWARN_LEVEL, RaDANGER_LEVEL
-    figure.add_hline(y=RaWARN_LEVEL, line_dash="dot", line_color="#f5a623")
-    figure.add_hline(y=RaDANGER_LEVEL, line_dash="dash", line_color="#d0021b")
-    figure.update_layout(
-        title="Quality- Ra Values", 
-        margin=dict(l=16, r=16, t=42, b=16),
-        height=230,
-        autosize=False,
-        showlegend=False,
-        xaxis_title="Sampling No.",
-        yaxis_title="um",
+import plotly.graph_objects as go
+
+def build_history_ra_histogram_figure(snapshot):
+    # 1. 取得陣列與公差
+    ra_list = snapshot.get("RA_List", [])
+    tolerance = snapshot.get("Tolerance", 0.8)
+    
+    if not ra_list:
+        return build_empty_figure("無 RA 量測數據")
+
+    # 2. 建立 X 軸標籤 (測點 1, 測點 2...)
+    x_labels = [f"P{i+1}" for i in range(len(ra_list))]
+    
+    # 3. 判斷每個點是否超標，用來決定「標記點(Marker)」的顏色
+    marker_colors = ["#d0021b" if val > tolerance else "#1f77b4" for val in ra_list]
+
+    fig = go.Figure()
+    
+    # 4. 改用 Scatter 畫折線圖 (加入 lines+markers+text 模式)
+    fig.add_trace(go.Scatter(
+        x=x_labels, 
+        y=ra_list,
+        mode="lines+markers+text",
+        text=[f"{val:.3f}" for val in ra_list], # 在每個點上方顯示精確數值
+        textposition="top center",
+        line=dict(color="#1f77b4", width=2),    # 線條統一使用藍色
+        marker=dict(color=marker_colors, size=10, line=dict(width=1, color="white")), # 點的顏色依據是否超標變化
+        name="RA Value"
+    ))
+    
+    # 5. 畫一條水平的公差基準線
+    fig.add_hline(
+        y=tolerance, 
+        line_dash="dash", 
+        line_color="red", 
+        annotation_text=f"Tolerance: {tolerance}", 
+        annotation_position="top left"
     )
-    return figure
+
+    fig.update_layout(
+        title="Current Workpiece RA Profile (Trend)",
+        margin=dict(l=20, r=20, t=40, b=20),
+        plot_bgcolor="rgba(0,0,0,0)",
+        # 將 Y 軸強制從 0 開始，這樣看波動趨勢時視覺比例才不會失真
+        yaxis=dict(title="Roughness (RA)", rangemode="tozero") 
+    )
+    return fig
 
 
 def build_status_gauge_figure(batch_offset):
@@ -744,51 +868,25 @@ def connect_mqtt():
 if not LATEST_DATA:
     update_state(load_data())
 
-CSV_SNAPSHOTS = load_csv_snapshots()
-if CSV_SNAPSHOTS:
-    update_state({"snapshots": CSV_SNAPSHOTS})
-
 
 # 建立滑桿標記字典
 slider_marks = {}
 
-if CSV_SNAPSHOTS:
-    for i, snap in enumerate(CSV_SNAPSHOTS):
-        w_id = str(snap.get("workpiece_id", i))
-        
-        # 1. 擷取該工件的 RA 數值（相容原本的替代欄位 Offset_Z）
-        ra_val = to_float(snap.get("RA", snap.get("Offset_Z", 0.0)), 0.0)
-        
-        # 2. 取得對應的顏色（可使用您現有的 point_color_for_ra 函數）
-        # 如果想採用先前調整過的專業工業色票，可以參考下方的對應：
-        # 正常 (<0.8) -> #43A047 | 警戒 (>=0.8) -> #F57C00 | 斷刀/危險 (>=1.5) -> #C62828
-        mark_color = point_color_for_ra(ra_val)
-        
-        # 3. 封裝成 Dash 支援的樣式字典
-        slider_marks[i] = {
-            "label": w_id,
-            "style": {
-                "color": mark_color, 
-                "fontWeight": "700",       # 加粗字體讓顏色更明顯
-                "fontSize": "12px"
-            }
-        }
-else:
-    slider_marks = {0: "None"}
-
-csv_count = len(CSV_SNAPSHOTS)
-csv_max = max(0, csv_count - 1)
 
 MQTT_CLIENT = connect_mqtt()
 
-FA_URL = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP], assets_folder=str(ROOT / "assets"))
+server = app.server  # 取出底層的 Flask 伺服器
 
-workpiece_ids = [str(snap.get("workpiece_id", "")) for snap in CSV_SNAPSHOTS if snap.get("workpiece_id")]
-csv_count = len(workpiece_ids)
-csv_max = max(0, csv_count - 1)
-# 建立滑桿位置與實際工件識別碼的對應字典，作為 Slider 的 marks
-slider_marks = {i: w_id for i, w_id in enumerate(workpiece_ids)} if csv_count > 0 else {0: "None"}
+# 定義這扇門要通往真實電腦上的哪個資料夾
+# 根據你的結構，起點應該是 step1_ucl_pipeline_2
+HTML_BASE_DIR = ROOT / "承威data" / "step1_ucl_pipeline_2"
+
+# 建立通道：任何以 /raw_html/ 開頭的網址，都去 HTML_BASE_DIR 裡面找檔案
+@server.route('/raw_html/<path:filepath>')
+def serve_html(filepath):
+    return send_from_directory(HTML_BASE_DIR, filepath)
+
 
 app.layout = dbc.Container(
     [
@@ -813,36 +911,87 @@ app.layout = dbc.Container(
         style={"display": "none"},
         ),
         html.Div(
-            [
-                html.Div(
-                [
-                    dcc.Graph(id="wear-figure", config={"displayModeBar": False, "responsive": False}, style={"height": "240px"}),
-                    dcc.Graph(id="toque-figure", config={"displayModeBar": False, "responsive": False}, style={"height": "240px"}),
-                    dcc.Graph(id="bending-figure", config={"displayModeBar": False, "responsive": False}, style={"height": "240px"}),
-                    
-                    # --- 新增：Tool States by TID ---
-                    dbc.Card(
-                        dbc.CardBody([
-                            html.H6("Tool States by TID", className="card-title", style={"fontWeight": "bold", "borderBottom": "1px solid #ccc", "paddingBottom": "4px"}),
-                            html.Div(id="tool-states-content", style={"fontSize": "14px", "minHeight": "60px"})
-                        ]),
-                        className="mt-2", style={"boxShadow": "0 2px 4px rgba(0,0,0,0.05)"}
-                    ),
-                    
-                    # --- 新增：Next Responses for Tool Issues ---
-                    dbc.Card(
-                        dbc.CardBody([
-                            html.H6("Next Responses for Tool Issues", className="card-title", style={"fontWeight": "bold", "borderBottom": "1px solid #ccc", "paddingBottom": "4px"}),
-                            html.Div(id="tool-response-content", style={"fontSize": "14px", "minHeight": "60px"})
-                        ]),
-                        className="mt-2", style={"boxShadow": "0 2px 4px rgba(0,0,0,0.05)"}
-                    ),
-                ],
-                className="left-panel",
-            ),
+            [   
+                # 左側欄位
+                html.Div([
+                        # ---------------------------------------------------------
+                        # 1. 產線區塊 (上方)
+                        # --------------------------------------------------------- 
+                        dbc.Accordion( 
+                            [   
+                                dbc.AccordionItem(
+                                title=html.Div([
+                                # 載入 assets 資料夾內的 png，並透過 style 限制大小與對齊
+                                    html.Img(
+                                    src="/assets/pngtree-product-production-line-icon-png-image.png", 
+                                    style={
+                                        "width": "20px",           # 限制寬度
+                                        "height": "20px",          # 限制高度
+                                        "marginRight": "8px",      # 與右側文字保持間距
+                                        "verticalAlign": "middle"  # 確保圖片與文字垂直置中對齊
+                                    }
+                                ),html.Span("Tool Wear Analytics & Responses", style={"verticalAlign": "middle"})
+                                ],style={"display": "inline-block"}),
+                                children=[    
+                                    # --- 新增：Tool States by TID ---
+                                    dbc.Card(
+                                        dbc.CardBody([
+                                            html.H6("Tool States by TID", className="card-title", style={"fontWeight": "bold", "borderBottom": "1px solid #ccc", "paddingBottom": "4px"}),
+                                            html.Div(id="tool-states-content", style={"fontSize": "14px", "minHeight": "60px"})
+                                        ]),
+                                    ),
+                                    
+                                    # --- 新增：Next Responses for Tool Issues ---
+                                    dbc.Card(
+                                        dbc.CardBody([
+                                            html.H6("Next Responses for Tool Issues", className="card-title", style={"fontWeight": "bold", "borderBottom": "1px solid #ccc", "paddingBottom": "4px"}),
+                                            html.Div(id="tool-response-content", style={"fontSize": "14px", "minHeight": "60px"})
+                                        ]),
+                                    ),
+                                    dcc.Graph(id="wear-figure", config={"displayModeBar": False, "responsive": False}, style={"height": "240px"}),
+                                ]
+                                )    
+                            ],
+                            start_collapsed=True,
+                            className="mt-2",
+                        ),
+                        # ---------------------------------------------------------
+                        # 2. 工程師區塊 (下方)
+                        # ---------------------------------------------------------
+                        dbc.Accordion(
+                            [
+                                dbc.AccordionItem(
+                                    title=html.Div([
+                                        # 載入 assets 資料夾內的 png，並透過 style 限制大小與對齊
+                                    html.Img(
+                                    src="/assets/equipment-engineer-icon-png-image.png", 
+                                    style={
+                                        "width": "20px",           # 限制寬度
+                                        "height": "20px",          # 限制高度
+                                        "marginRight": "8px",      # 與右側文字保持間距
+                                        "verticalAlign": "middle"  # 確保圖片與文字垂直置中對齊
+                                    }
+                                ),html.Span("Wear Process", style={"verticalAlign": "middle"})
+                                ],style={"display": "inline-block"}),
+                                    children=[
+                                        dcc.Graph(id="toque-figure", config={"displayModeBar": False, "responsive": False}, style={"height": "240px"}),
+                                        dcc.Graph(id="bending-figure", config={"displayModeBar": False, "responsive": False}, style={"height": "240px"}), 
+                                    ],
+                                )
+                            ],
+                            start_collapsed=True,
+                            className="mt-2",
+
+                        ),
+           
+                    ],
+                    className="left-panel",
+
+                ),
+                # 
                 html.Div(
                     [
-                        # --- 新增/替換：States Summary 頂部狀態列 ---
+                        # --- 替換：States Summary 頂部狀態列 ---
                         html.Div(
                             style={
                                 "display": "flex",
@@ -855,8 +1004,21 @@ app.layout = dbc.Container(
                                 "marginBottom": "12px"
                             },
                             children=[
-                                # 左側：多把刀具狀態燈號
-                                html.Div(id="summary-tools-state", style={"display": "flex", "gap": "8px", "alignItems": "center", "flex": "1"}),
+                                # 左側：Target Tool 與 動態燈號按鈕
+                                html.Div(
+                                    style={"flex": "1", "display": "flex", "alignItems": "center"},
+                                    children=[
+                                        html.Span("Target Tool:", style={"fontWeight": "bold", "marginRight": "12px", "color": "#666"}),
+                                        dcc.RadioItems(
+                                            id="sub-num-selector",
+                                            value="1",     # 預設選中 T1
+                                            inline=True,
+                                            # 隱藏預設圓形單選按鈕
+                                            inputStyle={"display": "none"}, 
+                                            labelStyle={"cursor": "pointer", "marginRight": "12px", "display": "inline-flex", "alignItems": "center"}
+                                        )
+                                    ]
+                                ),
                                 
                                 # 中間： 工件名稱
                                 html.Div(
@@ -867,43 +1029,49 @@ app.layout = dbc.Container(
                                     style={"textAlign": "center", "flex": "1"}
                                 ),
                                 
-                                # 右側：佔位符，確保中間區塊能絕對置中
-                                html.Div(style={"flex": "1"})
+                                # 右側：HTML 與 STL 視圖切換
+                                
+                                html.Div(
+                                    style={"flex": "1", "textAlign": "right"},
+                                    children=[
+                                        dcc.RadioItems(
+                                            id="view-mode-selector",
+                                            options=[
+                                                {"label": " 受力情況 ", "value": "html"},
+                                                {"label": " STL 量測點情況 ", "value": "stl"}
+                                            ],
+                                            value="html",
+                                            inline=True,
+                                            inputStyle={"marginRight": "4px", "marginLeft": "12px"}
+                                        )
+                                    ]
+                                )
                             ]
                         ),
                         html.Div(
                             style={"display": "flex", "flexDirection": "column", "alignItems": "stretch"},
                             children=[
-                                # --- 替換為 Iframe 顯示外部 HTML ---
                                 html.Div(
+                                    id="center-view-container",  # 名字必須跟 Callback 輸出的一模一樣
                                     style={"position": "relative", "height": "800px", "width": "100%"},
-                                    children=[
-                                        html.Iframe(
-                                            src="assets\path_on_stl_torque_value.html",
-                                            style={"width": "100%", "height": "100%", "border": "none"}
-                                        )
-                                    ],
+                                    children=[]  # 裡面必須完全清空！把 Iframe 拔掉
                                 ),
-                                html.Div(style={"marginTop": "12px"},children=[
-                                    dbc.Row(
-                                    [   
-                                        dbc.Col(
-                                            [
-                                                dcc.Slider(
-                                                    id="workpiece-slider",  # 確保與您的 Callback Input 一致
-                                                    min=0,
-                                                    max=csv_max,
-                                                    step=1,
-                                                    value=0,
-                                                    marks=slider_marks,     # 帶入含有顏色樣式的字典
-                                                    disabled=(csv_count == 0),
-                                                )
-                                            ],
-                                            md=10,
-                                        ),
-                                    ],
-                                    className="mb-3 justify-content-center",
-                                ),]),
+                                # --- 新增/修改：Sub Num 切換開關與滑桿 ---
+                                html.Div(style={"marginTop": "12px", "padding": "0 16px"}, children=[
+
+                                    # 2. 原本的滑桿 (此處的 marks, max, value 稍後會由 Callback 動態接管)
+                                    dbc.Row([   
+                                        dbc.Col([
+                                            dcc.Slider(
+                                                id="workpiece-slider",
+                                                min=0,
+                                                max=1,
+                                                step=1,
+                                                value=0,
+                                            )
+                                        ], md=10),
+                                    ], className="mb-3 justify-content-center"),
+                                ]),
                                 # --- 新增/替換：NC Path List ---
                                 dbc.Card(
                                     dbc.CardBody([
@@ -917,32 +1085,86 @@ app.layout = dbc.Container(
                     ],
                     className="center-panel",
                 ),
-                html.Div(
-                [
-                    dcc.Graph(id="status-heatmap", config={"displayModeBar": False, "responsive": False}, style={"height": "240px"}),
-                    dcc.Graph(id="ra-box", config={"displayModeBar": False, "responsive": False}, style={"height": "240px"}),
-                    dcc.Graph(id="ra-trend", config={"displayModeBar": False, "responsive": False}, style={"height": "240px"}),
-                    
-                    # --- 新增：Quality States by WID ---
-                    dbc.Card(
-                        dbc.CardBody([
-                            html.H6("Quality States by WID", className="card-title", style={"fontWeight": "bold", "borderBottom": "1px solid #ccc", "paddingBottom": "4px"}),
-                            html.Div(id="quality-states-content", style={"fontSize": "14px", "minHeight": "60px"})
-                        ]),
-                        className="mt-2", style={"boxShadow": "0 2px 4px rgba(0,0,0,0.05)"}
+                # 右側欄位
+                html.Div([   
+                    # ---------------------------------------------------------
+                    # 3. 工程師區塊 (上方)
+                    # ---------------------------------------------------------
+                    dbc.Accordion(
+                        [
+                            dbc.AccordionItem(
+                                title=html.Div([
+                                html.Img(
+                                    src="/assets/pngtree-product-production-line-icon-png-image.png", 
+                                    style={
+                                        "width": "20px",           # 限制寬度
+                                        "height": "20px",          # 限制高度
+                                        "marginRight": "8px",      # 與右側文字保持間距
+                                        "verticalAlign": "middle"  # 確保圖片與文字垂直置中對齊
+                                    }
+                                ),html.Span("Quality Analytics & Responses", style={"verticalAlign": "middle"})
+                                ],style={"display": "inline-block"}),
+                                children=[
+                                    # 1. Quality States by WID
+                                    dbc.Card(
+                                        dbc.CardBody([
+                                            html.H6("Quality States by WID", className="card-title", style={"fontWeight": "bold", "borderBottom": "1px solid #ccc", "paddingBottom": "4px"}),
+                                            html.Div(id="quality-states-content", style={"fontSize": "14px", "minHeight": "60px"})
+                                        ]),
+                                        className="mb-2", style={"boxShadow": "0 2px 4px rgba(0,0,0,0.05)"}
+                                    ),
+                                    
+                                    # 2. Next Responses for Quality Issues
+                                    dbc.Card(
+                                        dbc.CardBody([
+                                            html.H6("Next Responses for Quality Issues", className="card-title", style={"fontWeight": "bold", "borderBottom": "1px solid #ccc", "paddingBottom": "4px"}),
+                                            html.Div(id="quality-response-content", style={"fontSize": "14px", "minHeight": "60px"})
+                                        ]),
+                                        className="mb-2", style={"boxShadow": "0 2px 4px rgba(0,0,0,0.05)"}
+                                    ),
+                                    
+                                    # 3. RA 趨勢圖表
+                                    dcc.Graph(
+                                        id="ra-trend", 
+                                        config={"displayModeBar": False, "responsive": True}, 
+                                        style={"height": "240px"}
+                                    ),
+                                ]
+                            )
+                        ],
+                        start_collapsed=True, # 預設為收合狀態，設為 False 則預設為展開
+                        className="mt-2",
                     ),
-                    
-                    # --- 新增：Next Responses for Quality Issues ---
-                    dbc.Card(
-                        dbc.CardBody([
-                            html.H6("Next Responses for Quality Issues", className="card-title", style={"fontWeight": "bold", "borderBottom": "1px solid #ccc", "paddingBottom": "4px"}),
-                            html.Div(id="quality-response-content", style={"fontSize": "14px", "minHeight": "60px"})
-                        ]),
-                        className="mt-2", style={"boxShadow": "0 2px 4px rgba(0,0,0,0.05)"}
-                    ),
+                    # ---------------------------------------------------------
+                    # 4. 產線(操作員)區塊 (下方)
+                    # ---------------------------------------------------------
+                    # Quality process
+                    dbc.Accordion(
+                        [
+                            dbc.AccordionItem(
+                                title=html.Div([
+                                # 載入 assets 資料夾內的 png，並透過 style 限制大小與對齊
+                                html.Img(
+                                    src="/assets/equipment-engineer-icon-png-image.png", 
+                                    style={
+                                        "width": "20px",           # 限制寬度
+                                        "height": "20px",          # 限制高度
+                                        "marginRight": "8px",      # 與右側文字保持間距
+                                        "verticalAlign": "middle"  # 確保圖片與文字垂直置中對齊
+                                    }
+                                ),html.Span("Quality Process", style={"verticalAlign": "middle"})
+                                ],style={"display": "inline-block"}),
+                                children=[
+                                    dcc.Graph(id="status-heatmap", config={"displayModeBar": False, "responsive": False}, style={"height": "240px"}),
+                                    dcc.Graph(id="ra-box", config={"displayModeBar": False, "responsive": False}, style={"height": "240px"}),
+                                ]
+                            )
+                        ],
+                        start_collapsed=True, # 預設為收合狀態，設為 False 則預設為展開
+                    )
                 ],
                 className="right-panel",
-            ),
+                ),
             ],
             className="main-three-column",
         ),
@@ -952,7 +1174,38 @@ app.layout = dbc.Container(
     className="page-root",
 )
 
-
+@app.callback(
+    Output("workpiece-slider", "marks"),
+    Output("workpiece-slider", "max"),
+    Output("workpiece-slider", "value"),
+    Input("sub-num-selector", "value")
+)
+def update_slider_for_sub_num(selected_sub):
+    # 根據選擇的 sub_num 取出對應的陣列
+    data_list = REAL_DATA_CACHE.get(selected_sub, [])
+    count = len(data_list)
+    
+    if count == 0:
+        return {0: "No Data"}, 0, 0
+        
+    marks = {}
+    for i, snap in enumerate(data_list):
+        w_id = str(snap.get("workpiece_id", f"EXP-{i}"))
+        ra_val = to_float(snap.get("RA", snap.get("Offset_Z", 0.0)), 0.0)
+        mark_color = point_color_for_ra(ra_val)
+        
+        marks[i] = {
+            "label": w_id,
+            "style": {
+            "color": "black",  # 內部文字反白
+            "fontWeight": "700",
+            "fontSize": "12px",
+            # 外框改用狀態顏色包覆
+            "textShadow": f"1px 1px 0 {mark_color}, -1px 1px 0 {mark_color}, -1px -1px 0 {mark_color}, 1px -1px 0 {mark_color}"
+            }
+        }
+        
+    return marks, count - 1, 0  # 切換時，將滑桿歸零到第一個工件
 
 
 @app.callback(
@@ -986,83 +1239,169 @@ app.layout = dbc.Container(
     Output("quality-states-content", "children"),   # 新增輸出 3
     Output("quality-response-content", "children"), # 新增輸出 4
     Output("nc-path-content", "children"),
-    Output("summary-tools-state", "children"),
+    Output("sub-num-selector", "options"),       # 動態改變按鈕的顏色與外框    
+    Output("center-view-container", "children"),
     Input("mqtt-refresh", "n_intervals"),
     Input("workpiece-slider", "value"),
+    Input("sub-num-selector", "value"),  # 新增監聽開關
+    Input("view-mode-selector", "value"),
 )
-def update_figures(_n_intervals, slider_value):    
-    if CSV_SNAPSHOTS:
-        # 2. 將滑桿目前的位置數字 (0, 1, 2...) 轉為安全的整數索引
-        current_idx = to_int(slider_value, 0) % len(CSV_SNAPSHOTS)
+
+def update_figures(_n_intervals, slider_value, selected_sub, view_mode):
+    # 動態取得當前選定 Sub 的資料陣列
+    current_dataset = REAL_DATA_CACHE.get(selected_sub, [])
+
+    
+    if current_dataset:
+        current_idx = to_int(slider_value, 0)
+        if current_idx >= len(current_dataset):
+            current_idx = len(current_dataset) - 1
+        snapshot = current_dataset[current_idx]
         
-        # 3. 確保能拿到對應位置的快照資料
-        snapshot = CSV_SNAPSHOTS[current_idx]
+        window_indices = compute_window_indices(current_dataset, current_idx)
+        window_labels = compute_window_labels(current_dataset, current_idx)
         
-        # 4. 沿用你原本建立的時間窗口計算邏輯
-        history = build_csv_window(CSV_SNAPSHOTS, current_idx)
-        window_indices = compute_window_indices(CSV_SNAPSHOTS, current_idx)
-        window_labels = compute_window_labels(CSV_SNAPSHOTS, current_idx)
-        start = window_indices[0] if window_indices else current_idx
-        now_pos = current_idx - start if window_indices else None
+        # [修正] history 必須是「時間窗口」內的資料，這樣才同時包含過去與未來
+        history = [current_dataset[i] for i in window_indices]
+        
+        # [修正] 計算 NOW 這個點在時間窗口裡面的索引位置
+        now_pos = window_indices.index(current_idx) if current_idx in window_indices else 0
     else:
-        snapshot = current_data()
-        history = current_history()
-        window_indices = list(range(len(history)))
+        # 找不到資料時的備用邏輯
+        snapshot = {}
+        history = []
         window_labels = None
         now_pos = None
-
+        
     # 5. 更新 batch_offset 的定義，使其與當前查到的 workpiece_id 連動（供模擬數據增量使用）
-    wear_base = to_float(snapshot.get("Tool_Life", 150), 150)
-    toque_base = to_float(snapshot.get("Toque", snapshot.get("Radius_Comp", 0.8)), 0.8)
-    bending_base = to_float(snapshot.get("Bending", snapshot.get("Length_Comp", 80)), 80)
-    ra_base = max(0.1, to_float(snapshot.get("RA", snapshot.get("Offset_Z", 1.5)), 1.5))
+    wear_base = to_float(snapshot.get("Tool_Life", None), None)
+    toque_base = to_float(snapshot.get("Toque", snapshot.get("Radius_Comp", None)), None)
+    bending_base = to_float(snapshot.get("Bending", snapshot.get("Length_Comp", None)), None)
+    
+    # [修正] 從 RA_List 中取出最大的粗糙度作為這顆工件的代表值
+    ra_list_temp = snapshot.get("RA_List", [])
+    ra_base = max(ra_list_temp) if ra_list_temp else 0.0
     tool_code = snapshot.get("Tool_Code", "-")
-    status_text = str(snapshot.get("Status", "OK")).upper()
-
+    status_text = str(snapshot.get("Status", "-")).upper()
+    # === 新增：動態 Iframe 路徑邏輯 ===
+    # 從快照中取出 HTML 檔名，若無則給予預設值防呆
+    html_filename = snapshot.get("Torque_Value_HTML")
+    
+    # 1. 從快照取得 YAML 裡的檔案路徑
+    html_filename = snapshot.get("Torque_Value_HTML", "")
+    
+    # 2. 洗乾淨斜線：將 Windows 的反斜線 \ 替換為網址用的正斜線 /
+    # 會把 "data\exp\EXP-34-1/..." 變成 "data/exp/EXP-34-1/..."
+    clean_filepath = html_filename.replace("\\", "/")
+    
+    # 3. 組合出合法的 URL，並透過剛才建立的 Flask 通道讀取
+    # 結果會是: /raw_html/data/exp/EXP-34-1/path_on_stl_torque_value.html
+    iframe_src_url = f"/raw_html/{clean_filepath}" if clean_filepath else ""
+    
     wear_values = [to_float(item.get("Tool_Life", wear_base), wear_base) for item in history if isinstance(item, dict)]
     toque_values = [to_float(item.get("Toque", toque_base), toque_base) for item in history if isinstance(item, dict)]
     bending_values = [to_float(item.get("Bending", bending_base), bending_base) for item in history if isinstance(item, dict)]
     x_positions = list(range(len(history)))
-    wear_figure = build_history_trend_figure("Tool Wear", wear_values, 0.25, 0.35, labels=window_labels, now_pos=now_pos, x_values=x_positions)
-    toque_figure = build_history_trend_figure("Torque", toque_values, 38, 48, labels=window_labels, now_pos=now_pos, x_values=x_positions)
-    bending_figure = build_history_trend_figure("Bending", bending_values, 7.7, 12.0, labels=window_labels, now_pos=now_pos, x_values=x_positions)
+    # === 動態生成 RA 測點清單 ===
+    ra_list = snapshot.get("RA_List", [])
+    tolerance = snapshot.get("Tolerance", 0.8)
+    
+    # 建立一個用來裝 HTML 元件的空陣列
+    ra_ui_elements = []
+    
+    if not ra_list:
+        # 如果沒有量測資料的空狀態
+        ra_ui_elements.append(
+            html.Div("無 RA 量測數據", style={"color": "#999", "fontStyle": "italic", "textAlign": "center"})
+        )
+    else:
+        # 動態顯示每一個測點，順便加入 Tolerance 的防呆判斷
+        ra_ui_elements.append(html.Div(f"公差標準 (Tolerance): {tolerance}", style={"fontSize": "12px", "color": "#666", "marginBottom": "8px"}))
+        
+        for i, ra_val in enumerate(ra_list):
+            # 判斷這個測點是否超過公差
+            is_out_of_tol = ra_val > tolerance
+            
+            # 設定顏色與圖示
+            color = "#d0021b" if is_out_of_tol else "#28a745" # 紅色(超標) / 綠色(正常)
+            icon = "❌" if is_out_of_tol else "✅"
+            
+            # 建立單一個測點的 UI
+            point_ui = html.Div(
+                f"測點 {i+1}: {ra_val:.3f} {icon}",
+                style={"color": color, "fontWeight": "bold", "padding": "2px 0", "borderBottom": "1px dashed #eee"}
+            )
+            ra_ui_elements.append(point_ui)
+
+    # 把組裝好的陣列包裝進一個大 Div 裡面，傳遞給前端
+    quality_states_content = html.Div(ra_ui_elements)
+    # 2. 判斷是否為無效數值 (None 或是字串無法轉為數字)
+    try:
+        # 嘗試轉換為浮點數，如果本來就是 None 或 '-' 會拋出 ValueError / TypeError
+        val = float(wear_values[-1])  # 只檢查最新的數值是否有效
+        is_valid_value = True
+    except (TypeError, ValueError):
+        is_valid_value = False
+
+    # 3. 根據判斷結果決定要畫什麼圖
+    if not is_valid_value:
+        # 如果沒有數值，回傳帶有文字的空圖表
+        wear_figure = build_empty_figure("目前沒有 Tool Wear 數值")
+    else:
+        wear_figure = build_history_trend_figure("Tool Wear", wear_values, Wear_WARN_LEVEL, Wear_DANGER_LEVEL, labels=window_labels, now_pos=now_pos, x_values=x_positions)
+    toque_figure = build_history_trend_figure("Torque", toque_values, Torque_WARN_LEVEL, Torque_DANGER_LEVEL, labels=window_labels, now_pos=now_pos, x_values=x_positions)
+    bending_figure = build_history_trend_figure("Bending", bending_values, Banding_WARN_LEVEL, Banding_DANGER_LEVEL, labels=window_labels, now_pos=now_pos, x_values=x_positions)
     heatmap_figure = build_history_heatmap_figure(history, labels=window_labels, now_pos=now_pos)
-    box_figure = build_history_box_figure(history, "RA", ra_base, labels=window_labels, now_pos=now_pos)
-    ra_trend_figure = build_history_ra_histogram_figure(snapshot, ra_base)
+    box_figure = build_history_box_figure(history, labels=window_labels, now_pos=now_pos, tolerance=tolerance)    
+    ra_trend_figure = build_history_ra_histogram_figure(snapshot)
     gauge_figure = build_history_status_gauge_figure(history)
-    wear_value = f"{wear_base:.2f}"
-    toque_value = f"{toque_base:.2f}"
-    bending_value = f"{bending_base:.0f} / 150"
+    wear_value = f"{wear_base:.2f}" if wear_base is not None else "-"    
+    toque_value = f"{toque_base:.4f}" if toque_base is not None else "-"
+    bending_value = f"{bending_base:.2f}" if bending_base is not None else "-"
     ra_value = f"{ra_base:.2f}"
     wear_subtitle = f"Tool_Code: {tool_code}"
     toque_subtitle = f"來源: {status_text}"
     bending_subtitle = "上下界"
     ra_subtitle = f"Status: {status_text}"
-    wear_badge = "OK" if wear_base <= 0.25 else "WARN"
-    toque_badge = "OK" if toque_base <= 0.8 else "WARN"
-    bending_badge = "OK" if bending_base <= 80 else "WARN"
+    if wear_base is None:
+        wear_badge = "N/A"
+        badge_color = "#999999"  # 灰色
+    elif wear_base <= 0.25:
+        wear_badge = "OK"
+        badge_color = "#28a745"  # 綠色
+    else:
+        wear_badge = "WARN"
+        badge_color = "#dc3545"  # 紅色
+    toque_badge = "-" if toque_base is None else ("OK" if toque_base <= Torque_DANGER_LEVEL else "WARN")
+    bending_badge = "-" if bending_base is None else ("OK" if bending_base <= Banding_DANGER_LEVEL else "WARN")
     ra_badge = "OK" if ra_base <= RaDANGER_LEVEL else "WARN"
     raw_json = html.Pre(json.dumps(snapshot, indent=2, ensure_ascii=False), className="raw-json d-none")
     # === 新增：Tool States by TID 邏輯 ===
     tool_state_elements = [html.Div(f"Current Tool: T{tool_code}")]
-    if wear_base > 0.25:
+    if wear_base is None or toque_base is None:
+        tool_state_elements.append(html.Div("State: Data Unavailable", style={"color": "#999999", "fontWeight": "bold"}))
+    elif wear_base > Wear_WARN_LEVEL:
         tool_state_elements.append(html.Div("State: Bending Torque Warning", style={"color": "#d0021b", "fontWeight": "bold"}))
-    elif toque_base > 40:
+    elif toque_base > Torque_DANGER_LEVEL:
         tool_state_elements.append(html.Div("State: Overload Warning", style={"color": "#f5a623", "fontWeight": "bold"}))
     else:
         tool_state_elements.append(html.Div("State: Normal", style={"color": "#43A047"}))
 
     # === 新增：Next Responses for Tool Issues 邏輯 ===
     response_elements = []
-    if wear_base > 0.25:
+    if wear_base is None or toque_base is None:
+                tool_state_elements.append(html.Div("State: Data Unavailable", style={"color": "#999999", "fontWeight": "bold"}))
+    elif wear_base > Wear_WARN_LEVEL:
         response_elements.append(html.Div("1. Bendingg、Torque受力過大，預測刀具壽命即將到達極限，請準備更換備品。"))
         response_elements.append(html.Div("2. 建議降低下一工件之進給率 (Feed Rate)。"))
-    elif toque_base > 0.8:
+    elif toque_base > Torque_DANGER_LEVEL:
         response_elements.append(html.Div("1. 主軸負載異常，請檢查切削液供應與排屑狀態。"))
     else:
         response_elements.append(html.Div("維持原 NC 程式參數進行加工。", style={"color": "#666"}))
     # === 新增：Quality States by WID 邏輯 ===
-    current_wid = str(snapshot.get("workpiece_id", current_idx))
+    # 擷取工件名稱 (加入防呆機制：若 current_idx 未定義，則給予預設值 0)
+    safe_idx = current_idx if 'current_idx' in locals() else 0
+    current_wid = str(snapshot.get("workpiece_id", safe_idx))
     pts = extract_ra_points(snapshot)
     # 取出該工件 6 個點中的最大 RA 值作為品質評級基準
     max_ra = max(pts) if pts else ra_base
@@ -1091,22 +1430,122 @@ def update_figures(_n_intervals, slider_value):
     # === 新增：States Summary 刀具狀態邏輯 ===
     # 根據當前數據的磨耗與負載，決定主要刀具的背景顏色
     tool_status_color = "#3B963F"  # 預設正常(綠色)
-    if wear_base > RaWARN_LEVEL or toque_base > 12.:
-        tool_status_color = "#f5a623"  # 警戒(橘色)
-    if wear_base >= RaDANGER_LEVEL or toque_base >= 0.3:
+    # 1. 優先排除異常狀態 (把 None 擋在第一關)
+    if wear_base is None or toque_base is None:
+        tool_status_color = "#999999"  # 資料異常(灰色)
+
+    # 2. 判斷危險 (因為危險的條件比警戒嚴格，必須先判斷 >= 0.3)
+    elif wear_base >= RaDANGER_LEVEL or toque_base >= 0.3:
         tool_status_color = "#d0021b"  # 危險(紅色)
 
-    # 建立多把刀具的標籤 (此處預設帶入當前刀號，並輔以模擬刀具 T10, T14)
-    # 若您的 CSV 內有陣列記錄所有使用刀具，可替換為迴圈動態生成
-    summary_tools_elements = [
-        html.Div("Tools:", style={"fontSize": "14px", "fontWeight": "bold", "color": "#666"}),
-        html.Div(f"T{tool_code}", style={"backgroundColor": tool_status_color, "color": "white", "padding": "2px 8px", "borderRadius": "12px", "fontSize": "12px", "fontWeight": "bold"}),
-        html.Div("T10", style={"backgroundColor": "#43A047", "color": "white", "padding": "2px 8px", "borderRadius": "12px", "fontSize": "12px", "fontWeight": "bold"}),
-        html.Div("T14", style={"backgroundColor": "#43A047", "color": "white", "padding": "2px 8px", "borderRadius": "12px", "fontSize": "12px", "fontWeight": "bold"})
+    # 3. 判斷警戒 (如果沒進危險，且大於 12.0，才判定為警戒)
+    elif wear_base > RaWARN_LEVEL or toque_base > 12.0:
+        tool_status_color = "#f5a623"  # 警戒(橘色)
+
+
+    # === 新增：動態計算 Sub 1 與 Sub 2 的即時狀態顏色 ===
+    # === 1. 定義計算刀具顏色的 Know-how 邏輯 ===
+    def get_tool_color(sub_id, idx):
+        dataset = REAL_DATA_CACHE.get(sub_id, [])
+        if not dataset or idx >= len(dataset):
+            return "#999999"  # 無資料(灰色)
+            
+        snap = dataset[idx]
+        wear = to_float(snap.get("Tool_Life", None), None)
+        toque = to_float(snap.get("Toque", snap.get("Radius_Comp", None)), None)
+        
+        if wear is None or toque is None: return "#999999"
+        if wear >= RaDANGER_LEVEL or toque >= 0.3: return "#d0021b" # 危險(紅色)
+        if wear > RaWARN_LEVEL or toque > 12.0: return "#f5a623"    # 警戒(橘色)
+        return "#3B963F" # 正常(綠色)
+
+    # 取得當下這顆工件 (current_idx) 時，兩把刀的狀態燈號
+    color_1 = get_tool_color("1", current_idx)
+    color_2 = get_tool_color("2", current_idx)
+
+    # === 2. 將燈號與按鈕 UI 結合 ===
+    sub_num_options = [
+        {
+            "label": html.Span(
+                "T1",
+                style={
+                    "backgroundColor": color_1,
+                    "color": "white",
+                    "padding": "4px 16px",
+                    "borderRadius": "12px",
+                    "fontSize": "13px",
+                    "fontWeight": "bold",
+                    # 如果是被選中的狀態，給予黑色粗外框與陰影提示
+                    "border": "2px solid #333" if selected_sub == "1" else "2px solid transparent",
+                    "boxShadow": "0px 2px 4px rgba(0,0,0,0.3)" if selected_sub == "1" else "none",
+                }
+            ),
+            "value": "1"
+        },
+        {
+            "label": html.Span(
+                "T2",
+                style={
+                    "backgroundColor": color_2,
+                    "color": "white",
+                    "padding": "4px 16px",
+                    "borderRadius": "12px",
+                    "fontSize": "13px",
+                    "fontWeight": "bold",
+                    "border": "2px solid #333" if selected_sub == "2" else "2px solid transparent",
+                    "boxShadow": "0px 2px 4px rgba(0,0,0,0.3)" if selected_sub == "2" else "none",
+                }
+            ),
+            "value": "2"
+        }
+    ]
+
+    # 取得當前時間點下，兩把刀各自的健康狀態
+    color_1 = get_tool_color("1", current_idx)
+    color_2 = get_tool_color("2", current_idx)
+
+    # === 新增：組合 RadioItems 的選項 (動態結合顏色與選取外框) ===
+    sub_num_options = [
+        {
+            "label": html.Div(
+                "T1",
+                style={
+                    "backgroundColor": color_1,
+                    "color": "white",
+                    "padding": "6px 14px",
+                    "borderRadius": "16px",
+                    "fontSize": "13px",
+                    "fontWeight": "bold",
+                    # 實作的 Know-how: 判斷當前選取的是否為自己，是的話加上黑色粗外框與陰影
+                    "border": "3px solid #333" if selected_sub == "1" else "3px solid transparent",
+                    "boxShadow": "0px 2px 4px rgba(0,0,0,0.3)" if selected_sub == "1" else "none",
+                    "transition": "all 0.2s ease" # 加上平滑動畫
+                }
+            ),
+            "value": "1"
+        },
+        {
+            "label": html.Div(
+                "T2",
+                style={
+                    "backgroundColor": color_2,
+                    "color": "white",
+                    "padding": "6px 14px",
+                    "borderRadius": "16px",
+                    "fontSize": "13px",
+                    "fontWeight": "bold",
+                    "border": "3px solid #333" if selected_sub == "2" else "3px solid transparent",
+                    "boxShadow": "0px 2px 4px rgba(0,0,0,0.3)" if selected_sub == "2" else "none",
+                    "transition": "all 0.2s ease"
+                }
+            ),
+            "value": "2"
+        }
     ]
     
-# 1. 擷取工件名稱
-    current_wid = str(snapshot.get("workpiece_id", current_idx))
+# 擷取工件名稱 (加入防呆機制：若 current_idx 未定義，則給予預設值 0)
+    safe_idx = current_idx if 'current_idx' in locals() else 0
+    current_wid = str(snapshot.get("workpiece_id", safe_idx))
 
     # # 2. 擷取 STL 檔名 (透過 pathlib 取得純檔名)
     # if stl_path:
@@ -1119,14 +1558,14 @@ def update_figures(_n_intervals, slider_value):
     # 3. 組合顯示字串
     center_display_text = f"325BTM - {current_wid}"
     # 判斷是否因 Torque 超標造成異常負載
-    if toque_base > 0.3:
+    if toque_base is not None and toque_base > 40:        
         nc_path_elements.append(html.Div("[警告] 異常負載發生於:", style={"color": "#d0021b", "fontWeight": "bold"}))
         # 這裡放入模擬或實際抓取的 NC G-code
         nc_path_elements.append(html.Div("N0140 G01 X15.5 Y20.0 Z-5.0 F150", style={"color": "#d0021b"}))
-        nc_path_elements.append(html.Div(f"原因分析: Torque 數值 ({toque_base:.2f} Nm) 超出警戒線 (0.3 Nm)", style={"color": "#666", "fontSize": "12px", "marginTop": "4px"}))
+        nc_path_elements.append(html.Div(f"原因分析: Torque 數值 ({toque_base:.2f} Nm) 超出警戒線 (40 Nm)", style={"color": "#666", "fontSize": "12px", "marginTop": "4px"}))
         
     # 判斷是否因 Bending 超標造成異常受力
-    elif bending_base > 12:
+    elif bending_base is not None and bending_base > 12:        
         nc_path_elements.append(html.Div("[警告] 異常Bending受力發生於:", style={"color": "#f5a623", "fontWeight": "bold"}))
         nc_path_elements.append(html.Div("N0160 G02 X20.0 Y25.0 I4.5 J0.0 F120", style={"color": "#f5a623"}))
         nc_path_elements.append(html.Div(f"原因分析: Bending 數值 ({bending_base:.0f}) 超過正常上下界限", style={"color": "#666", "fontSize": "12px", "marginTop": "4px"}))
@@ -1134,6 +1573,27 @@ def update_figures(_n_intervals, slider_value):
     # 若皆正常
     else:
         nc_path_elements.append(html.Div("目前未偵測到異常負載的 NC 段落。", style={"color": "#43A047"}))
+        
+    # === 新增：判斷要顯示 HTML 還是 STL ===
+    if view_mode == "html":
+        # 顯示 HTML 的邏輯 (你原本寫好的)
+        html_filename = snapshot.get("Torque_Value_HTML", "")
+        clean_filepath = html_filename.replace("\\", "/")
+        iframe_src_url = f"/raw_html/{clean_filepath}" if clean_filepath else ""
+        
+        center_view_content = html.Iframe(
+            src=iframe_src_url,
+            style={"width": "100%", "height": "100%", "border": "none"}
+        )
+    else:
+        # 顯示 STL 模型的邏輯
+        # 呼叫 build_stl_figure，並將目前的 snapshot 傳入以畫出 RA 點
+        stl_figure = build_stl_figure(measurement_snapshot=snapshot)
+        center_view_content = dcc.Graph(
+            figure=stl_figure,
+            config={"displayModeBar": False},
+            style={"width": "100%", "height": "100%"}
+        )
     return (
         center_display_text,        # 1. 輸出組合後的字串        
         wear_figure,
@@ -1165,9 +1625,11 @@ def update_figures(_n_intervals, slider_value):
         quality_state_elements,  # 對應 quality-states-content
         quality_response_elements, # 對應 quality-response-content
         nc_path_elements,           # 對應 nc-path-content
-        summary_tools_elements,     # 2. 加在最後面 (對應 summary-tools-state)
+        sub_num_options,            # 2. 加在最後面 
+        center_view_content,             # 對應 stl-iframe 的 src
     )
 
 
 if __name__ == "__main__":
     app.run(debug=True, port=8050)
+    

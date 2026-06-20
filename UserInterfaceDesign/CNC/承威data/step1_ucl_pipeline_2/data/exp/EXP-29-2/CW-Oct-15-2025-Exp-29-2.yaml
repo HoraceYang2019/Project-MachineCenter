@@ -1,0 +1,81 @@
+CNCSpindle:
+  S1:
+    CmdSpeed: 6000
+    FeedRate: 700
+    FileLink: ./20251016_CW/EXP-29-2/CTL/controller_2025-10-16__11_50_04.csv
+    FileName: controller_2025-10-16__11_50_04
+Description:
+  Controller: Faunc-31i-MODEL-B
+  HolderType: BT-30
+  Location: CW
+  MCID: 10
+  NativeName: alpha-D14LiA
+Job:
+  CompensationTable:
+    No1:
+      AxialIdealLength: ''
+      AxialWear: ''
+      IdealRadius: ''
+      RadialWear: ''
+  Controller:
+    CoordinateTable:
+      G54: ''
+      G55: ''
+    GeomOffset: ''
+  DesignStlFile:
+    FileLink: ./20251016_CW/Simulation/325BTM.stl
+    FileName: 325BTM
+  Material:
+    Type: SS41
+  NcFile:
+    FileLink: ./20251016_CW/NC/325BTM-D2.nc
+    FileName: 325BTM-D2
+  Quality:
+    Measurement:
+    - 0.292
+    - 0.241
+    Tolerance: 0.8
+  Workpiece:
+    PartIDList: W-29
+State: Project
+TimeTag: Thu-Oct-16-2025-11:50:04-GMT+0800-(台北標準時間)
+ToolRelated:
+  Binding:
+    No1:
+      HolderID: 6055f9e3d0c4
+      State: true
+      ToolID: 202510161150
+  ToolHolder:
+    STH1:
+      Data:
+        FileLink: ./20251016_CW/EXP-29-2/STH/6055f9e3d0c4_2025-10-16__11_50_04_196896_conv_out.csv
+        FileName: 6055f9e3d0c4_2025-10-16__11_50_04_196896_conv_out
+      HolderID: 6055f9e3d0c4
+      Summary:
+        MaxBending: 1.4
+        MaxTorque: 0.066
+        VisualizationLinks:
+          Bending_UCL_HTML: data\exp\EXP-29-2/path_on_stl_bending_ucl.html
+          Bending_Value_HTML: data\exp\EXP-29-2/path_on_stl_bending_value.html
+          Torque_UCL_HTML: data\exp\EXP-29-2/path_on_stl_torque_ucl.html
+          Torque_Value_HTML: data\exp\EXP-29-2/path_on_stl_torque_value.html
+        rmsTorque: 0.005529158383035123
+        stdTorque: 0.004845467677884492
+  ToolHouse:
+    T1:
+      ActualWear:
+        After: 0
+        Before: 0
+      Apt:
+        AlphaAngle: 0
+        BetaAngle: 0
+        Diameter: 2
+        FluteHeight: 6
+        FullHeight: 50
+      Sculp:
+        FluteNum: 4
+        HelixAngle: ''
+        RakeAngle: ''
+      ToolID: 202510161150
+      Type: V7SEM-4P-D2
+YAMLVersion: IP-250814

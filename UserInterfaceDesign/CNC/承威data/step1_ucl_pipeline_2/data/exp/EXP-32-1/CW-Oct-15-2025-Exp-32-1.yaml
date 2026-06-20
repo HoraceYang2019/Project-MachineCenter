@@ -1,0 +1,80 @@
+CNCSpindle:
+  S1:
+    CmdSpeed: 5000
+    FeedRate: 420
+    FileLink: ./20251016_CW/EXP-32-1/CTL/controller_2025-10-16__14_52_15.csv
+    FileName: controller_2025-10-16__14_52_15
+Description:
+  Controller: Faunc-31i-MODEL-B
+  HolderType: BT-30
+  Location: CW
+  MCID: 10
+  NativeName: alpha-D14LiA
+Job:
+  CompensationTable:
+    No1:
+      AxialIdealLength: ''
+      AxialWear: ''
+      IdealRadius: ''
+      RadialWear: ''
+  Controller:
+    CoordinateTable:
+      G54: ''
+      G55: ''
+    GeomOffset: ''
+  DesignStlFile:
+    FileLink: ./20251016_CW/Simulation/325BTM.stl
+    FileName: 325BTM
+  Material:
+    Type: SS41
+  NcFile:
+    FileLink: ./20251016_CW/NC/325BTM-D4.nc
+    FileName: 325BTM-D4
+  Quality:
+    Measurement:
+    - 0.295
+    Tolerance: 0.8
+  Workpiece:
+    PartIDList: W-32
+State: Project
+TimeTag: Thu-Oct-16-2025-14:52:15-GMT+0800-(台北標準時間)
+ToolRelated:
+  Binding:
+    No1:
+      HolderID: 6055f9e3d0dc
+      State: true
+      ToolID: 202510161452
+  ToolHolder:
+    STH1:
+      Data:
+        FileLink: ./20251016_CW/EXP-32-1/STH/6055f9e3d0dc_2025-10-16__14_52_15_509131_conv_out.csv
+        FileName: 6055f9e3d0dc_2025-10-16__14_52_15_509131_conv_out
+      HolderID: 6055f9e3d0dc
+      Summary:
+        MaxBending: 1.5
+        MaxTorque: 0.0825
+        VisualizationLinks:
+          Bending_UCL_HTML: data\exp\EXP-32-1/path_on_stl_bending_ucl.html
+          Bending_Value_HTML: data\exp\EXP-32-1/path_on_stl_bending_value.html
+          Torque_UCL_HTML: data\exp\EXP-32-1/path_on_stl_torque_ucl.html
+          Torque_Value_HTML: data\exp\EXP-32-1/path_on_stl_torque_value.html
+        rmsTorque: 0.009319781489652275
+        stdTorque: 0.01075125683581425
+  ToolHouse:
+    T1:
+      ActualWear:
+        After: 0
+        Before: 0
+      Apt:
+        AlphaAngle: 0
+        BetaAngle: 0
+        Diameter: 4
+        FluteHeight: 10
+        FullHeight: 50
+      Sculp:
+        FluteNum: 4
+        HelixAngle: ''
+        RakeAngle: ''
+      ToolID: 202510161452
+      Type: V7SEM-4P-D4
+YAMLVersion: IP-250814
