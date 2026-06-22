@@ -10,7 +10,7 @@ from plotly.subplots import make_subplots
 from dash import Input, Output, State, dcc, html
 import numpy as np
 from flask import send_from_directory
-
+# 期末最終版
 ROOT = Path(__file__).parent
 DATA_FILE = ROOT / "CNC_opcua.json"
 MQTT_TOPIC = "cnc/snapshot"
