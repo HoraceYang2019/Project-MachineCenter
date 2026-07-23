@@ -1,0 +1,15 @@
+{
+  "theoretical_formula_coefficient": {
+    "G_ABRASIVE": 5.200955e-08,
+    "A_ADHESIVE": 0.006707929,
+    "B_ADHESIVE": 8500.0,
+    "E_DIFFUSIVE": 7535,
+    "R_GAS": 8314,
+    "diffusive_poly": {
+      "a": 1.6735e-09,
+      "b": -5.5373e-06,
+      "c": 0.0061161,
+      "d": -2.251
+    }
+  }
+}

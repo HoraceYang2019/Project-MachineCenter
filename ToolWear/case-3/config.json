@@ -1,0 +1,67 @@
+{
+  "data": {
+    "data_root": "../NKUST-A",
+    "wear_data_json": "wear_data_A.json"
+  },
+  "data_B": {
+    "data_root": "../NKUST-B",
+    "wear_data_json": "wear_data_B.json"
+  },
+  "data_QIT": {
+    "data_root": "../QIT-CEMC",
+    "wear_data_json": "wear_data_QIT.json"
+  },
+  "data_C": {
+    "data_root": "../NKUST-C",
+    "wear_data_json": "wear_data_C.json"
+  },
+  "paths":{
+    "pkl_dir": "pkl",
+    "model_dir": "model",
+    "result_dir": "result",
+    "visualization_dir": "visualization",
+    "processed_data": "processed_data",
+    "extracted_features" : "extracted_features",
+    "theoretical_estimation": "theoretical_estimation"
+  },
+  "theoretical_formula_coefficient": {
+    "G_ABRASIVE": 1.998684e-08,
+    "A_ADHESIVE": 4.8e-03,
+    "B_ADHESIVE": 8500,
+    "E_DIFFUSIVE": 7535,
+    "R_GAS": 8314,    
+    "diffusive_poly": {
+      "a": 1.6735e-09,
+      "b": -5.5373e-06,
+      "c": 6.1161e-03,
+      "d": -2.251
+    }
+  },
+  "theoretical_formula_coefficient__": {
+    "G_ABRASIVE": 2.37e-08,
+    "A_ADHESIVE": 4.8e-03,
+    "B_ADHESIVE": 8500,
+    "E_DIFFUSIVE": 7535,
+    "R_GAS": 8314,    
+    "diffusive_poly": {
+      "a": 1.6735e-09,
+      "b": -5.5373e-06,
+      "c": 6.1161e-03,
+      "d": -2.251
+    }
+  },
+  "data_processing": {
+    "window_size": 100,
+    "step_size": 100,
+    "min_duration_sec": 5.0
+  },
+  "feature_extraction": {
+    "min_max_epsilon": 1e-8
+  },
+  "model": {
+    "hidden_dim": 1024,
+    "epochs": 5000,
+    "lr": 0.0005,
+    "lambda_phys": 0.5
+  }
+}
