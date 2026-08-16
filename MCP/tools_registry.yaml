@@ -1,0 +1,46 @@
+Hardware:
+  CNC:
+    Siemens:
+      Data_Receiving: 
+      - tool_name : Siemens_mqtt.py
+        description: 接收 Siemens CNC 的資料 (工件座標,機械座標)
+
+    SYNTEC:
+      Data_Receiving:
+      - tool_name : main_MQTT_and_Reception.py
+        description: 接收 SYNTEC CNC 的資料(nc行號,主軸轉速,進給, X, Y, Z, 狀態,偏至,G54)
+        Special_Notes: 需要Syntec dll檔案，請將dll檔案放置於同一目錄下，與32bit Python、windows 系統相容
+
+    FANUC:
+      
+  STH:
+    Control:
+    - tool_name : rpi_message_start.py
+      description: 控制 STH 的啟動訊息
+      Special_Notes: 依賴 config 配置管理
+
+    - tool_name : rpi_message_end.py
+      description: 控制 STH 的結束訊息
+      Special_Notes: 依賴 config 配置管理
+
+Software:
+  Rendering:
+    - tool_name : render_path_on_stl_autoalign.py
+      description: 將路徑渲染在 STL 上，並自動對齊
+
+  Data_Transfer:
+    - tool_name : upload_to_NAS.py
+      description: 將資料傳輸至NAS保存
+
+    - tool_name : CSV_Getter.py
+      description: 取得目錄夏最新 CSV 檔案的資料，主要用於快速取的加工資料
+
+  Machine_Learning:
+    
+
+
+Version:
+  date: 2026-08-15
+  description: 新增了工具至工具註冊表
+  number: 0.0.1
+  # number 以年. 月.日 的更新次數計次
