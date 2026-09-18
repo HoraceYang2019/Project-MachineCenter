@@ -1,5 +1,19 @@
 ## Appendix 4. Analysis of Continuous Cross-Source Instruction Guiding Using Database and Ontology Data
+## Evaluation Results
 
+The DB-plus-ontology Llama4 answers were evaluated using the correct-answer column as the reference.
+
+| Evaluation index | DB+Ontology+Llama4 |
+| --- | ---: |
+| Answer correctness | 100.0% |
+| Completeness | 100.0% |
+| Faithfulness | 100.0% |
+| Semantic similarity | 100.0% |
+| Content-Element F1 | 100.0% |
+
+The model preserved the preceding query conditions and correctly integrated the database and ontology information across the continuous question sequence. All required answer elements were present, and no substantive contradiction with the reference answers was identified. Consequently, Content-Element F1 reached 100%, even though the responses contained introductory phrases and explanatory wording that differed from the references.
+
+### Q&A Questions
 | NO | Question | DB+Ontology+Llama4 | Correct answer |
 | --- | --- | --- | --- |
 | 1 | During the past six months, when were Smart Tool Holders used, what were their HolderIDs, and where were they used? | The Smart Tool Holder usage records from the past six months are as follows: <br>* 2026-04-27 16:25:40, HolderID: 84f703cdc020, Location: TT<br>* 2026-03-16 16:34:35, HolderID: 6055f9e38c12, Location: TT<br>* 2026-04-27 16:45:50, HolderID: 84f703cdc020, Location: TT | 2026-04-27 16:25:40, HolderID: 84f703cdc020, Location: TT<br>2026-03-16 16:34:35, HolderID: 6055f9e38c12, Location: TT<br>2026-04-27 16:45:50, HolderID: 84f703cdc020, Location: TT |
@@ -9,3 +23,21 @@
 | 5 | Which other Smart Tool Holders have previously been used at TT, and what are their HolderIDs? | According to the provided data snippets, the other Smart Tool Holders that have previously been used at TT have the following HolderIDs: 6055f9e3d0d6, 6055f9e3d80c, 84f703cdc020, 84f703ce2d10<br>The Smart Tool Holders corresponding to these IDs have previously been used at TT. | 6055f9e3d0d6<br>6055f9e3d80c<br>84f703cdc020<br>84f703ce2d10 |
 | 7 | What are the corresponding report filenames for these three HolderIDs? | According to the provided SQL query results, the FileName values are:<br>* 84f703cdc020_2025-10-20__18_08_15_756190_conv_out_report.pdf<br>* 84f703cdc020_2026-04-27__16_25_40_499560_conv_out_report.pdf | 84f703cdc020_2025-10-20__18_08_15_756190_conv_out_report.pdf<br>84f703cdc020_2026-04-27__16_25_40_499560_conv_out_report.pdf |
 | 8 | Among these five files, what is the main anomaly in the first file? | According to the provided data, the first file is "6055f9e38c12_2026-03-16__16_34_35_760478_conv_out_report.pdf". Its Bending and Torque assessment results both show "Usable (Low Risk), with a low proportion of limit exceedance," and the exceedance duration for both Bending and Torque is 0.0 seconds (0%). Therefore, there is no significant anomaly in the first file. | 6055f9e38c12_2026-03-16__16_34_35_760478_conv_out_report.pdf<br>Both the Bending and Torque assessment results are "Usable (Low Risk), with a low proportion of limit exceedance," and the exceedance duration for both Bending and Torque is 0.0 seconds (0%). Therefore, there is no significant anomaly in the first file. |
+
+## Evaluation Results
+
+The DB-plus-ontology Llama4 answers were evaluated using the correct-answer column as the reference.
+
+| Evaluation index | DB+Ontology+Llama4 |
+| --- | ---: |
+| Answer correctness | 100.0% |
+| Completeness | 100.0% |
+| Faithfulness | 100.0% |
+| Semantic similarity | 100.0% |
+| Content-Element F1 | 100.0% |
+
+Completeness measures the proportion of required reference-answer elements included in each response, while faithfulness measures the proportion of generated claims supported by the reference. Answer correctness is calculated as the harmonic mean of completeness and faithfulness. Semantic similarity is evaluated according to meaning equivalence. Content-Element F1 balances content precision and content recall, thereby evaluating factual correctness and coverage without requiring identical wording.
+
+The model preserved the preceding query conditions and correctly integrated the database and ontology information across the continuous question sequence. All required answer elements were present, and no substantive contradiction with the reference answers was identified. Consequently, Content-Element F1 reached 100%, even though the responses contained introductory phrases and explanatory wording that differed from the references.
+
+Because the retrieved database rows and ontology passages are not included, faithfulness represents reference-supported faithfulness rather than strict source-grounded faithfulness.
