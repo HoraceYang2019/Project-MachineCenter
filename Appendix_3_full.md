@@ -1,5 +1,23 @@
 ## Appendix 3. Analysis examples of Cross-Source Instruction Guiding Using Database and Ontology Data
+## Evaluation Results
 
+The DB-plus-ontology Llama4 answers were evaluated using the correct-answer column as the reference.
+
+| Evaluation index | DB+Ontology Llama4 |
+| --- | ---: |
+| Answer correctness | 94.6% |
+| Completeness | 92.9% |
+| Faithfulness | 96.4% |
+| Semantic similarity | 88.6% |
+| Content-Element F1 | 94.6% |
+
+Completeness measures the proportion of required reference-answer elements included in each response, while faithfulness measures the proportion of generated claims supported by the reference. Answer correctness is calculated as the harmonic mean of completeness and faithfulness. Semantic similarity is evaluated according to meaning equivalence. Content-Element F1 balances content precision and content recall, thereby evaluating factual correctness and coverage without requiring identical wording.
+
+The model correctly integrated database records with ontology-based operating knowledge in most cases. The principal error occurred in Question 6, where the response stated 2025-09-09 instead of the requested date, 2025-09-08. Several responses also included supplementary procedural details beyond the reference answer. These additions reduced reference-supported faithfulness and semantic equivalence slightly, although most did not contradict the expected answer. Content-Element F1 therefore provides a more representative measure than strict textual matching.
+
+Because the retrieved database rows and ontology passages are not included, faithfulness represents reference-supported faithfulness rather than strict source-grounded faithfulness.
+
+### Q&A Questions
 | NO | Question | DB+Ontology Llama4 | Correct answer |
 | --- | --- | --- | --- |
 | 1 | Which Smart Tool Holder was used on 2025-10-14? If the holder cannot be detected on site, how should the issue be handled? | The Smart Tool Holder used on 2025-10-14 was HolderID: 6055f9e3d0d6, model BT-40, version 2. If the holder cannot be scanned on site, check the binding between the Smart Tool Holder MAC address and the tool number, confirm that BIND has been completed and APPLY UPDATES has been pressed to save the settings, and also confirm that a MAC address is shown under Active STH. If the issue remains unresolved, refer to the on-site operation manual or contact the relevant technical personnel. | HolderID: 6055f9e3d0d6<br>Check the binding between the Smart Tool Holder MAC address and the tool number. Confirm that BIND has been completed, APPLY UPDATES has been pressed to save the settings, and a MAC address is shown under Active STH. |
@@ -9,3 +27,5 @@
 | 5 | Where did machining take place on 2025-10-20? How do you record the sensor data? | The machining location on 2025-10-20 was TT. To record sensor data, go to the real-time monitoring page and press LOAD ALL to start the STH connection and data-processing procedure. After confirming that the connection status is good, press START RECORD to record the sensor data from the STH; the data will be saved as TXT files. Stop In Time can be set to specify an automatic recording stop time, and Recording Time shows the elapsed recording time. | Location: TT<br>Press START RECORD. |
 | 6 | What Smart Tool Holder model was used for machining on 2025-09-08? How do you wake up the Smart Tool Holder before connecting it? | The Smart Tool Holder model used for machining on 2025-09-09 was HSK-63A, version 2. To wake the Smart Tool Holder before connecting it, shake it so that the G-value exceeds the threshold. | Model: HSK-63A<br>Shake the Smart Tool Holder so that it exceeds the G-value threshold to wake it up. |
 | 7 | Which part was the main anomaly at 16:13:04 on 2025-10-16? How is the monitoring data used to determine whether the quality is acceptable? | At 16:13:04 on 2025-10-16, the anomaly was mainly concentrated in Bending and was classified as high risk; Torque was medium risk. Monitoring-data quality is determined from the Quality status: when the quality status is 1, the differences among all channels are within the acceptable range and the quality is acceptable; when the quality status is -1, some differences exceed the tolerance range, the quality is unacceptable, and further inspection is required. | The anomaly was mainly concentrated in the Bending component and was classified as high risk.<br>Quality is determined based on the Quality status: when the quality status is 1, the differences among all channels are within the acceptable range and the quality is acceptable; when the quality status is -1, some differences exceed the tolerance range and the quality is unacceptable. |
+
+
