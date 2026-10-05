@@ -1,0 +1,1639 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix sth: <http://nkust.edu.tw/mislab/cnc/ontology/sth#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+sth:charging_dock a sth:component ;
+    rdfs:label "Charging dock"@en ;
+    sth:description "In the charging-module specifications, Adapter Output Specifications is DC 12V; the troubleshooting section states that the adapter output voltage should be DC 12V and the output current should be 2A."@en ;
+    sth:output_current "2A" ;
+    sth:output_voltage "DC 12V" ;
+    sth:output_voltage_specification "DC 12V" ;
+    sth:what_is_charging_dock_output_current "2A"@en ;
+    sth:what_is_charging_dock_output_current_specification "2A"@en ;
+    sth:what_is_charging_dock_output_voltage "DC 12V"@en ;
+    sth:what_is_charging_dock_output_voltage_specification "DC 12V"@en ;
+    skos:altLabel "Charger"@en,
+        "Charging unit"@en .
+
+sth:connection_abnormality_issue sth:has_abnormal_case sth:case_3 ;
+    sth:smart_tool_holder_scan_failure_handling_method "If no available tool holder is displayed after LOAD STHSCAN, confirm that the tool holder has entered Idle Mode and check Networking (TCP/IP settings), MessageBroking (MQTT settings), IP address 10.0.0.103, and subnet mask 255.255.255.0."@en .
+
+sth:how_to_change_tool a sth:qa_anchor ;
+    rdfs:label "How to change the tool"@en ;
+    sth:answer "When a CNC tool change is required, go to the Real-Time Monitoring page and press TOOL CHANGE to trigger the tool-change action."@en ;
+    sth:corresponding_function "TOOL CHANGE"@en ;
+    sth:handling_method "Go to the Real-Time Monitoring page and execute TOOL CHANGE to perform the tool-change operation."@en ;
+    sth:question "How do I change the tool?"@en ;
+    sth:related_abnormality sth:excessive_tool_wear_or_damage ;
+    sth:related_section sth:real_time_monitoring .
+
+sth:how_to_confirm_data_review_start_and_end_times a sth:qa_anchor ;
+    rdfs:label "How to confirm the start and end times of a data review"@en,
+        "Start and end times of the data review"@en ;
+    sth:answer "On the History Review page, view Start Time and End Time in the Summary area. They display the start and end times of the data review and are used to identify the exact test time range."@en ;
+    sth:confirmation_method "On the History Review page, view Start Time and End Time in the Summary area."@en ;
+    sth:corresponding_topic sth:history_review ;
+    sth:end_time "End Time displays the end time of the data review."@en ;
+    sth:how_to_confirm_data_review_start_and_end_times "On the History Review page, view Start Time and End Time in the Summary area."@en ;
+    sth:question "How do I confirm the start and end times of a data review?"@en ;
+    sth:start_time "Start Time displays the start time of the data review."@en .
+
+sth:how_to_view_simulated_tool_movement_trajectory a sth:qa_anchor ;
+    rdfs:label "How to view the simulated tool movement trajectory"@en ;
+    sth:answer "On the Simulation Analysis page, view the Coordinate X, Coordinate Y, and Coordinate Z charts to understand the tool's position changes in different directions during simulation."@en ;
+    sth:key_chart "Coordinate X, Coordinate Y, Coordinate Z"@en ;
+    sth:question "How do I view the simulated tool movement trajectory?"@en ;
+    sth:related_section sth:simulation_analysis ;
+    sth:viewing_method "View the Coordinate X, Coordinate Y, and Coordinate Z charts."@en .
+
+sth:mqtt_default_communication_port a sth:setting_item ;
+    rdfs:label "MQTT default communication port"@en ;
+    sth:answer "The default MQTT communication port is 1883."@en ;
+    sth:description "The default MQTT communication port is 1883."@en ;
+    sth:value "1883" .
+
+sth:mqtt_primary_function_priority_direct_answer a sth:direct_answer_node,
+        sth:function_description,
+        sth:qa_anchor ;
+    rdfs:label "MQTT is responsible for data communication between the Smart Tool Holder and the Virtual Tool Room (VTR)."@en ;
+    sth:answer "MQTT is responsible for data communication between the Smart Tool Holder and the Virtual Tool Room (VTR)."@en ;
+    sth:data_communication_target "The Smart Tool Holder and the Virtual Tool Room (VTR)."@en ;
+    sth:direct_answer "MQTT is responsible for data communication between the Smart Tool Holder and the Virtual Tool Room (VTR)."@en ;
+    sth:function "MQTT is responsible for data communication between the Smart Tool Holder and the Virtual Tool Room (VTR)."@en ;
+    sth:mqtt_primary_communication_function_on_smart_tool_holder "MQTT is responsible for data communication between the Smart Tool Holder and the Virtual Tool Room (VTR)."@en ;
+    sth:mqtt_primary_function_on_smart_tool_holder "MQTT is responsible for data communication between the Smart Tool Holder and the Virtual Tool Room (VTR)."@en ;
+    sth:node_boundary "This node answers only the primary function of MQTT in the Smart Tool Holder system; it does not answer RSSI rescan conditions."@en ;
+    sth:not_applicable_question "Under what circumstances does the Smart Tool Holder need to be rescanned?"@en,
+        "When does the Smart Tool Holder need to be rescanned?"@en ;
+    sth:primary_communication_function "MQTT is responsible for data communication between the Smart Tool Holder and the Virtual Tool Room (VTR)."@en ;
+    sth:primary_communication_function_on_smart_tool_holder "MQTT is responsible for data communication between the Smart Tool Holder and the Virtual Tool Room (VTR)."@en ;
+    sth:primary_function "MQTT is responsible for data communication between the Smart Tool Holder and the Virtual Tool Room (VTR)."@en ;
+    sth:primary_function_on_smart_tool_holder "MQTT is responsible for data communication between the Smart Tool Holder and the Virtual Tool Room (VTR)."@en ;
+    sth:purpose "MQTT is responsible for data communication between the Smart Tool Holder and the Virtual Tool Room (VTR)."@en ;
+    sth:question "What is MQTT mainly used for on the Smart Tool Holder?"@en,
+        "What is MQTT mainly used for?"@en,
+        "What is MQTT responsible for?"@en ;
+    skos:hiddenLabel "MQTT primary function"@en,
+        "Primary function on the Smart Tool Holder"@en,
+        "What is MQTT mainly used for on the Smart Tool Holder?"@en,
+        "What is MQTT responsible for?"@en ;
+    skos:prefLabel "MQTT is responsible for data communication between the Smart Tool Holder and the Virtual Tool Room (VTR)."@en .
+
+sth:power_issue_no_led_after_shaking a sth:abnormal_case ;
+    rdfs:label "Power abnormality case 1"@en ;
+    sth:abnormal_cause "The tool holder may be in Sleep-Wake Mode or have insufficient power."@en ;
+    sth:answer "The tool holder may be in Sleep-Wake Mode or have insufficient power. Connect it to the charging dock, complete charging, and then remove it for use."@en ;
+    sth:applicable_question "No LED is displayed after shaking the tool holder."@en ;
+    sth:cause "The tool holder may be in Sleep-Wake Mode or have insufficient power."@en ;
+    sth:description "If no LED is displayed after shaking the tool holder, the tool holder may be in Sleep-Wake Mode or have insufficient power. Connect it to the charging dock and complete charging, then remove it and shake it again to return it to an operational state."@en ;
+    sth:troubleshooting_method "Connect the tool holder to the charging dock. After charging is complete, shake the tool holder to enter Idle Mode."@en .
+
+sth:qa_bind_smart_tool_holder_tool a sth:qa_anchor ;
+    rdfs:label "qa_bind_smart_tool_holder_tool"@en ;
+    sth:answer "On the Plan Settings page, select the Smart Tool Holder MAC under STH and the tool number under TID, then click BIND to bind the Smart Tool Holder and the tool."@en ;
+    sth:binding_steps "1. Go to the Plan Settings page. 2. Select the Smart Tool Holder MAC under STH. 3. Select the tool number under TID. 4. Click BIND to bind the Smart Tool Holder and the tool."@en ;
+    sth:corresponding_topic sth:production_plan_settings_detailed,
+        sth:production_plan_settings_quick ;
+    sth:how_to_bind_smart_tool_holder_and_tool "On the Plan Settings page, select the Smart Tool Holder MAC under STH and the tool number under TID, then click BIND to bind the Smart Tool Holder and the tool."@en ;
+    sth:question "How do I bind the Smart Tool Holder and tool?"@en .
+
+sth:qa_charger_output_current_exact a sth:qa_anchor ;
+    rdfs:label "qa_charger_output_current_exact"@en ;
+    sth:answer "2A"@en ;
+    sth:question "What is the output current of the charging dock?"@en,
+        "What is the output-current specification of the charging dock?"@en ;
+    sth:value "2A" ;
+    sth:what_is_charging_dock_output_current "2A"@en ;
+    sth:what_is_charging_dock_output_current_specification "2A"@en ;
+    skos:prefLabel "Charging dock output current"@en .
+
+sth:qa_charger_output_voltage_exact a sth:qa_anchor ;
+    rdfs:label "qa_charger_output_voltage_exact"@en ;
+    sth:answer "DC 12V"@en ;
+    sth:question "What is the output voltage of the charging dock?"@en,
+        "What is the output-voltage specification of the charging dock?"@en ;
+    sth:value "DC 12V" ;
+    sth:what_is_charging_dock_output_voltage "DC 12V"@en ;
+    sth:what_is_charging_dock_output_voltage_specification "DC 12V"@en ;
+    skos:prefLabel "Charging dock output voltage"@en .
+
+sth:qa_sleep_wake_mode_full_answer rdfs:label "After a polling interval is configured, WSB can periodically leave Sleep Mode and enter a brief wake state. In this mode, it reports one Header (packet sequence number: 99999) to Edge. After receiving it, Edge can reply as needed with a command that returns WSB to Sleep Mode or places it in Idle Mode."@en ;
+    sth:answer "After a polling interval is configured, WSB can periodically leave Sleep Mode and enter a brief wake state; in this mode it reports one Header (packet sequence number: 99999) to Edge. After receiving it, Edge can reply as needed with a command to return WSB to Sleep Mode or place it in Idle Mode."@en ;
+    sth:question "What is Sleep-Wake Mode?"@en ;
+    sth:what_is_sleep_wake_mode "After a polling interval is configured, WSB can periodically leave Sleep Mode and enter a brief wake state; in this mode it reports one Header (packet sequence number: 99999) to Edge. After receiving it, Edge can reply as needed with a command to return WSB to Sleep Mode or place it in Idle Mode."@en .
+
+sth:qa_smart_tool_holder_power_supply_standby_time a sth:direct_answer_node,
+        sth:qa_anchor,
+        sth:specification_qa ;
+    rdfs:label ">10 day"@en ;
+    sth:answer ">10 day"@en ;
+    sth:complete_answer "The Smart Tool Holder power-supply standby time is >10 day."@en ;
+    sth:corresponding_specification_item sth:standby_time ;
+    sth:corresponding_topic sth:general_specification ;
+    sth:direct_answer ">10 day"@en ;
+    sth:node_boundary "This node answers only the standby-time specification under Smart Tool Holder power supply; the direct answer is >10 day. It does not answer the Configuration Mode configurable-parameter list."@en ;
+    sth:not_applicable_question "What parameters can Configuration Mode configure?"@en,
+        "Which parameters can be configured while the Smart Tool Holder is in Configuration Mode?"@en ;
+    sth:not_used_as_answer "Smart Tool Holder power-supply standby time"@en ;
+    sth:power_supply_standby_time ">10 day"@en ;
+    sth:question "How long is the Smart Tool Holder standby time?"@en,
+        "What is the Smart Tool Holder power-supply standby time?"@en,
+        "What is the power-supply standby time?"@en,
+        "What is the standby duration of the Smart Tool Holder?"@en ;
+    sth:semantic_target "Power-supply standby-time value in the Smart Tool Holder general specifications"@en ;
+    sth:smart_tool_holder_power_supply_standby_time ">10 day"@en ;
+    sth:what_is_power_supply_standby_time ">10 day"@en ;
+    sth:what_is_smart_tool_holder_power_supply_standby_time ">10 day"@en ;
+    skos:hiddenLabel "Power supply standby time"@en,
+        "Smart Tool Holder power-supply standby time"@en,
+        "Smart Tool Holder standby time"@en,
+        "Standby time >10 day"@en,
+        "What is the Smart Tool Holder power-supply standby time"@en ;
+    skos:prefLabel ">10 day"@en .
+
+sth:reason_no_led_after_shaking_smart_tool_holder a sth:abnormal_cause ;
+    rdfs:label "Reason no LED is displayed after shaking the Smart Tool Holder"@en,
+        "Why is no LED displayed after shaking the Smart Tool Holder?"@en ;
+    sth:abnormal_cause "The tool holder may be in Sleep-Wake Mode or have insufficient power."@en ;
+    sth:answer "The tool holder may be in Sleep-Wake Mode or have insufficient power. Connect it to the charging dock, complete charging, and then remove it for use."@en ;
+    sth:applicable_question "No LED is displayed after shaking the tool holder."@en ;
+    sth:applicable_scope "Applicable only to abnormal causes and troubleshooting when no LED is displayed even after shaking the tool holder."@en ;
+    sth:description "If no LED is displayed after shaking the tool holder, the tool holder may be in Sleep-Wake Mode or have insufficient power. Connect it to the charging dock and complete charging, then remove it and shake it again to return it to an operational state."@en ;
+    sth:node_role "Power abnormality and no-LED troubleshooting case."@en ;
+    sth:not_applicable_question "How can I wake up the Smart Tool Holder?"@en,
+        "What is the procedure for waking up the Smart Tool Holder?"@en ;
+    sth:troubleshooting_method "Connect the tool holder to the charging dock. After charging is complete, remove the tool holder and shake it to enter Idle Mode for normal use."@en .
+
+sth:smart_tool_holder a sth:product ;
+    rdfs:label "Smart Tool Holder"@en ;
+    sth:abbreviation "STH" ;
+    sth:english_name "Smart Tool Holder" ;
+    sth:has_check_rule sth:sufficient_signal_strength_judgment ;
+    sth:power_supply "Continuous operating time >6 hr; standby time >10 day."@en ;
+    sth:power_supply_standby_time ">10 day"@en ;
+    sth:real_time_monitoring_active_status "When the Active indicator is on, the current signal is stable."@en ;
+    sth:real_time_monitoring_hold_status "When the Hold indicator is on, the current signal is unstable or the connection to the STH has been interrupted, resulting in incomplete received data."@en ;
+    sth:real_time_monitoring_power "Power displays the remaining battery level of the currently enabled STH."@en ;
+    sth:real_time_monitoring_rssi "RSSI displays the current wireless signal strength of the connection."@en ;
+    sth:setting_mode_configurable_parameters "Router SSID, Password, IP, Port, RF Power Level, G-threshold, polling interval, sleep time."@en ;
+    sth:setting_mode_configurable_parameters_answer "The parameters configurable in Smart Tool Holder Configuration Mode include Router SSID, Password, IP, Port, RF Power Level, G-threshold, polling interval, and sleep time."@en ;
+    sth:setting_mode_configurable_parameters_query sth:smart_tool_holder_setting_mode_configurable_parameters ;
+    sth:smart_tool_holder_power_supply_standby_time ">10 day"@en ;
+    sth:standby_time ">10 day"@en ;
+    sth:standby_time_answer "The Smart Tool Holder power-supply standby time is >10 day."@en ;
+    sth:what_is_smart_tool_holder_power_supply_standby_time ">10 day"@en ;
+    sth:what_parameters_can_be_set_in_smart_tool_holder_setting_mode "The parameters configurable in Smart Tool Holder Configuration Mode include Router SSID, Password, IP, Port, RF Power Level, G-threshold, polling interval, and sleep time."@en ;
+    skos:altLabel "STH"@en,
+        "Smart Tool Holder"@en ;
+    skos:hiddenLabel "smart tool holder"@en,
+        "smarttoolholder"@en,
+        "sth"@en .
+
+sth:smart_tool_holder_operating_modes rdfs:label "Smart Tool Holder operating modes"@en ;
+    sth:altLabel "Smart Tool Holder mode list"@en,
+        "What are the Smart Tool Holder operating modes"@en,
+        "What modes does the Smart Tool Holder have?"@en ;
+    sth:answer "The main Smart Tool Holder operating modes are Idle Mode, Transmission Mode, Configuration Mode, Sleep Mode, and Sleep-Wake Mode."@en ;
+    sth:includes_mode "Configuration Mode"@en,
+        "Idle Mode"@en,
+        "Sleep Mode"@en,
+        "Sleep-Wake Mode"@en,
+        "Transmission Mode"@en ;
+    sth:mode_list "Idle Mode, Transmission Mode, Configuration Mode, Sleep Mode, Sleep-Wake Mode"@en ;
+    sth:operating_mode "Idle Mode, Transmission Mode, Configuration Mode, Sleep Mode, Sleep-Wake Mode"@en ;
+    sth:question "What are the Smart Tool Holder operating modes?"@en,
+        "What operating modes does the Smart Tool Holder have?"@en,
+        "What working modes does the Smart Tool Holder have?"@en .
+
+sth:smart_tool_holder_operation_manual_v0_35 a sth:manual ;
+    rdfs:label "Smart Tool Holder Operation Manual v0.35"@en ;
+    sth:company "ToolLink Machining Co., Ltd."@en ;
+    sth:date "2025-05-15"^^xsd:date ;
+    sth:english_company_name "ToolLink Machining Co., Ltd." ;
+    sth:english_title "Operational Manual for Smart Tool Holder" ;
+    sth:has_section sth:component_list,
+        sth:performance_analysis,
+        sth:smart_tool_holder_advanced_settings,
+        sth:smart_tool_holder_introduction,
+        sth:troubleshooting,
+        sth:virtual_tool_room_advanced_usage_instructions,
+        sth:virtual_tool_room_detailed_operation_instructions,
+        sth:virtual_tool_room_quick_operation_process ;
+    sth:version "V0.35" .
+
+sth:smart_tool_holder_wake_up_method a sth:qa_anchor ;
+    rdfs:label "How to wake the Smart Tool Holder"@en,
+        "Sleep Mode wake-up method"@en,
+        "Smart Tool Holder wake-up method"@en ;
+    sth:answer "When the Smart Tool Holder is in Sleep Mode, shaking it beyond the G-threshold wakes it. After waking, it first enters Idle Mode and then switches back to Transmission Mode once the connection to Edge or Router is complete; this normally takes about 10 seconds."@en ;
+    sth:completion_time "After waking from Sleep Mode, connecting to the Router and entering Transmission Mode normally takes about 10 seconds."@en ;
+    sth:corresponding_topic sth:mode_switching,
+        sth:smart_tool_holder_advanced_settings ;
+    sth:disambiguation "This node answers the general wake-up method. Only when there is no LED at all after shaking does the issue belong to power-abnormality or Sleep-Wake Mode troubleshooting."@en ;
+    sth:question "How can I wake the Smart Tool Holder from Sleep Mode?"@en,
+        "How can I wake up the Smart Tool Holder?"@en,
+        "How do I wake the Smart Tool Holder while it is in Sleep Mode?"@en,
+        "What is the procedure for waking up the Smart Tool Holder?"@en ;
+    sth:wake_up_condition "Shake beyond the G-threshold."@en ;
+    sth:wake_up_method "Shake the Smart Tool Holder beyond the G-threshold to wake it."@en ;
+    sth:wake_up_process "After motion exceeding the G-threshold is detected in Sleep Mode, the Smart Tool Holder leaves Sleep Mode, first enters Idle Mode, and switches back to Transmission Mode after the connection is completed."@en ;
+    skos:prefLabel "Smart Tool Holder wake-up method"@en .
+
+sth:txt_to_csv_checkbox_direct_answer a sth:direct_answer_node,
+        sth:qa_anchor ;
+    rdfs:label "Save a Parsed File?"@en ;
+    sth:answer "Save a Parsed File?"@en ;
+    sth:answer_type "Button name"@en ;
+    sth:description "Save a Parsed File? is the checkbox used to parse Smart Tool Holder TXT data and save it in CSV format."@en ;
+    sth:question "What should be checked to convert Smart Tool Holder data from TXT to CSV?"@en,
+        "Which button can convert Smart Tool Holder data from TXT to CSV?"@en,
+        "Which button do I check to convert Smart Tool Holder data from TXT to CSV?"@en,
+        "Which button should be checked to convert Smart Tool Holder data from TXT to CSV?"@en,
+        "Which item should be checked for TXT-to-CSV conversion?"@en,
+        "Which item should be checked to convert Smart Tool Holder TXT data to CSV?"@en ;
+    sth:related_function "TXT to CSV"@en .
+
+sth:virtual_tool_room a sth:system ;
+    rdfs:label "Virtual Tool Room"@en ;
+    sth:abbreviation "VTR" ;
+    sth:add_control_limits_method "On the History Review page, first select Folder and File, then click ADD UCL LCL. The system adds upper and lower control limits to the selected CSV file, and the output filename is the original filename + _processed."@en ;
+    sth:english_name "Virtual Tool Room" .
+
+sth:what_to_do_if_smart_tool_holder_cannot_be_scanned a sth:qa_anchor ;
+    rdfs:label "No available tool holder is displayed after executing LOAD STHSCAN."@en,
+        "Smart Tool Holder cannot be scanned"@en,
+        "What should I do if the Smart Tool Holder cannot be scanned"@en ;
+    sth:answer "If no available tool holder is displayed after LOAD STHSCAN, first confirm the tool holder status and shake it to enter Idle Mode (green LED flashing). Then check Networking (TCP/IP settings) and MessageBroking (MQTT settings) under Connection Check. Finally, check the IP and Router location; the IP address is 10.0.0.103 and the subnet mask is 255.255.255.0."@en ;
+    sth:corresponding_topic sth:case_3 ;
+    sth:handling_method "A. First confirm the tool holder status; shake the tool holder to enter Idle Mode (green LED flashing). B. Check whether Networking (TCP/IP settings) and MessageBroking (MQTT settings) under Connection Check are correct. C. Check the configured IP and Router location. The IP address is 10.0.0.103 and the subnet mask is 255.255.255.0."@en ;
+    sth:question "What should I do if the Smart Tool Holder cannot be scanned?"@en ;
+    sth:scan_failure_handling_method "First confirm the tool holder status and shake it to enter Idle Mode. Check Networking (TCP/IP settings) and MessageBroking (MQTT settings). Check the IP and Router location; the IP address is 10.0.0.103 and the subnet mask is 255.255.255.0."@en .
+
+sth:AvailableSTH_csv a sth:file ;
+    rdfs:label "AvailableSTH.csv"@en ;
+    sth:description "Available STH coefficient file."@en .
+
+sth:CMD_NOTIFY a sth:Topic ;
+    rdfs:label "CMD/NOTIFY"@en ;
+    sth:description "Proactive notification."@en .
+
+sth:CMD_REQ a sth:Topic ;
+    rdfs:label "CMD/REQ"@en ;
+    sth:description "Edge sends a command."@en .
+
+sth:CMD_RESP a sth:Topic ;
+    rdfs:label "CMD/RESP"@en ;
+    sth:description "Command execution result."@en .
+
+sth:DataProcess_exe a sth:file ;
+    rdfs:label "DataProcess.exe"@en ;
+    sth:description "Processes detected raw data from RawData\\Source\\Data\\*.txt into force data at RawData\\Output\\*.csv."@en .
+
+sth:InitSTH_py a sth:file ;
+    rdfs:label "InitSTH.py"@en ;
+    sth:description "Initial parameter values for the DataProcess and STHLink executables."@en .
+
+sth:InitSTH_u_json a sth:file ;
+    rdfs:label "InitSTH_u.json"@en ;
+    sth:description "InitSTH.py parameters updated through the UI, such as Connection Check."@en .
+
+sth:MQTT a sth:communication_protocol ;
+    rdfs:label "MQTT is responsible for data communication between the Smart Tool Holder and the Virtual Tool Room (VTR)."@en ;
+    sth:answer "MQTT is responsible for data communication between the Smart Tool Holder and the Virtual Tool Room (VTR)."@en ;
+    sth:communication_function "MQTT is responsible for data communication between the Smart Tool Holder and the Virtual Tool Room (VTR)."@en ;
+    sth:communication_port "1883" ;
+    sth:data_communication_target "The Smart Tool Holder and the Virtual Tool Room (VTR)."@en ;
+    sth:default_communication_port "1883" ;
+    sth:default_connection_port "1883" ;
+    sth:description "The default MQTT communication port is 1883. When configuring the firewall, select the TCP protocol and enter 1883 as the specific local port. In the Smart Tool Holder system, MQTT is mainly responsible for data communication between the Smart Tool Holder and the Virtual Tool Room (VTR)."@en ;
+    sth:direct_answer "MQTT is responsible for data communication between the Smart Tool Holder and the Virtual Tool Room (VTR)."@en ;
+    sth:function "MQTT is responsible for data communication between the Smart Tool Holder and the Virtual Tool Room (VTR)."@en ;
+    sth:mqtt_primary_communication_function_on_smart_tool_holder "MQTT is responsible for data communication between the Smart Tool Holder and the Virtual Tool Room (VTR)."@en ;
+    sth:mqtt_primary_function_answer "MQTT is responsible for data communication between the Smart Tool Holder and the Virtual Tool Room (VTR)."@en ;
+    sth:mqtt_primary_function_on_smart_tool_holder "MQTT is responsible for data communication between the Smart Tool Holder and the Virtual Tool Room (VTR)."@en ;
+    sth:port "1883" ;
+    sth:primary_communication_function "MQTT is responsible for data communication between the Smart Tool Holder and the Virtual Tool Room (VTR)."@en ;
+    sth:primary_communication_function_on_smart_tool_holder "MQTT is responsible for data communication between the Smart Tool Holder and the Virtual Tool Room (VTR)."@en ;
+    sth:primary_function "MQTT is responsible for data communication between the Smart Tool Holder and the Virtual Tool Room (VTR)."@en ;
+    sth:primary_function_on_smart_tool_holder "MQTT is responsible for data communication between the Smart Tool Holder and the Virtual Tool Room (VTR)."@en ;
+    sth:primary_function_query sth:mqtt_primary_function_direct_qa ;
+    sth:primary_function_usage "Data communication between the Smart Tool Holder and the Virtual Tool Room (VTR)."@en ;
+    sth:purpose "MQTT is responsible for data communication between the Smart Tool Holder and the Virtual Tool Room (VTR)."@en ;
+    sth:question "What is MQTT mainly used for on the Smart Tool Holder?"@en,
+        "What is MQTT mainly used for?"@en,
+        "What is MQTT responsible for between the Smart Tool Holder and the Virtual Tool Room?"@en,
+        "What is MQTT responsible for?"@en ;
+    skos:hiddenLabel "MQTT communication function"@en,
+        "MQTT communication protocol"@en,
+        "MQTT primary function"@en,
+        "Primary communication function on the Smart Tool Holder"@en,
+        "Primary function on the Smart Tool Holder"@en,
+        "What communication function is MQTT mainly used for on the Smart Tool Holder?"@en,
+        "What is MQTT mainly used for on the Smart Tool Holder?"@en,
+        "What is MQTT responsible for?"@en ;
+    skos:prefLabel "MQTT is responsible for data communication between the Smart Tool Holder and the Virtual Tool Room (VTR)."@en .
+
+sth:STHComm_exe a sth:file ;
+    rdfs:label "STHComm.exe"@en ;
+    sth:description "Main program for connecting to the STH, such as LOAD ALL."@en .
+
+sth:STHLink_exe a sth:file ;
+    rdfs:label "STHLink.exe"@en ;
+    sth:description "Connects to the STH and establishes a connection."@en .
+
+sth:STHScan_exe a sth:file ;
+    rdfs:label "STHScan.exe"@en ;
+    sth:description "Scans and configures the STH network, such as LOAD STHSCAN."@en .
+
+sth:STH_FILE a sth:Topic ;
+    rdfs:label "STH/FILE"@en ;
+    sth:description "File transfer."@en .
+
+sth:STH_Pdata a sth:Topic ;
+    rdfs:label "STH/Pdata"@en ;
+    sth:description "Actively report real-time sensor data."@en .
+
+sth:STHerror_txt a sth:file ;
+    rdfs:label "STHerror.txt"@en ;
+    sth:description "Error logs recorded by STHLink."@en .
+
+sth:VTR_flows_json a sth:file ;
+    rdfs:label "VTR-flows (yyyyMMv)"@en ;
+    sth:description "Node-Red flow nodes."@en .
+
+sth:automatic_test a sth:section ;
+    rdfs:label "Automatic Test"@en ;
+    sth:active_description "When the Active indicator is on, the current signal is stable."@en ;
+    sth:current_plan_description "Current Plan displays the absolute path of the plan file currently being executed."@en ;
+    sth:description "Automatic Test. In Automatic Test mode, check whether the Power, RSSI, and Active indicators are normal to confirm that the Smart Tool Holder is operating normally. Figure 50, Automatic Test page. Operation procedure: 1. Parameters (Figure 51). Current Plan displays the absolute path of the current plan file. LOAD CURRENT stores the currently configured MAC, Port, and Tool ID for subsequent operations. Target MAC sets the MAC address of the Smart Tool Holder to use. Target Port sets its port number. Target Tool ID sets the tool ID bound to the Smart Tool Holder. APPLY UPDATES saves the confirmed STH status updates to a JSON file for the next operation. Content displays Connection Check and Save Settings updates after APPLY UPDATES so all parameters can be verified. 2. Action (Figure 52). LOAD ALL loads the STH connection and data-processing programs (STHComm, DataProcess) in preparation for Automatic Test. The data-processing program parses raw sensor TXT files into CSV files for analysis. ENABLE FUNC. starts the STH connection and data-processing programs. START RECORD records and processes STH sensor data into TXT files, which are subsequently processed and saved by DataProcess. Stop In Time(s) sets the automatic recording stop time in seconds. STOP RECORD stops recording and pauses sensor-data processing. DISABLE FUNC. pauses data processing and stops STH connection and data collection. UNLOAD ALL terminates all STH connection and data-processing programs and returns the system to the unmonitored state. 3. Online STH (Figure 53). Power displays the battery level of the enabled STH. RSSI displays current wireless signal strength for judging connection stability. Active on means stable signal and good connection. Hold on means unstable signal or interrupted STH connection and possibly incomplete data. STH ID displays the MAC address of the connected STH. Package ID increments for each packet received every 0.4 seconds and displays current connection data traffic. Recording Time displays elapsed recording time after START RECORD. Torque(Nm) and Bending X(N) display STH torque and bending-force data as line charts. 4. Logs (Figure 54). STH Comm log displays the STHComm.exe runtime log after LOAD ALL to show connection details. Data Process log displays the DataProcess.exe runtime log after LOAD ALL to track data-processing progress and status."@en ;
+    sth:hold_description "When the Hold indicator is on, the current signal is unstable or the connection to the STH has been interrupted, resulting in incomplete received data."@en ;
+    sth:package_id_description "Package ID increments each time a packet is received, every 0.4 seconds, and is used to display the current connection data traffic."@en ;
+    sth:power_description "Power displays the remaining battery level of the currently enabled STH."@en ;
+    sth:recording_time_description "Recording Time displays the elapsed recording time after START RECORD is pressed."@en ;
+    sth:rssi_description "RSSI displays the current wireless signal strength of the connection."@en ;
+    sth:sth_id_description "STH ID displays the MAC address of the currently connected STH."@en .
+
+sth:available_sth_coefficient_file a sth:setting_item ;
+    rdfs:label "AvailableSTH.csv"@en ;
+    sth:description "Available STH coefficient file."@en .
+
+sth:battery_life_operation a sth:specification_item ;
+    rdfs:label "Battery life - Activity"@en ;
+    sth:value "≧ 6hr" .
+
+sth:battery_life_standby a sth:specification_item ;
+    rdfs:label "Battery life - Standby"@en ;
+    sth:value "≧ 10 days" .
+
+sth:bending_x_field a sth:field ;
+    rdfs:label "BendingX"@en ;
+    sth:description "X-direction bending force (Nm)"@en .
+
+sth:bending_y_field a sth:field ;
+    rdfs:label "BendingY"@en ;
+    sth:description "Y-direction bending force (Nm)"@en .
+
+sth:case_1 a sth:abnormal_case ;
+    rdfs:label "Power abnormality case 1"@en ;
+    sth:applicable_question "This is a power-abnormality troubleshooting case, not the definition of Sleep-Wake Mode."@en ;
+    sth:cause "The tool holder is in Sleep-Wake Mode."@en ;
+    sth:complete_troubleshooting_steps "Connect the tool holder to the charging dock and complete charging, remove it, then shake it to enter Idle Mode. If no LED is still displayed at all, check the charging-dock contacts and adapter specifications or send the unit for repair."@en ;
+    sth:description "If no LED is displayed after shaking the tool holder, the tool holder may be in Sleep-Wake Mode or have insufficient power. Connect it to the charging dock and complete charging, then remove it and shake it again to return it to an operational state."@en ;
+    sth:non_status_mapping_table "This node is a power-abnormality troubleshooting case and answers only the causes and troubleshooting methods when no LED is displayed."@en ;
+    sth:troubleshooting_method "Connect the tool holder to the charging dock and complete charging, remove it, then shake it to enter Idle Mode for normal use."@en .
+
+sth:case_2 a sth:abnormal_case ;
+    rdfs:label "After the tool holder is connected to the charging dock, the charging dock shows no LED."@en ;
+    sth:cause "The charging contacts or adapter may be the problem."@en ;
+    sth:complete_troubleshooting_steps "A. Check whether the charging contacts on the charging dock are correctly aligned with the charging contacts on the Smart Tool Holder. B. Check whether the charging dock adapter meets the requirements; the adapter output voltage should be DC 12V and the output current should be 2A. C. After replacing it with the required adapter, if charging still fails, the charging dock itself may be faulty. Contact the purchasing unit for repair service."@en ;
+    sth:description "After the tool holder is connected to the charging dock, the charging dock shows no LED. Normally, the charging dock displays a red LED to indicate charging. If no LED is displayed, the charging contacts may not be aligned, the adapter may not meet specifications, or the charging dock may be faulty. A. Check whether the charging contacts on the charging dock correctly align with those on the Smart Tool Holder. B. Check whether the charging-dock adapter meets requirements; output voltage should be DC 12V and output current should be 2A. C. After replacing it with the required adapter, if charging still fails, the charging dock itself may be faulty; contact the purchasing unit for repair service."@en ;
+    sth:non_status_mapping_table "This node is a no-LED troubleshooting case for the charging dock and answers only the causes and troubleshooting methods when the charging dock displays no LED."@en ;
+    sth:possible_cause "Charging contacts not aligned, adapter does not meet specifications, or charging dock failure."@en ;
+    sth:troubleshooting_method "Check whether the charging contacts are aligned; check whether the adapter output is DC 12V and 2A; if charging still fails, contact the purchasing unit for repair."@en .
+
+sth:case_4 a sth:abnormal_case ;
+    rdfs:label "Unable to connect to the tool holder"@en ;
+    sth:cause "Available STHs already shows available tool holders, but LOAD ALL cannot connect."@en ;
+    sth:description "Available STHs shows available tool holders, but LOAD ALL cannot connect. Available STHs displays the available Smart Tool Holders normally, but LOAD ALL cannot connect to them. Under normal conditions, the Logs continuously display information such as Target MAC and Port. When an error occurs, the condition is as shown in the figure. A. Check the MAC addresses and tool numbers of the Smart Tool Holders and tools that must be bound in the plan, such as the MAC addresses and tool numbers for STH1 and STH2 shown in the figure. B. Confirm that Smart Tool Holder-to-tool binding has been completed; use this button to bind the Smart Tool Holder MAC address to the tool number. C. Confirm that the APPLY UPDATES button in Save Settings has been clicked. D. After applying updates, confirm that the enabled Smart Tool Holder (Active STH) has a MAC address, as shown in the figure."@en ;
+    sth:troubleshooting_method "Check the binding between the Smart Tool Holder MAC and tool number; confirm that BIND has been completed; confirm that APPLY UPDATES under Save Settings has been pressed and that Active STH has a MAC address."@en .
+
+sth:case_5 a sth:abnormal_case ;
+    rdfs:label "Excessive tool wear or damage"@en ;
+    sth:cause "Torque data is abnormal in Simulation Analysis and exceeds UCL/LCL."@en ;
+    sth:complete_troubleshooting_steps "A. Go to the Real-Time Monitoring page. B. Execute TOOL CHANGE to perform the tool-change operation."@en ;
+    sth:description "When a tool is excessively worn or damaged, Simulation Analysis shows abnormal Torque (Nm) data exceeding the upper and lower control limits (UCL/LCL). Replace the tool before machining. A. Go to the Real-Time Monitoring page. B. Execute TOOL CHANGE to perform the tool-change operation."@en ;
+    sth:tool_change_method "Go to the Real-Time Monitoring page and execute TOOL CHANGE to perform the tool-change operation."@en ;
+    sth:troubleshooting_method "Go to the Real-Time Monitoring page and execute TOOL CHANGE to perform the tool change."@en .
+
+sth:case_6 a sth:abnormal_case ;
+    rdfs:label "Node-Red service paused; website not responding"@en ;
+    sth:cause "A Node-Red service fault or a problematic .json file prevents the service from starting."@en ;
+    sth:complete_troubleshooting_steps "If the Node-Red website does not respond, check the Node-Red status under Services in Task Manager. If it is paused and starting it has no effect, start Node-Red from Command Prompt (CMD). If 'Failed to stary server' appears, use the problematic .json file location indicated by the red box, delete or move that file, then start the Node-Red service again from CMD and reboot the computer."@en ;
+    sth:description "Node-Red service paused; website not responding. If the Node-Red website does not respond, open Services in Task Manager and check the Node-Red status. If it is paused and starting it has no effect, start Node-Red from Command Prompt (CMD). If there is a problem, a screen like the figure will appear. If 'Failed to stary server' is shown, the red box below indicates the problematic .json file. Copy the file path on that line, delete the file or move it elsewhere, then restart the Node-Red service from Command Prompt (CMD) and reboot the computer to restore normal operation."@en ;
+    sth:error_message "Failed to stary server" ;
+    sth:troubleshooting_method "Start Node-Red from Command Prompt, remove or move the problematic .json file according to the error message, then restart the computer."@en .
+
+sth:cc_mode a sth:specification_item ;
+    rdfs:label "Charging CC mode"@en ;
+    sth:value "2A" .
+
+sth:ch1_field a sth:field ;
+    rdfs:label "CH1"@en ;
+    sth:description "Strain-gauge channel 1 signal"@en .
+
+sth:ch2_field a sth:field ;
+    rdfs:label "CH2"@en ;
+    sth:description "Strain-gauge channel 2 signal"@en .
+
+sth:channel_calibration a sth:setting_item ;
+    rdfs:label "Calibration of Channels"@en ;
+    sth:description "Set the calibration value for each channel."@en .
+
+sth:charger_input_specification a sth:specification_item ;
+    rdfs:label "Adapter Input Specifications"@en ;
+    sth:value "Vac 100V~240V-50/60Hz-0.5A" .
+
+sth:charger_output_current_specification a sth:specification_item ;
+    rdfs:label "Adapter Output Current"@en,
+        "Charging dock adapter output current"@en ;
+    sth:answer "2A"@en ;
+    sth:question "What is the output current of the charging dock?"@en,
+        "What is the output-current specification of the charging dock?"@en ;
+    sth:value "2A" .
+
+sth:charger_output_voltage_specification a sth:specification_item ;
+    rdfs:label "Adapter Output Voltage"@en,
+        "Charging dock adapter output voltage"@en ;
+    sth:answer "DC 12V"@en ;
+    sth:question "What is the output voltage of the charging dock?"@en,
+        "What is the output-voltage specification of the charging dock?"@en ;
+    sth:value "DC 12V" .
+
+sth:charging_base_green_led_on a sth:led_mapping ;
+    rdfs:label "charging_base_green_led_on"@en ;
+    sth:answer "A solid green LED means fully charged."@en ;
+    sth:corresponding_topic sth:charging_module ;
+    sth:led_color "Green LED"@en ;
+    sth:led_status "Solid on"@en ;
+    sth:question "What does a solid green LED on the charging dock mean?"@en ;
+    sth:represented_status "Fully charged"@en ;
+    sth:solid_green_led_means "Fully charged"@en ;
+    sth:what_does_solid_green_led_on_charging_dock_mean "A solid green LED means fully charged."@en ;
+    skos:altLabel "Charging dock green indicator stays on"@en,
+        "Charging dock solid green LED"@en,
+        "Solid green LED"@en .
+
+sth:charging_base_red_led_on a sth:led_mapping ;
+    rdfs:label "Charging dock solid red LED means charging"@en ;
+    sth:answer "A solid red LED means charging."@en ;
+    sth:corresponding_topic sth:charging_module ;
+    sth:led_status "Solid on"@en ;
+    sth:led_target "Charging dock"@en ;
+    sth:question "What does a solid red LED on the charging dock mean?"@en ;
+    sth:represented_status "Charging"@en ;
+    sth:solid_red_led_means "Charging"@en ;
+    sth:what_does_solid_red_led_on_charging_dock_mean "A solid red LED means charging."@en ;
+    skos:altLabel "Charging dock red indicator stays on"@en,
+        "Charging dock solid red LED"@en .
+
+sth:charging_method a sth:specification_item ;
+    rdfs:label "Charging method"@en ;
+    sth:value "Contact charging"@en .
+
+sth:charging_module_component a sth:component ;
+    rdfs:label "Charging module (Charger)"@en ;
+    sth:quantity "1"^^xsd:int .
+
+sth:charging_status a sth:led_status ;
+    rdfs:label "Charging"@en ;
+    sth:Green "-" ;
+    sth:Red "On" .
+
+sth:charging_status_led a sth:specification_item ;
+    rdfs:label "Charging state-LED"@en ;
+    sth:value "Uncharged: off / Charging: red LED on / Fully charged: green LED on"@en .
+
+sth:coefficient_folder a sth:folder ;
+    rdfs:label ".\\Coefficient"@en ;
+    sth:description "Folder for storing calibration coefficients."@en ;
+    sth:has_file sth:AvailableSTH_csv .
+
+sth:communication_frequency_band a sth:specification_item ;
+    rdfs:label "Communication frequency band"@en ;
+    sth:value "2.45 GHz 802.11 b/g/n" .
+
+sth:communication_method a sth:specification_item ;
+    rdfs:label "Communication method"@en ;
+    sth:value "Wi-Fi" .
+
+sth:component_list a sth:section ;
+    rdfs:label "Component List"@en ;
+    sth:description "Component List. Table 1, Smart Tool Holder Module Components. No. / Part name / pcs / Remark. 1. STH body, Figure 1, 1 pc. 2. Router, Figure 2, 1 pc. 3. Charging Module (Charger), Figure 3, 1 pc. Figure 1: STH body, first generation on the left and second generation on the right. Figure 2: Router. Figure 3: Charging Module (Charger), first generation on the left and second generation on the right."@en ;
+    sth:has_component sth:charging_module_component,
+        sth:router_component,
+        sth:smart_tool_holder_component .
+
+sth:connection_check sth:broker_port_description "The default MQTT communication port is 1883."@en ;
+    sth:mqtt_default_communication_port "1883" ;
+    sth:question "Under what circumstances does the Smart Tool Holder need to be rescanned?"@en,
+        "When does the Smart Tool Holder need to be rescanned?"@en ;
+    sth:rescan_condition "When RSSI ≤ -50 dB, signal strength is insufficient and may cause connection interruption or incomplete data, so the Smart Tool Holder must be rescanned."@en ;
+    sth:rescan_condition_query sth:rssi_insufficient_rescan_condition_direct_qa ;
+    sth:rssi_insufficient_rescan_condition_direct_qa "When the signal strength between the Smart Tool Holder and Router is insufficient (RSSI ≤ -50 dB), the Smart Tool Holder must be rescanned."@en .
+
+sth:connection_check_detailed a sth:section ;
+    rdfs:label "Detailed Operation Instructions - Connection Check"@en ;
+    sth:description "Connection Check. Figure 32, Connection Check page. Operation procedure: 1. Settings and Scan Operations (Figure 33). RESET DEFAULT resets parameters to system defaults by reading initial settings from InitSTH.py. APPLY UPDATES saves changed connection parameters to InitSTH_u.json and displays all changes in Parameter Updates. LOAD STHSCAN loads the Smart Tool Holder scanning program (STHScan.exe). RE-SCAN starts the STH scan to identify currently available Smart Tool Holders. UNLOAD SCAN terminates and exits the scanning program. 2. Available Smart Tool Holders and Scan Settings (Figure 34). Available STHs displays scanned Smart Tool Holder MAC addresses and corresponding Port numbers, up to five sets. STH Scan: WIFI Router Used? selects whether scanning is performed through a Wi-Fi Router. First Port for Scanning sets the starting connection port. Total STHs sets the maximum number of Smart Tool Holders to scan. Max Scan Time sets the maximum duration in seconds for each scan; these settings are saved in InitSTH_u.json. 3. Connection Port Settings (Figure 35). Assign/Reset Port Setting: Reset All Ports of STHs selects whether to reset all scanned STH connection ports. Auto-Assign New Port selects whether to automatically assign a new connection port. Manual Assign selects manual assignment of different connection ports. 4. Networking and MQTT Settings (Figure 36). Networking (TCP/IP): STH Router Name sets the Router name used to connect the Smart Tool Holder. Edge IP Address sets the IP address of the Edge computer. Web Address and Web Port configure web communication between the UI and system. Message Broking (MQTT): Remote Control? sets whether remote control of the Smart Tool Holder is allowed. Is a Local Broker? selects whether a local MQTT Broker is used. Message Broker Address and Broker Port set the MQTT Broker address and communication port. Topic of Syn/Scan/pdata/log sets the MQTT topic names for Syn, Scan, pdata, and Log to ensure proper message transmission for each function module. 5. Updates and Scan Records (Figure 37). Parameter Updates displays all Connection Check and Save Settings content in JSON format after APPLY UPDATES to verify that changes were applied correctly. Scan Logs displays the STHScan.exe runtime log after LOAD STHSCAN."@en ;
+    sth:has_check_rule sth:sufficient_signal_strength_judgment ;
+    sth:rescan_operation "Press RE-SCAN to rescan Smart Tool Holders and check which Smart Tool Holders are currently available."@en .
+
+sth:connection_check_quick a sth:process_step ;
+    rdfs:label "Quick operation procedure - Connection Check"@en ;
+    sth:description "Connection Check. On the Connection Check page (Figure 8), place ST_route near the CNC machine in the Networking (TCP/IP settings) area to ensure a stable Wi-Fi connection and configure the correct IP address. Press LOAD STHSCAN to load the STH scanning program and use RE-SCAN to ensure that all Smart Tool Holders are successfully scanned and connected. Signal strength can be viewed on the Real-Time Monitoring page. RSSI > -50 dB indicates sufficient signal strength between the Smart Tool Holder and Router. RSSI ≤ -50 dB indicates insufficient signal strength, which may cause connection interruption or incomplete data and requires rescanning the Smart Tool Holder. Figure 8, Connection Check page."@en ;
+    sth:has_check_rule sth:sufficient_signal_strength_judgment ;
+    sth:rescan_condition "When RSSI ≤ -50 dB, signal strength is insufficient and may cause connection interruption or incomplete data, so the Smart Tool Holder must be rescanned."@en ;
+    sth:rssi_insufficient_rescan_condition_direct_qa "When the signal strength between the Smart Tool Holder and Router is insufficient (RSSI ≤ -50 dB), the Smart Tool Holder must be rescanned."@en .
+
+sth:connection_latency_analysis a sth:analysis ;
+    rdfs:label "Connection Latency Analysis"@en ;
+    sth:conclusion "The Smart Tool Holder can operate stably for about 7 hours; communication remains stable at 10000 rpm and does not constitute communication latency."@en ;
+    sth:description "Connection Latency Analysis. Execution time: 04/22 14:37–04/22 17:45, 2025. Conditions: spindle speeds 9000 and 10000 rpm; feed 0 mm/min; duration 10 min/cycle. Description: every 0.4 seconds the Smart Tool Holder sends accumulated sensor measurements and the previous packet transmission time (TTOLP). The time required to transmit a packet during the previous connection is sent with the next packet, so TTOLP varies significantly when the connection is unstable. Results: with different Smart Tool Holders at spindle speeds of 9000 and 10000 RPM over 10-minute communication connections, average TTOLP is 30–50 ms and the maximum is less than 90 ms. At 10000 rpm, communication time remains stable and does not constitute communication latency. Execution time: 5/11 21:27–5/12 06:45, 2025. Conditions: spindle speed 0 rpm; maximum voltage 4.11 V; minimum voltage 2.67 V; duration >7 hr. Description: the Smart Tool Holder operates on a lithium battery. During continuous communication, remaining battery power gradually decreases. This analysis examines the dependence between communication latency and remaining battery level. Results: during the first 7 hours of continuous communication, TTOLP remains below 100 ms. At 8–9 hours, as remaining battery power rapidly declines, TTOLP rises from 100 ms to 2000 ms and can reach 4.8 s. The results show that the Smart Tool Holder can operate stably for 7 hours."@en ;
+    sth:power_test_result "During the first 7 hours of continuous communication, TTOLP remains below 100 ms. At 8–9 hours, as remaining battery power rapidly decreases, TTOLP rises from 100 ms to 2000 ms and can reach 4.8 s. Stable Smart Tool Holder operating time is 7 hours."@en ;
+    sth:result "In tests at 9000 and 10000 RPM with a 10-minute communication connection, average TTOLP is 30–50 ms and the maximum is less than 90 ms. During the first 7 hours of continuous communication, TTOLP remains below 100 ms; at 8–9 hours, as remaining battery power rapidly decreases, TTOLP rises from 100 ms to 2000 ms and can reach a maximum of 4.8 s."@en ;
+    sth:spindle_speed_test_result "With different Smart Tool Holders at spindle speeds of 9000 and 10000 RPM and a 10-minute communication connection, the average TTOLP is 30–50 ms and the maximum is less than 90 ms. The results show that communication time remains stable at 10000 rpm and does not constitute communication latency."@en ;
+    sth:ttolp_description "The Smart Tool Holder sends accumulated sensor measurements and the previous packet transmission time (TTOLP) every 0.4 seconds. The time required to transmit a packet during the previous connection is reported with the next packet, so TTOLP varies significantly when the connection is unstable."@en .
+
+sth:connection_settings a sth:section ;
+    rdfs:label "Connection Settings"@en ;
+    sth:description "Connection Settings. Tool holder network settings include S0 and S1. S0 is the shipping default with SSID ST_route and Port 6500. S1 is user-defined and can be configured in Configuration Mode. After entering Transmission Mode, the STH uses S1 for the first default 30 seconds. If it cannot connect using S1 within the default 30-second wait, it automatically switches to S0; the maximum default wait is 30 seconds. If no connection is established for more than 60 seconds in Transmission Mode, the STH enters Sleep Mode. Table 5, Smart Tool Holder Connection Settings: S0 / S1. Router SSID: ST_route / ST_route[1, 2.., n]. Router Password: 123456abc / User defined. Connection Port: 6500 / [6501, 6502, …, 6510]. Edge IP: 10.0.0.103 / [10.0.0.104, …, 10.0.0.123]."@en ;
+    sth:has_setting sth:s0_setting,
+        sth:s1_setting .
+
+sth:continue_synchronization_command a sth:command ;
+    rdfs:label "Continue synchronization"@en ;
+    sth:EdgeCommand """syn
+""" ;
+    sth:WSBResponse """syn:OK
+""" .
+
+sth:continuous_operating_time a sth:specification_item ;
+    rdfs:label "Continuous operating time"@en ;
+    sth:unit "hr" ;
+    sth:value ">6" .
+
+sth:csv_write_mode a sth:setting_item ;
+    rdfs:label "Write Mode of CSV"@en ;
+    sth:description "Set whether new force information is appended to an existing CSV file."@en .
+
+sth:cutting_force_data_file a sth:section ;
+    rdfs:label "Cutting-force data file"@en ;
+    sth:bending_force_line_chart_description "Plotting BendingX as a line chart shows the force variation in the X direction."@en ;
+    sth:description "Cutting-force data file. Files in the RawData\\Output\\ folder. Parsed CSV data, such as *.csv: TimeTag — time tag (sec); CH1 — strain-gauge channel 1 signal; CH2 — strain-gauge channel 2 signal; BendingX — X-direction bending force (Nm); BendingY — Y-direction bending force (Nm); Torque — torque (Nm). Plotting CH1 and CH2 as a scatter plot can represent the flute profile of a four-flute cutter. Plotting BendingX as a line chart shows force variation in the X direction."@en ;
+    sth:field_description "TimeTag is the time tag (sec); CH1 is the strain-gauge channel 1 signal; CH2 is the strain-gauge channel 2 signal; BendingX is the X-direction bending force (Nm); BendingY is the Y-direction bending force (Nm); Torque is torque (Nm)."@en ;
+    sth:flute_profile_chart_description "Plotting CH1 and CH2 as a scatter plot can represent the flute profile of a four-flute cutter."@en ;
+    sth:has_field sth:bending_x_field,
+        sth:bending_y_field,
+        sth:ch1_field,
+        sth:ch2_field,
+        sth:time_tag_field,
+        sth:torque_field .
+
+sth:cv_mode a sth:specification_item ;
+    rdfs:label "Charging CV mode"@en ;
+    sth:value "MAX 8.5V" .
+
+sth:data_settings_quick a sth:process_step ;
+    rdfs:label "Data Settings"@en ;
+    sth:description "Data Settings. Go to the Save Settings page (Figure 9). In Data Parsing (TXT->CSV), confirm whether raw data and parsed data such as CSV files need to be saved. These settings ensure subsequent data is stored correctly for further analysis. Ensure all settings have been applied using APPLY UPDATES so data can be saved properly during the experiment. Figure 9, Data Settings page."@en ;
+    sth:txt_to_csv_settings "Go to the Save Settings page. In Data Parsing (TXT->CSV), confirm whether raw data and parsed data such as CSV files need to be saved, and confirm that all settings have been APPLY UPDATES."@en .
+
+sth:data_view_quick a sth:process_step ;
+    rdfs:label "Data Review"@en ;
+    sth:add_control_limits_method "On the History Review page, first select Folder and File, then click ADD UCL LCL. The system adds upper and lower control limits to the selected CSV file, and the output filename is the original filename + _processed."@en,
+        "On the History Review page, select Folder and File and then click ADD UCL LCL to add upper and lower control limits to the selected CSV file. The filename is the original filename + _processed."@en ;
+    sth:control_limit_output_filename_rule "original filename + _processed"@en ;
+    sth:description "Data Review. Select an effective time period for analysis: collected data must be analyzed effectively to obtain reliable conclusions. On the History Review page (Figure 11), select the data file to review and set a reasonable Time Interval to control display resolution. To observe upper and lower control limits, select Folder and File and click ADD UCL LCL; the selected CSV file will receive UCL/LCL and be named with the original filename + _processed. In the Summary area, view Start Time and End Time and select data from the stable machining stage. Confirm that channel maxima such as CH1 Max and CH2 Max are within reasonable ranges and that the Quality indicator passes (value 1). Simulation-result analysis: on the Simulation Analysis page, select the simulation CSV file to analyze and use line charts to inspect moment and position changes along different axes. The charts help explain the forces and displacement of the tool during machining. Figure 11, Data Review and Analysis page."@en ;
+    sth:stable_machining_analysis_method "In the Summary area, view Start Time and End Time, select data from the stable machining stage for analysis, confirm that channel maxima such as CH1 Max and CH2 Max are within reasonable ranges, and verify that the Quality indicator is 1."@en .
+
+sth:detection_item a sth:specification_item ;
+    rdfs:label "Detection item"@en ;
+    sth:value "Fx, Fy, Mz" .
+
+sth:emc_test a sth:test_category ;
+    rdfs:label "EMC"@en ;
+    sth:condition "FCC 15B, EN301489-1, EN301489-17; Heavy industrial equipment: IEC/EN61000-6-2 (EMS, Immunity), IEC/EN61000-6-4 (EMI, Emission); IEC61000-4-2 (ESD Test)"@en .
+
+sth:enter_sleep_mode_command a sth:command ;
+    rdfs:label "Enter Sleep Mode"@en ;
+    sth:EdgeCommand "sleep\\n" ;
+    sth:WSBResponse "Enter Sleep Mode\\n" .
+
+sth:environment_test a sth:test_category ;
+    rdfs:label "Environment"@en ;
+    sth:condition "RoHS" .
+
+sth:excessive_tool_wear_or_damage sth:tool_change_handling_method "Go to the Real-Time Monitoring page and execute TOOL CHANGE to perform the tool-change operation."@en .
+
+sth:force_monitoring a sth:specification_item ;
+    rdfs:label "Force monitoring"@en ;
+    sth:value "Online monitoring"@en .
+
+sth:force_ratio a sth:setting_item ;
+    rdfs:label "Ratios for Force"@en ;
+    sth:description "Set calibration ratios for different force channels."@en .
+
+sth:force_time_interval a sth:setting_item ;
+    rdfs:label "Time Interval of Forces(sec)"@en ;
+    sth:description "Set the time interval of force data (seconds)."@en .
+
+sth:fully_charged_status a sth:led_status ;
+    rdfs:label "Fully charged"@en ;
+    sth:Green "On" ;
+    sth:Red "-" .
+
+sth:function_test a sth:test_category ;
+    rdfs:label "Function"@en ;
+    sth:condition "IEC 60529-IP67 (water and dust resistance)"@en .
+
+sth:input_voltage a sth:specification_item ;
+    rdfs:label "Input Voltage"@en ;
+    sth:value "DC 12V" .
+
+sth:integration_and_application a sth:section ;
+    rdfs:label "Integration and Application"@en ;
+    sth:description "Integration and Application"@en ;
+    sth:has_subsection sth:integration_interface_example,
+        sth:machining_history_example,
+        sth:message_handshake_method ;
+    sth:message_handshake_method "RPi/OT publishes information to the MQTT Broker, divided into four Topic categories. Edge/IT subscribes to Topics in the Broker to receive information. In the reverse direction, Edge/IT publishes to Topic: CMD/REQ, and RPi/OT then subscribes to the message."@en ;
+    sth:monitor_detection_process_description "In the Monitor detection process, Edge can start, collect from, and stop the STH and can receive notifications such as tool breakage."@en ;
+    sth:reference_detection_process_description "In the Reference process, Edge can start, receive, and stop; Pattern is used to start or stop comparison of whether the signal is normal."@en ;
+    sth:standard_startup_process_description "During standard startup, Edge can obtain basic information such as the STH Mac connected to it and can perform time synchronization."@en ;
+    sth:topic_category "CMD/REQ, CMD/RESP, CMD/NOTIFY, STH/Pdata, STH/FILE."@en .
+
+sth:integration_interface_example a sth:section ;
+    rdfs:label "Integration interface example"@en ;
+    sth:cnc_tool_path_description "Displays CNC coordinate positions, allowing machining-path changes to be observed."@en ;
+    sth:data_synchronization_process "First, use DTW (Dynamic Time Warping) on the CSV data from STH, SIM (simulation), and CTL (controller) to synchronize torque between the STH Torque field and SIM IsTouched field, and save the result as Torque_Sync.csv. Next, add the CTL Times and Offset Coordinates fields for time synchronization and save the result as Time_Sync.csv. Finally, send the synchronized result to the front end through WebSocket for display."@en ;
+    sth:description "Integration Interface Example. First, CSV data from STH, SIM (simulation), and CTL (controller) are synchronized. Using DTW (Dynamic Time Warping), the STH Torque field and SIM IsTouched field are synchronized for torque, and the result is stored in Torque_Sync.csv, as shown in Figure 74. Next, the CTL Times and Offset Coordinates fields are added for time synchronization, and the result is stored in Time_Sync.csv, as shown in Figure 75. Finally, the synchronized result is sent to the front end through WebSocket for display, as shown in Figure 77. Figures 74 and 75 show the Torque_Sync.csv and Time_Sync.csv fields. CTL description: the Fanuc Focas2 API connects to the Fanuc controller to read information such as the CNC file name, G54 coordinates, and absolute coordinates, then stores the results as CSV. Referenced APIs are listed in Table 10. Figure 76, CTL file fields. Table 10, Focas2 functions: 1. NC program name — FWLIBAPI short WINAPI cnc_rdprgnum(unsigned short FlibHndl, ODBPRO *prgnum); 2. Absolute coordinate position of a specified axis — FWLIBAPI short WINAPI cnc_absolute(unsigned short FlibHndl, short axis, short length, ODBAXIS *absolute); 3. Workpiece zero-offset value (G54) for a specified number and axis — FWLIBAPI short WINAPI cnc_rdzofs(unsigned short FlibHndl, short number, short axis, short length, IODBZOFS *zofs); Figure 77, integrated STH and CNC display. Machining Parameters: reads parameters from config.json and displays Machine, Spindle Speed, Feed Rate, Program File, Tool Holder, STH Interval, Tool, ap (depth of cut), and ae (width of cut). Torque Over Time: x-axis is machining Time(s), y-axis is Torque(Nm); gray dashed Simulation Torque is simulated torque, red solid Real Torque is actual torque provided by STH, and green/orange dashed UCL/LCL are the upper/lower control limits based on simulated torque. Flute Profile: x-axis is CH1 and y-axis is CH2; 100 data points are displayed each time to represent the current flute profile. CNC Tool Path (mm): displays CNC coordinate positions to observe machining-path changes. STL Model: displays the simulated post-machining workpiece STL file."@en ;
+    sth:flute_profile_description "The x-axis is CH1 and the y-axis is CH2. Using 100 data points per display can represent the flute profile of the current machining operation."@en ;
+    sth:frontend_transmission_method "WebSocket" ;
+    sth:machining_parameters_item "Machine, Spindle Speed, Feed Rate, Program File, Tool Holder, STH Interval, Tool, ap, ae."@en ;
+    sth:machining_parameters_source "Read parameters from config.json."@en ;
+    sth:stl_model_description "Displays the simulated post-machining workpiece STL file."@en ;
+    sth:time_synchronization_method "Add the CTL Times and Offset Coordinates fields for time synchronization."@en ;
+    sth:time_synchronization_output_file "Time_Sync.csv" ;
+    sth:torque_over_time_description "The x-axis is machining Time(s) and the y-axis is Torque(Nm). The gray dashed Simulation Torque is simulated torque; the red solid Real Torque is actual STH torque; the green and orange dashed UCL and LCL respectively represent the upper and lower control limits based on simulated torque."@en ;
+    sth:torque_synchronization_method "Use the DTW method to synchronize torque between the STH Torque field and the SIM IsTouched field."@en ;
+    sth:torque_synchronization_output_file "Torque_Sync.csv" .
+
+sth:library_folder a sth:folder ;
+    rdfs:label ".\\Library"@en ;
+    sth:description "Library for specific functions."@en .
+
+sth:logs_folder a sth:folder ;
+    rdfs:label ".\\Logs"@en ;
+    sth:description "Error log files generated by Node-Red and STHLink. The default log storage location is C:\\VTR\\Logs\\ and is used to store error logs and message records."@en ;
+    sth:has_file sth:STHerror_txt,
+        sth:msg_log .
+
+sth:machining_history_example a sth:section ;
+    rdfs:label "Machining history example"@en ;
+    sth:basic_information "Includes machine ID (MC-001), tool holder name (TMV-720), controller (Fanuc), location (TT-F1-FAE), and tool holder type (BT-40)."@en ;
+    sth:description "Machining history example. Introduction: This machining history is a record based on the STH body and Virtual Tool Room (VTR) system. It provides detailed data and analysis collected and recorded through the Smart Tool Holder and Virtual Tool Room during each CNC machining process. Main contents include: Basic information: machine ID (MC-001), tool holder name (TMV-720), controller (Fanuc), location (TT-F1-FAE), and tool holder type (BT-40), providing a complete description of the machining environment. Machining details: records the NC file (02420.nc), original STL file (Federal straight seam), design STL file (design.stl), machining material (FDAC/JIS SKD61), and workpiece number (K0001-1). Real-time data: presents torque variation over time as a chart for dynamic monitoring of the machining process. This machining history helps users quickly understand machining status and serves as a basis for subsequent optimization and abnormality diagnosis. Figure 78, machining-history PDF example."@en ;
+    sth:file_purpose "A machining-history record is a document based on the Smart Tool Holder (STH) and Virtual Tool Room (VTR) systems. It provides detailed data and analysis collected and recorded through the Smart Tool Holder and Virtual Tool Room during each CNC machining process."@en ;
+    sth:machining_details "Records the NC file (02420.nc), original STL file (Federal straight seam), design STL file (design.stl), machining material (FDAC/JIS SKD61), and workpiece number (K0001-1)."@en ;
+    sth:real_time_data "Presents the change in torque over time as a chart, providing a dynamic monitoring reference for the machining process."@en .
+
+sth:maximum_charging_current a sth:specification_item ;
+    rdfs:label "Max. Charging Current"@en ;
+    sth:value "2A" .
+
+sth:maximum_charging_time a sth:specification_item ;
+    rdfs:label "Max. Charging Time"@en ;
+    sth:value "2hr" .
+
+sth:maximum_input_current a sth:specification_item ;
+    rdfs:label "Max. Input Current"@en ;
+    sth:value "2A" .
+
+sth:maximum_speed a sth:specification_item ;
+    rdfs:label "Maximum speed"@en ;
+    sth:unit "rpm" ;
+    sth:value "G1/15,000" .
+
+sth:medium_folder a sth:folder ;
+    rdfs:label ".\\Medium"@en ;
+    sth:description "Node-Red image files."@en .
+
+sth:merged_csv_file a sth:file ;
+    rdfs:label "(YYYYMMDDhh)merged.csv"@en ;
+    sth:description "CSV file merged by folder, named in the format (YYYYMMDDhh)merged.csv."@en .
+
+sth:message_handshake_method a sth:section ;
+    rdfs:label "Message handshake method"@en ;
+    sth:description "Message Handshake Method. RPi/OT publishes information to the MQTT Broker in four Topic categories, and Edge/IT subscribes to Broker Topics to receive information. In the reverse direction, Edge/IT publishes to Topic: CMD/REQ and RPi/OT subscribes to the message, as shown in Figure 65. Topic field definitions are shown in Figure 66, CMD_REQ JSON fields; Figure 67, CMD/RESP JSON fields; Figure 68, CMD/NOTIFY JSON fields; Figure 69, STH/Pdata JSON fields; and Figure 70, STH/FILE JSON fields. Topic CMD/REQ: Edge sends a command; after Edge/IT sends CMD/REQ, Pi responds according to the command with CMD/RESP. Topic 1: CMD/RESP, command execution result. Topic 2: CMD/NOTIFY, proactive notification. Topic 3: STH/Pdata, proactive real-time sensor-data report. Topic 4: STH/FILE, file transfer. Based on these message formats, different processes can be constructed, including Standard Startup, Monitor Detection, and Reference Detection. During standard startup, Edge obtains basic information such as the connected STH Mac and can perform time synchronization (Figure 71). In Monitor Detection, Edge can start, collect from, and stop the STH and can receive notifications such as tool breakage (Figure 72). In Reference Detection, Edge can start, receive, and stop, while Pattern is used to start or stop comparison of whether the signal is normal (Figure 73)."@en ;
+    sth:has_topic sth:CMD_NOTIFY,
+        sth:CMD_REQ,
+        sth:CMD_RESP,
+        sth:STH_FILE,
+        sth:STH_Pdata .
+
+sth:minimum_recording_threshold a sth:setting_item ;
+    rdfs:label "Threshold for Keep Data(Nm)"@en ;
+    sth:description "Set the minimum force-recording threshold; only data above this value is recorded."@en .
+
+sth:mqtt_communication_settings a sth:qa_anchor ;
+    rdfs:label "How to configure communication before using MQTT"@en,
+        "MQTT communication settings"@en,
+        "MQTT firewall settings"@en ;
+    sth:answer "Before using MQTT, add an inbound rule in Windows Defender Firewall to allow TCP Port 1883 communication so that the computer can enable the MQTT service."@en ;
+    sth:corresponding_topic sth:MQTT,
+        sth:initial_operation ;
+    sth:default_communication_port "1883" ;
+    sth:mqtt_communication_setting_method "Add an inbound rule in Windows Defender Firewall, select Port, configure TCP and specific local port 1883, and select Allow the connection."@en ;
+    sth:mqtt_firewall_settings "Add an inbound rule allowing TCP Port 1883."@en ;
+    sth:question "How do I allow MQTT Port 1883 communication?"@en,
+        "How do I configure MQTT communication in Windows Defender Firewall?"@en,
+        "How do I configure MQTT communication?"@en,
+        "How do I configure communication before using MQTT?"@en,
+        "What firewall settings are required before using MQTT?"@en .
+
+sth:msg_log a sth:file ;
+    rdfs:label "msg_log (MM-dd mm-ss)"@en ;
+    sth:description "MQTT messages collected by Node-Red."@en .
+
+sth:node_red_flow_folder a sth:folder ;
+    rdfs:label ".\\YYYYMMv"@en ;
+    sth:description "Individual Node-Red flows."@en .
+
+sth:node_red_folder a sth:folder ;
+    rdfs:label ".\\Node-red"@en ;
+    sth:description "User flow and system configuration files."@en ;
+    sth:has_file sth:VTR_flows_json,
+        sth:medium_folder,
+        sth:node_red_flow_folder,
+        sth:setting_js .
+
+sth:not_charging_status a sth:led_status ;
+    rdfs:label "Not charging"@en ;
+    sth:Green "-" ;
+    sth:Red "-" .
+
+sth:operating_temperature a sth:specification_item ;
+    rdfs:label "Operating Temperature"@en ;
+    sth:value "0°C~50°C" .
+
+sth:output_folder a sth:folder ;
+    rdfs:label ".\\Output"@en ;
+    sth:description "Output folder for CSV files processed from Source/Data; the default parsed CSV storage location is C:\\VTR\\RawData\\Output\\*.csv."@en ;
+    sth:has_file sth:merged_csv_file,
+        sth:parsed_csv_file .
+
+sth:parsed_csv_file a sth:file ;
+    rdfs:label "*.csv"@en ;
+    sth:description "Parsed CSV file. Parsed CSV files in the RawData\\Output folder contain fields including TimeTag, CH1, CH2, BendingX, BendingY, and Torque."@en .
+
+sth:parsing_wait_time a sth:setting_item ;
+    rdfs:label "Waiting Time for Parsing(Sec)"@en ;
+    sth:description "Set the waiting time in seconds for each batch of Smart Tool Holder raw-data parsing."@en .
+
+sth:performance_analysis a sth:section ;
+    rdfs:label "Performance Analysis"@en ;
+    sth:description "Performance Analysis includes connection latency, temperature impact, power consumption, and sensitivity analyses, described below."@en ;
+    sth:has_subsection sth:connection_latency_analysis,
+        sth:power_consumption_analysis,
+        sth:sensitivity_analysis,
+        sth:temperature_impact_analysis .
+
+sth:plan_json_file a sth:file ;
+    rdfs:label "LL-FR-A-MC-ID-IP-YYMMDD-setup-.json"@en ;
+    sth:description "Production plan in JSON format."@en .
+
+sth:plan_yml_file a sth:file ;
+    rdfs:label "LL-FR-A-MC-ID-IP-YYMMDD-setup-.yml"@en ;
+    sth:description "Production plan in YAML format."@en .
+
+sth:plans_folder a sth:folder ;
+    rdfs:label ".\\Plans"@en ;
+    sth:description "Production or experimental plans used by Node-Red (YAML or JSON)."@en ;
+    sth:has_file sth:plan_json_file,
+        sth:plan_yml_file .
+
+sth:power_consumption_analysis a sth:analysis ;
+    rdfs:label "Power Consumption Analysis"@en ;
+    sth:conclusion "The recommended continuous use time for the Smart Tool Holder is less than 7 hours."@en ;
+    sth:description "Power Consumption Analysis. Execution time: 5/11 21:27–5/12 06:05 and 5/11 03:33–5/11 12:15, 2025. Conditions: spindle speed 0 rpm; maximum voltage 4.08, 4.11 V; minimum voltage 2.68, 2.67 V; duration 510, 525 min. Description: the Smart Tool Holder operates on a lithium battery and includes low-battery protection to prevent over-discharge and reduced battery life. This analysis uses continuous Smart Tool Holder communication to determine the maximum usable time under the built-in battery protection. Results: the maximum continuous use time reaches 8 hours 30 minutes. The recommended continuous use time is less than 7 hours."@en ;
+    sth:maximum_use_time "Testing shows that the maximum continuous use time of the Smart Tool Holder can reach 8 hours 30 minutes."@en ;
+    sth:recommended_continuous_use_time "The recommended continuous use time for the Smart Tool Holder is less than 7 hours."@en ;
+    sth:result "Testing shows that the maximum continuous use time of the Smart Tool Holder can reach 8 hours 30 minutes."@en .
+
+sth:precision a sth:specification_item ;
+    rdfs:label "Precision"@en ;
+    sth:value "±3%" .
+
+sth:raw_data_folder a sth:folder ;
+    rdfs:label ".\\RawData"@en ;
+    sth:description "Raw data collected by STHLink and processed through DataProcess.exe."@en ;
+    sth:has_subfolder sth:coefficient_folder,
+        sth:output_folder,
+        sth:source_folder .
+
+sth:raw_txt_file a sth:file ;
+    rdfs:label "*.txt"@en ;
+    sth:description "Raw TXT file."@en .
+
+sth:read_g_threshold_command a sth:command ;
+    rdfs:label "Read G-threshold"@en ;
+    sth:EdgeCommand """rgsensor
+""" ;
+    sth:WSBResponse """rgsensor: setting value
+"""@en .
+
+sth:read_ip_command a sth:command ;
+    rdfs:label "Read IP"@en ;
+    sth:EdgeCommand """rip
+""" ;
+    sth:WSBResponse """rip: setting value
+"""@en .
+
+sth:read_password_command a sth:command ;
+    rdfs:label "Read Password"@en ;
+    sth:EdgeCommand """rpass
+""" ;
+    sth:WSBResponse """rpass: setting value
+"""@en .
+
+sth:read_polling_interval_command a sth:command ;
+    rdfs:label "Read polling interval"@en ;
+    sth:EdgeCommand """rptime
+""" ;
+    sth:WSBResponse """rptime: setting value
+"""@en .
+
+sth:read_port_command a sth:command ;
+    rdfs:label "Read port"@en ;
+    sth:EdgeCommand """rport
+""" ;
+    sth:WSBResponse """rport: setting value
+"""@en .
+
+sth:read_program_version_command a sth:command ;
+    rdfs:label "Read program version"@en ;
+    sth:EdgeCommand """rVER
+""" ;
+    sth:WSBResponse """rVER:<M> core 1 version,<E> core 2 version
+"""@en .
+
+sth:read_rf_power_command a sth:command ;
+    rdfs:label "Read RF Power Level"@en ;
+    sth:EdgeCommand """rpower
+""" ;
+    sth:WSBResponse """rpower: setting value
+"""@en .
+
+sth:read_router_ssid_command a sth:command ;
+    rdfs:label "Read Router SSID"@en ;
+    sth:EdgeCommand """rssid
+""" ;
+    sth:WSBResponse """rssid: setting value
+"""@en .
+
+sth:read_signal_strength_command a sth:command ;
+    rdfs:label "Read signal strength"@en ;
+    sth:EdgeCommand """rRSSI
+""" ;
+    sth:WSBResponse """rRSSI: received signal strength
+"""@en ;
+    sth:related_check_rule sth:sufficient_signal_strength_judgment .
+
+sth:read_sleep_time_command a sth:command ;
+    rdfs:label "Read sleep time"@en ;
+    sth:EdgeCommand """rctime
+""" ;
+    sth:WSBResponse """rctime: setting value
+"""@en .
+
+sth:read_voltage_command a sth:command ;
+    rdfs:label "Read voltage value"@en ;
+    sth:EdgeCommand """rbat
+""" ;
+    sth:WSBResponse """rbat: actual voltage value
+"""@en .
+
+sth:reports_folder a sth:folder ;
+    rdfs:label ".\\Reports"@en ;
+    sth:description "YAML-plan-related data reports used by Node-Red."@en .
+
+sth:return_to_transmission_mode a sth:command ;
+    rdfs:label "Return to Transmission Mode"@en ;
+    sth:EdgeCommand "exit\\n" ;
+    sth:WSBResponse "Exit Configuration Mode\\n" .
+
+sth:rf_test a sth:test_category ;
+    rdfs:label "RF"@en ;
+    sth:condition "EN300328, Taiwan LP0002, FCC 15C"@en .
+
+sth:router_component a sth:component ;
+    rdfs:label "Router"@en ;
+    sth:quantity "1"^^xsd:int .
+
+sth:s0_setting a sth:setting_group ;
+    rdfs:label "S0 setting"@en ;
+    sth:EdgeIP "10.0.0.103" ;
+    sth:RouterPassword "123456abc" ;
+    sth:RouterSSID "ST_route" ;
+    sth:connection_port "6500" .
+
+sth:s1_setting a sth:setting_group ;
+    rdfs:label "S1 setting"@en ;
+    sth:EdgeIP "[10.0.0.104, …, 10.0.0.123]" ;
+    sth:RouterPassword "User defined" ;
+    sth:RouterSSID "ST_route[1, 2.., n]" ;
+    sth:connection_port "[6501, 6502, …, 6510]" .
+
+sth:safety_test_1 a sth:test_category ;
+    rdfs:label "Safety"@en ;
+    sth:condition "EN62311 (EMF); Charger: EN 62368; Battery Cell & Pack: IEC/EN 62133-2:2017, UN 38.3"@en .
+
+sth:safety_test_2 a sth:test_category ;
+    rdfs:label "Safety"@en ;
+    sth:condition "Machinery Directive 2006/42/EC; EN ISO 12100" .
+
+sth:save_settings a sth:section ;
+    rdfs:label "Save Settings"@en ;
+    sth:convert_force_only_checkbox_item "Transfer Force Only?" ;
+    sth:data_parsing_settings_description "Record the Raw Data? selects whether to record the Smart Tool Holder raw data; Save a Parsed File? selects whether to convert the force information detected by the Smart Tool Holder from TXT format to CSV format; Write Mode of CSV specifies whether new force information is appended to an existing CSV file; Transfer Force Only? selects whether only the force information is translated from the raw data."@en ;
+    sth:description "Save Settings. Figure 38, Save Settings page. Save Settings page procedure. 1. Plan management and reset (Figure 39). RESET DEFAULT: resets parameters to default values by loading initial settings from InitSTH.py, allowing quick restoration of system defaults. APPLY UPDATES: after confirming the enabled STH status, saves these updates to JSON for later use. 2. Active Smart Tool Holder (Active STH) (Figure 40). STH_version displays the version of the currently enabled Smart Tool Holder. Active STH-MAC displays its MAC address. Tool ID displays the tool ID currently bound to the enabled STH. Total channels displays the total number of output channels. Port displays the Smart Tool Holder connection port. 3. File Location settings (Figure 41). Root Folder Location sets the Virtual Tool Room data root directory. Raw Data Folder Location sets the directory for Smart Tool Holder raw data. Log File Location sets the directory for Virtual Tool Room abnormal-event log files; generated logs record STH and Node-Red system abnormalities and errors in CSV and TXT format for troubleshooting and diagnosis. Output Path sets the default STH output path for parsed data. 4. Data Parsing (TXT -> CSV) settings (Figure 42). Record the Raw Data? selects whether to record Smart Tool Holder raw data. Save a Parsed File? selects whether detected force information is converted from TXT to CSV. Write Mode of CSV specifies whether new force information is appended to an existing CSV file. Transfer Force Only? selects whether only force information is converted from Smart Tool Holder raw data. Waiting Time for Parsing (Sec) sets the wait time in seconds for each batch of raw-data parsing. Backup Raw Files to Another Folder? selects whether raw data is backed up to another folder. Threshold for Keep Data (Nm) sets the minimum force-recording threshold; only values above it are recorded. No. of TXT Files in a CSV File sets the number of TXT files included in each CSV file and can be adjusted with a slider. 5. Coefficient settings (Figure 43). Time Interval of Forces (sec) sets the time interval of force data. Ratios for Force sets calibration ratios for different force channels. Calibration of Channels sets each channel's calibration value. AVAILABLESTH writes the force-calibration and signal-calibration multipliers for each channel of the currently enabled STH-MAC into the settings; if the corresponding MAC is not found, default values are used. 6. Parameter Updates and Logs (Figure 44). After APPLY UPDATES is pressed, Parameter Updates displays all Connection Check and Save Settings content in JSON format to help confirm that changes were applied correctly."@en ;
+    sth:has_setting sth:available_sth_coefficient_file,
+        sth:channel_calibration,
+        sth:csv_write_mode,
+        sth:force_ratio,
+        sth:force_time_interval,
+        sth:log_file_location,
+        sth:minimum_recording_threshold,
+        sth:output_path,
+        sth:parsing_wait_time,
+        sth:raw_data_directory_location,
+        sth:root_directory_location,
+        sth:txt_count_per_csv,
+        sth:whether_to_back_up_raw_data,
+        sth:whether_to_convert_force_only,
+        sth:whether_to_record_raw_data,
+        sth:whether_to_save_parsed_files ;
+    sth:record_raw_data_checkbox_item "Record the Raw Data?" ;
+    sth:txt_to_csv_checkbox_item "Save a Parsed File?" .
+
+sth:sensitivity_analysis a sth:analysis,
+        sth:section ;
+    rdfs:label "Sensitivity Analysis"@en ;
+    sth:conclusion "The Smart Tool Holder can effectively detect wear changes in general, small-diameter, and ultra-small-diameter machining."@en ;
+    sth:description "Sensitivity Analysis. General finishing test: machining/execution time 4/22 18:37–4/22 18:38, 2025. Conditions: spindle speed 10000 rpm; feed 800 mm/min; depth of cut 1 mm; width of cut 1 mm; duration 1 min; workpiece material FDAC. Tool conditions: diameter 10 mm; length 8 mm; 4 flutes. Description: the Smart Tool Holder can be used for high-speed finishing. This analysis evaluates general finishing by side milling with a typical end mill. Results: comparing actual torque from the Smart Tool Holder with simulated torque, after three machining passes the tool remained in good condition and torque remained about 0.09±0.005 Nm. For general finishing with a 10 mm tool diameter, the Smart Tool Holder provides good torque detection. Small-diameter finishing test: machining/execution time 5/5 17:11–5/5 17:12, 2025. Conditions: spindle speed 10000 rpm; feed 180 mm/min; depth of cut 0.5 mm; width of cut 0.1 mm; duration 1 min; workpiece material FDAC. Tool conditions: diameter 2 mm; length 15 mm; 4 flutes. Description: the Smart Tool Holder is suitable for high-speed, high-precision machining, especially small-diameter, low-material-removal operations where torque-detection precision is critical as the tool wears. Results: in a single pass, the actual torque gradually increased within 30 sec as the tool wore, by 0.001 Nm relative to the simulated value. The Smart Tool Holder can effectively detect short-term wear changes of a 2 mm tool. Ultra-small-diameter finishing test: machining/execution time 4/28 16:20–4/28 16:42, 2025. Conditions: spindle speed 10000 rpm; feed 100, 400, 1600 mm/min; depth of cut 0.015 mm; width of cut 0.5 mm; duration 22 min; workpiece material FDAC. Tool conditions: diameter 0.5 mm; length 8 mm; 2 flutes. Description: the Smart Tool Holder is suitable for high-speed, high-precision machining, especially small-diameter, low-removal operations with progressive tool wear, where torque-detection precision is critical. This analysis evaluates ultra-small-diameter finishing at different feed rates. Results: with a 0.5 mm tool diameter and increasing feed rate, the actual torque relative to simulation increased by 0.001 Nm in the first segment, 0.002 Nm in the second, and 0.008 Nm in the third as the tool wore. The Smart Tool Holder can effectively detect ultra-small-diameter tool wear changes."@en ;
+    sth:general_finishing_result "Comparing the actual torque obtained from the Smart Tool Holder with the simulated torque, after three machining passes the tool remains in good condition and torque stays at 0.09±0.005 Nm. For general finishing with a 10 mm tool diameter, the Smart Tool Holder provides good torque detection."@en ;
+    sth:has_subsection sth:sensitivity_analysis_general_finishing,
+        sth:sensitivity_analysis_small_diameter,
+        sth:sensitivity_analysis_ultra_small_diameter ;
+    sth:result "For general finishing (tool diameter 10 mm), good torque detection is provided; for a small-diameter tool (2 mm), a 0.001 Nm increase can be observed within 30 seconds; for an ultra-small-diameter tool (0.5 mm), relative to the simulated value, increases of 0.001, 0.002, and 0.008 Nm can be observed at different feed rates."@en ;
+    sth:small_diameter_finishing_result "For single-pass machining with a 2 mm tool diameter, as the tool gradually wears, the actual value can be observed to increase within 30 sec, with a relative increase of 0.001 Nm. The Smart Tool Holder can effectively detect short-term wear changes of small-diameter tools."@en ;
+    sth:ultra_small_diameter_finishing_result "With a 0.5 mm tool diameter and gradually increasing feed rate, as tool wear increases, the actual value relative to the simulated value increases by 0.001 Nm in the first segment, 0.002 Nm in the second segment, and 0.008 Nm in the third segment. The Smart Tool Holder can effectively detect wear changes of ultra-small-diameter tools."@en .
+
+sth:sensitivity_analysis_general_finishing a sth:analysis ;
+    rdfs:label "Sensitivity Analysis - General Finishing"@en ;
+    sth:description "Sensitivity Analysis. General finishing test: machining/execution time 4/22 18:37–4/22 18:38, 2025. Conditions: spindle speed 10000 rpm; feed 800 mm/min; depth of cut 1 mm; width of cut 1 mm; duration 1 min; workpiece material FDAC. Tool conditions: diameter 10 mm; length 8 mm; 4 flutes. Description: the Smart Tool Holder can be used for high-speed finishing. This analysis evaluates general finishing by side milling with a typical end mill. Results: comparing actual torque from the Smart Tool Holder with simulated torque, after three machining passes the tool remained in good condition and torque remained about 0.09±0.005 Nm. For general finishing with a 10 mm tool diameter, the Smart Tool Holder provides good torque detection. Small-diameter finishing test: machining/execution time 5/5 17:11–5/5 17:12, 2025. Conditions: spindle speed 10000 rpm; feed 180 mm/min; depth of cut 0.5 mm; width of cut 0.1 mm; duration 1 min; workpiece material FDAC. Tool conditions: diameter 2 mm; length 15 mm; 4 flutes. Description: the Smart Tool Holder is suitable for high-speed, high-precision machining, especially small-diameter, low-material-removal operations where torque-detection precision is critical as the tool wears. Results: in a single pass, the actual torque gradually increased within 30 sec as the tool wore, by 0.001 Nm relative to the simulated value. The Smart Tool Holder can effectively detect short-term wear changes of a 2 mm tool. Ultra-small-diameter finishing test: machining/execution time 4/28 16:20–4/28 16:42, 2025. Conditions: spindle speed 10000 rpm; feed 100, 400, 1600 mm/min; depth of cut 0.015 mm; width of cut 0.5 mm; duration 22 min; workpiece material FDAC. Tool conditions: diameter 0.5 mm; length 8 mm; 2 flutes. Description: the Smart Tool Holder is suitable for high-speed, high-precision machining, especially small-diameter, low-removal operations with progressive tool wear, where torque-detection precision is critical. This analysis evaluates ultra-small-diameter finishing at different feed rates. Results: with a 0.5 mm tool diameter and increasing feed rate, the actual torque relative to simulation increased by 0.001 Nm in the first segment, 0.002 Nm in the second, and 0.008 Nm in the third as the tool wore. The Smart Tool Holder can effectively detect ultra-small-diameter tool wear changes."@en ;
+    sth:result "Comparing the actual torque obtained from the Smart Tool Holder with the simulated torque, after three machining passes the tool remains in good condition and torque stays at 0.09±0.005 Nm. The results show that, for general finishing with a 10 mm tool diameter, the Smart Tool Holder provides good torque detection."@en .
+
+sth:sensitivity_analysis_small_diameter a sth:analysis ;
+    rdfs:label "Sensitivity Analysis - Small Diameter"@en ;
+    sth:description "Sensitivity Analysis. General finishing test: machining/execution time 4/22 18:37–4/22 18:38, 2025. Conditions: spindle speed 10000 rpm; feed 800 mm/min; depth of cut 1 mm; width of cut 1 mm; duration 1 min; workpiece material FDAC. Tool conditions: diameter 10 mm; length 8 mm; 4 flutes. Description: the Smart Tool Holder can be used for high-speed finishing. This analysis evaluates general finishing by side milling with a typical end mill. Results: comparing actual torque from the Smart Tool Holder with simulated torque, after three machining passes the tool remained in good condition and torque remained about 0.09±0.005 Nm. For general finishing with a 10 mm tool diameter, the Smart Tool Holder provides good torque detection. Small-diameter finishing test: machining/execution time 5/5 17:11–5/5 17:12, 2025. Conditions: spindle speed 10000 rpm; feed 180 mm/min; depth of cut 0.5 mm; width of cut 0.1 mm; duration 1 min; workpiece material FDAC. Tool conditions: diameter 2 mm; length 15 mm; 4 flutes. Description: the Smart Tool Holder is suitable for high-speed, high-precision machining, especially small-diameter, low-material-removal operations where torque-detection precision is critical as the tool wears. Results: in a single pass, the actual torque gradually increased within 30 sec as the tool wore, by 0.001 Nm relative to the simulated value. The Smart Tool Holder can effectively detect short-term wear changes of a 2 mm tool. Ultra-small-diameter finishing test: machining/execution time 4/28 16:20–4/28 16:42, 2025. Conditions: spindle speed 10000 rpm; feed 100, 400, 1600 mm/min; depth of cut 0.015 mm; width of cut 0.5 mm; duration 22 min; workpiece material FDAC. Tool conditions: diameter 0.5 mm; length 8 mm; 2 flutes. Description: the Smart Tool Holder is suitable for high-speed, high-precision machining, especially small-diameter, low-removal operations with progressive tool wear, where torque-detection precision is critical. This analysis evaluates ultra-small-diameter finishing at different feed rates. Results: with a 0.5 mm tool diameter and increasing feed rate, the actual torque relative to simulation increased by 0.001 Nm in the first segment, 0.002 Nm in the second, and 0.008 Nm in the third as the tool wore. The Smart Tool Holder can effectively detect ultra-small-diameter tool wear changes."@en ;
+    sth:result "Comparing the actual torque obtained from the Smart Tool Holder with the simulated torque, during a single machining pass the actual value gradually rises within 30 sec as the tool wears, with a relative increase of 0.001 Nm. The results show that the Smart Tool Holder can effectively detect wear changes of a small-diameter tool (2 mm) within a short period (30 sec)."@en .
+
+sth:sensitivity_analysis_ultra_small_diameter a sth:analysis ;
+    rdfs:label "Sensitivity Analysis - Ultra-Small Diameter"@en ;
+    sth:description "Sensitivity Analysis. General finishing test: machining/execution time 4/22 18:37–4/22 18:38, 2025. Conditions: spindle speed 10000 rpm; feed 800 mm/min; depth of cut 1 mm; width of cut 1 mm; duration 1 min; workpiece material FDAC. Tool conditions: diameter 10 mm; length 8 mm; 4 flutes. Description: the Smart Tool Holder can be used for high-speed finishing. This analysis evaluates general finishing by side milling with a typical end mill. Results: comparing actual torque from the Smart Tool Holder with simulated torque, after three machining passes the tool remained in good condition and torque remained about 0.09±0.005 Nm. For general finishing with a 10 mm tool diameter, the Smart Tool Holder provides good torque detection. Small-diameter finishing test: machining/execution time 5/5 17:11–5/5 17:12, 2025. Conditions: spindle speed 10000 rpm; feed 180 mm/min; depth of cut 0.5 mm; width of cut 0.1 mm; duration 1 min; workpiece material FDAC. Tool conditions: diameter 2 mm; length 15 mm; 4 flutes. Description: the Smart Tool Holder is suitable for high-speed, high-precision machining, especially small-diameter, low-material-removal operations where torque-detection precision is critical as the tool wears. Results: in a single pass, the actual torque gradually increased within 30 sec as the tool wore, by 0.001 Nm relative to the simulated value. The Smart Tool Holder can effectively detect short-term wear changes of a 2 mm tool. Ultra-small-diameter finishing test: machining/execution time 4/28 16:20–4/28 16:42, 2025. Conditions: spindle speed 10000 rpm; feed 100, 400, 1600 mm/min; depth of cut 0.015 mm; width of cut 0.5 mm; duration 22 min; workpiece material FDAC. Tool conditions: diameter 0.5 mm; length 8 mm; 2 flutes. Description: the Smart Tool Holder is suitable for high-speed, high-precision machining, especially small-diameter, low-removal operations with progressive tool wear, where torque-detection precision is critical. This analysis evaluates ultra-small-diameter finishing at different feed rates. Results: with a 0.5 mm tool diameter and increasing feed rate, the actual torque relative to simulation increased by 0.001 Nm in the first segment, 0.002 Nm in the second, and 0.008 Nm in the third as the tool wore. The Smart Tool Holder can effectively detect ultra-small-diameter tool wear changes."@en ;
+    sth:result "With a 0.5 mm tool diameter and gradually increasing feed rate, as tool wear increases, the actual value relative to the simulated value increases by 0.001 Nm in the first segment, 0.002 Nm in the second segment, and 0.008 Nm in the third segment. The results show that the Smart Tool Holder can effectively detect wear changes of ultra-small-diameter tools."@en .
+
+sth:set_g_threshold_command a sth:command ;
+    rdfs:label "Set wake-up G-threshold"@en ;
+    sth:EdgeCommand "gsensor:10\\n" ;
+    sth:WSBResponse "G-Sensor setting “10” OK\\n" .
+
+sth:set_ip_command a sth:command ;
+    rdfs:label "Set IP"@en ;
+    sth:EdgeCommand "ip:1.1.1.102\\n" ;
+    sth:WSBResponse "IP setting “1.1.1.102” OK\\n" .
+
+sth:set_password_command a sth:command ;
+    rdfs:label "Set Password"@en ;
+    sth:EdgeCommand "pass:123456abc\\n" ;
+    sth:WSBResponse "Password setting “123456abc” OK\\n" .
+
+sth:set_polling_interval_command a sth:command ;
+    rdfs:label "Set polling interval"@en ;
+    sth:EdgeCommand "ptime:8\\n" ;
+    sth:WSBResponse "ptime setting “8” OK\\n" .
+
+sth:set_port_command a sth:command ;
+    rdfs:label "Set port"@en ;
+    sth:EdgeCommand "port:6500\\n" ;
+    sth:WSBResponse "Port setting “6500” OK\\n" .
+
+sth:set_rf_power_command a sth:command ;
+    rdfs:label "Set RF Power Level"@en ;
+    sth:EdgeCommand "power:3\\n" ;
+    sth:WSBResponse "RF TX Power setting “3” OK\\n" .
+
+sth:set_router_ssid_command a sth:command ;
+    rdfs:label "Set Router SSID"@en ;
+    sth:EdgeCommand "ssid: ST_route \\n" ;
+    sth:WSBResponse "SSID setting “ST_route” OK\\n" .
+
+sth:set_sleep_time_command a sth:command ;
+    rdfs:label "Set sleep time"@en ;
+    sth:EdgeCommand "ctime:60\\n" ;
+    sth:WSBResponse "ctime setting “60” OK\\n" .
+
+sth:signal_sampling_rate a sth:specification_item ;
+    rdfs:label "Signal sampling rate"@en ;
+    sth:unit "Hz" ;
+    sth:value "up to 3.6kHz/per channel" .
+
+sth:sim_part_csv a sth:file ;
+    rdfs:label "sim_part_YYYMMddV.csv"@en ;
+    sth:description "Simulation data under NCfile in the Simulation folder; the filename format is sim_part_YYYMMddV.csv."@en .
+
+sth:simulation_folder a sth:folder ;
+    rdfs:label ".\\Simulation"@en ;
+    sth:description "Simulation CSV files related to YAML plans used by HiNC."@en ;
+    sth:has_file sth:sim_part_csv .
+
+sth:sleep_enter_idle_mode_command a sth:command ;
+    rdfs:label "Enter Idle Mode"@en ;
+    sth:EdgeCommand """exit
+""" ;
+    sth:WSBResponse """Enter Idle Mode
+""" .
+
+sth:sleep_enter_sleep_mode_command a sth:command ;
+    rdfs:label "Enter Sleep Mode"@en ;
+    sth:EdgeCommand """sleep
+""" ;
+    sth:WSBResponse """Enter Sleep Mode
+""" .
+
+sth:sleep_mode a sth:section ;
+    rdfs:label "Sleep Mode"@en ;
+    sth:description "Sleep Mode. Shaking beyond the G-threshold switches the device back to Transmission Mode. Sleep-Wake Mode: Table 9, Sleep Settings. Function / Edge Command / WSB Response. 1. Enter Sleep Mode: sleep\\n / Enter Sleep Mode\\n / Leave Sleep-Wake Mode and enter Sleep Mode. 2. Enter Idle Mode: exit\\n / Enter Idle Mode\\n / Leave Sleep-Wake Mode and enter Idle Mode. In Transmission Mode, after Edge receives data from the STH, the received data can be divided into two groups: Header and Content. The Header records information such as MAC and transmission time, while Content records four-channel data."@en ;
+    sth:has_command sth:sleep_enter_idle_mode_command,
+        sth:sleep_enter_sleep_mode_command ;
+    sth:has_mode sth:qa_sleep_wake_mode_answer ;
+    sth:method_to_wake_up_smart_tool_holder "Shake the tool holder beyond the G-threshold to switch back to Transmission Mode."@en ;
+    sth:sleep_wake_mode_description "After a polling interval is configured, WSB can periodically leave Sleep Mode and enter a brief wake state; in this mode it reports one Header (packet sequence number: 99999) to Edge."@en .
+
+sth:smart_tool_holder_blue_led_status a sth:qa_anchor ;
+    rdfs:label "Smart Tool Holder blue LED status"@en,
+        "Transmission Mode blue LED status"@en,
+        "What does a blue LED on the Smart Tool Holder mean"@en ;
+    sth:answer "A blue LED on the Smart Tool Holder means the TCP packet channel is enabled and the Smart Tool Holder is in Transmission Mode or normally connected."@en ;
+    sth:blue_led_status "TCP packet channel enabled, indicating that the Smart Tool Holder is in Transmission Mode or normally connected."@en ;
+    sth:corresponding_topic sth:data_collection_quick,
+        sth:mode_switching ;
+    sth:led_color "Blue"@en ;
+    sth:question "What does a blue indicator on the Smart Tool Holder mean?"@en,
+        "What does it mean when the Smart Tool Holder displays a blue LED?"@en,
+        "What does it mean when the Smart Tool Holder displays blue after LOAD ALL?"@en,
+        "What status does a blue LED on the Smart Tool Holder indicate?"@en ;
+    sth:represented_mode "Transmission Mode"@en ;
+    sth:transmission_mode_blue_led_status "TCP packet channel enabled, indicating that the Smart Tool Holder is in Transmission Mode."@en ;
+    skos:prefLabel "Smart Tool Holder blue LED status"@en .
+
+sth:smart_tool_holder_component a sth:component ;
+    rdfs:label "STH body component"@en ;
+    sth:quantity "1"^^xsd:int .
+
+sth:smart_tool_holder_introduction a sth:section ;
+    rdfs:label "Smart Tool Holder Introduction"@en ;
+    sth:description "Smart Tool Holder Introduction. This chapter introduces the application architecture, general specifications, certification requirements, and charging-module specifications of the Smart Tool Holder (STH). As shown in Figure 4, Smart Tool Holder sensor signals inside a standalone CNC machine can connect through a wireless Router to the machine-side device (Raspberry RPi/OT) using 2.4G Wi-Fi. The machine-side device connects through a wired network and Router to the Edge PC graphical operating software. In addition to synchronizing with the CNC controller through a controller communication interface such as OPC/UA to capture current CNC status, coordinates, NC data, and settings, the Edge PC software uses the MQTT protocol to centrally control and manage machine-side devices on each machine. MQTT is responsible for data communication between the Smart Tool Holder and the Virtual Tool Room (VTR). The machine-side device interfaces with the Smart Tool Holder and parses, converts, stores, processes, and compares its sensor signals. Parsed feature data is automatically stored as the basis for subsequent data analysis and abnormality detection. In application, the machine-side device can publish sensor summaries to the Edge PC through MQTT. The Virtual Tool Room (VTR) provided by the Edge PC can configure machining plans, display current Smart Tool Holder status and machining signals, configure control limits, and perform offline analysis. Figure 4, Smart Tool Holder application architecture."@en ;
+    sth:has_subsection sth:charging_module,
+        sth:general_specification,
+        sth:test_standard .
+
+sth:source_data_folder a sth:folder ;
+    rdfs:label ".\\Data\\(YYYY-MM-DD-hh-mm)"@en ;
+    sth:description "Folder containing raw TXT files."@en ;
+    sth:has_file sth:raw_txt_file .
+
+sth:source_folder a sth:folder ;
+    rdfs:label ".\\Source"@en ;
+    sth:description "Source folder for raw data (.txt) collected by STHLink; the default raw-data storage location is C:\\VTR\\RawData\\Source\\Data\\*.txt."@en ;
+    sth:has_subfolder sth:source_data_folder .
+
+sth:storage_temperature a sth:specification_item ;
+    rdfs:label "Storage Temperature"@en ;
+    sth:value "-10°C~60°C" .
+
+sth:system_integration_function a sth:specification_item ;
+    rdfs:label "System integration function"@en ;
+    sth:value "Option" .
+
+sth:temperature_impact_analysis a sth:analysis ;
+    rdfs:label "Temperature Impact Analysis"@en ;
+    sth:conclusion "Stable measurements can be obtained when the internal tool-holder temperature is maintained below 60°C."@en ;
+    sth:description "Temperature Impact Analysis. Execution time: 5/5 16:37–5/5 16:40 and 5/5 17:44, 2025. Execution conditions: spindle speed 10000 rpm; feed 180 mm/min; depth/width of cut 0.5/0.1 mm; maximum temperature 60°C; minimum temperature 25°C; duration 2.5 min. Tool conditions: tool diameter 2 mm; tool length 5 mm; 4 flutes. Description: the Smart Tool Holder uses strain gauges to measure deformation during machining. During continuous machining, spindle heating transfers heat to the tool holder and gradually increases its internal temperature. This analysis examines the dependence of Smart Tool Holder sensor signals on temperature changes. Results: the tool holder was first heated to 70°C and continuous machining was performed with the same tool, as in Exp1–Exp3. Cutting torque increased as tool wear increased. Across different experiments, deformation detected by the strain gauges was relatively stable when the internal tool-holder temperature was 60–25°C, but fluctuations were larger above 60°C; temperatures above 60°C may increase the signal. The results show that stable measurements can be obtained when the internal tool-holder temperature is maintained below 60°C."@en ;
+    sth:high_temperature_effect "Above 60°C, the signal fluctuates more strongly; temperatures above 60°C may increase the signal level."@en ;
+    sth:result "When the internal tool-holder temperature is 60–25°C, deformation detected by the strain gauge is relatively stable; above 60°C, the signal fluctuates more strongly."@en ;
+    sth:stable_temperature_condition "Stable measurements can be obtained when the internal tool-holder temperature is kept below 60°C."@en .
+
+sth:test_standard a sth:section ;
+    rdfs:label "Test standards (conformity tests)"@en ;
+    sth:description "Test standards (conformity tests). Category / Test standard or condition. RF: EN300328, Taiwan LP0002, FCC 15C. EMC: FCC 15B, EN301489-1, EN301489-17; heavy industrial equipment: IEC/EN61000-6-2 (EMS, Immunity), IEC/EN61000-6-4 (EMI, Emission); IEC61000-4-2 (ESD Test). Safety: EN62311 (EMF); Charger: EN 62368; Battery Cell & Pack: IEC/EN 62133-2:2017, UN 38.3; Machinery Directive 2006/42/EC; EN ISO 12100. Function: IEC 60529-IP67 (water and dust resistance). Environment: RoHS."@en ;
+    sth:has_test_category sth:emc_test,
+        sth:environment_test,
+        sth:function_test,
+        sth:rf_test,
+        sth:safety_test_1,
+        sth:safety_test_2 .
+
+sth:time_tag_field a sth:field ;
+    rdfs:label "TimeTag"@en ;
+    sth:description "Time tag (sec)"@en .
+
+sth:tool_wear_estimation a sth:specification_item ;
+    rdfs:label "Tool wear estimation"@en ;
+    sth:value "Option" .
+
+sth:torque_field a sth:field ;
+    rdfs:label "Torque"@en ;
+    sth:description "Torque (Nm)"@en .
+
+sth:transmission_mode a sth:section ;
+    rdfs:label "Transmission Mode"@en ;
+    sth:EdgeCommand "cmd\\n" ;
+    sth:WSBResponse "Enter Configuration Mode\\n" ;
+    sth:description "Transmission Mode. Transmission Mode can report antenna signal strength (RSSI dBm). Table 6, Transmission Mode. Function / Edge Command / WSB Response. 1. Enter Configuration Mode: cmd\\n / Enter Configuration Mode\\n / Leave Transmission Mode and enter Configuration Mode."@en .
+
+sth:troubleshooting a sth:section ;
+    rdfs:label "Troubleshooting"@en ;
+    sth:description "Troubleshooting includes the symptoms, causes, and troubleshooting methods for power abnormalities, connection abnormalities, and data abnormalities, as described below."@en ;
+    sth:has_case sth:case_1,
+        sth:case_2,
+        sth:case_3,
+        sth:case_4,
+        sth:case_5,
+        sth:case_6 .
+
+sth:troubleshooting_quick a sth:process_step ;
+    rdfs:label "Abnormality Handling"@en ;
+    sth:description "Abnormality Handling. Abnormal-event storage settings: go to the Save Settings page and configure the storage location in the File Location area to ensure abnormal-event files are saved correctly. Virtual Tool Room abnormal-event log files record abnormalities and errors occurring during STH and Node-Red system operation for subsequent troubleshooting and problem diagnosis."@en .
+
+sth:txt_count_per_csv a sth:setting_item ;
+    rdfs:label "No. of TXT Files in a CSV File"@en ;
+    sth:description "Set the number of TXT files included in each CSV file."@en .
+
+sth:virtual_tool_room_advanced_usage_instructions a sth:section ;
+    rdfs:label "Virtual Tool Room - Advanced Usage Instructions"@en ;
+    sth:description "Virtual Tool Room - Advanced Usage Instructions. Advanced usage covers the VTR folder structure, cutting-force data files, and integration applications. Integration applications include message handshaking, an integration-interface example, and a machining-history example, as described below."@en ;
+    sth:has_subsection sth:cutting_force_data_file,
+        sth:integration_and_application,
+        sth:vtr_folder_structure .
+
+sth:virtual_tool_room_detailed_operation_instructions a sth:section ;
+    rdfs:label "Virtual Tool Room - Detailed Operation Instructions"@en ;
+    sth:add_control_limits_method "On the History Review page, first select Folder and File, then click ADD UCL LCL. The system adds upper and lower control limits to the selected CSV file, and the output filename is the original filename + _processed."@en ;
+    sth:description "Virtual Tool Room - Detailed Operation Instructions. The detailed Virtual Tool Room software instructions include Initial Operation, Plan Settings, Connection Check, Save Settings, Real-Time Monitoring, Automatic Test, History Review, and Simulation Analysis, as described below."@en ;
+    sth:has_subsection sth:automatic_test,
+        sth:connection_check_detailed,
+        sth:history_review,
+        sth:initial_operation,
+        sth:production_plan_settings_detailed,
+        sth:real_time_monitoring,
+        sth:save_settings,
+        sth:simulation_analysis .
+
+sth:virtual_tool_room_quick_operation_process a sth:section ;
+    rdfs:label "Virtual Tool Room - Quick Operation Procedure"@en ;
+    sth:add_control_limits_method "On the History Review page, first select Folder and File, then click ADD UCL LCL. The system adds upper and lower control limits to the selected CSV file, and the output filename is the original filename + _processed."@en ;
+    sth:description "Virtual Tool Room - Quick Operation Procedure. The Smart Tool Holder-based Virtual Tool Room quick procedure includes plan setup and preparation, Smart Tool Holder connection check, Smart Tool Holder data settings, data collection, data review and analysis, and abnormal-event and error handling, as described below."@en ;
+    sth:has_subsection sth:connection_check_quick,
+        sth:data_collection_quick,
+        sth:data_settings_quick,
+        sth:data_view_quick,
+        sth:production_plan_settings_quick,
+        sth:troubleshooting_quick .
+
+sth:vtr_folder_structure a sth:section ;
+    rdfs:label "VTR folder structure"@en ;
+    sth:default_log_file_location "C:\\VTR\\Logs\\" ;
+    sth:default_parsed_csv_location "C:\\VTR\\RawData\\Output\\*.csv" ;
+    sth:default_raw_data_location "C:\\VTR\\RawData\\Source\\Data\\*.txt" ;
+    sth:description "VTR folder structure. VTR: Virtual Tool Room. STH: Smart Tool Holder. Root directory C:\\VTR. Applications in C:\\VTR: InitSTH.py — initial parameter values for the DataProcess and STHLink executables; InitSTH_u.json — InitSTH.py parameters updated through the UI, such as Connection Check; STHScan.exe — scans and configures the STH network, such as LOAD STHSCAN; STHLink.exe — connects to the STH and establishes a connection; STHComm.exe — main program for connecting to the STH, such as LOAD ALL; DataProcess.exe — processes detected raw data from RawData\\Source\\Data\\*.txt into force data at RawData\\Output\\*.csv. Subfolders in C:\\VTR: .\\Library — libraries for specific functions; .\\Logs — error log files generated by Node-Red and STHLink; .\\Node-red — user flows and system configuration files; .\\Plans — production or experimental plans used by Node-Red (YAML or JSON); .\\RawData — raw data collected by STHLink and processed by DataProcess.exe; .\\Reports — YAML-plan-related data reports used by Node-Red; .\\Simulation — YAML-plan-related simulation CSV files used by HiNC. Files in the Library folder: MergeFile.exe — executable function for merging files in a folder. Files in the Logs folder: STHerror.txt — error log recorded by STHLink; msg_log (MM-dd mm-ss) — MQTT messages collected by Node-Red. Files in the NodeRed folder: setting.js — Node-Red configuration file; VTR-flows (yyyyMMv) — Node-Red flow nodes; .\\YYYYMMv — individual Node-Red flows; .\\Medium — Node-Red image files. Files in the Plans folder, such as created and updated plans: LL-FR-A-MC-ID-IP-YYMMDD-setup-.yml — production plan in YAML format; LL-FR-A-MC-ID-IP-YYMMDD-setup-.json — production plan in JSON format. Files in the RawData folder, such as Save Settings: .\\Source — source folder storing raw data (.txt) collected by STHLink; .\\Data; .\\(YYYY-MM-DD-hh-mm) *.txt — raw TXT files; .\\Output — output folder storing CSV files processed from Source/Data; .\\(YYYYMMDDhh) — folder recording time; *.csv — parsed CSV files; (YYYYMMDDhh)merged.csv — CSV file merged by folder; .\\Coefficient — folder storing calibration coefficients, such as coefficient settings; AvailableSTH.csv — available STH coefficient file. Files in the Reports folder. Files in the Simulation folder: .\\NCfile sim_part_YYYMMddV.csv — simulation data. Configuration files: Node-Red configuration, such as setting.js. In setting.js: flowFile: 'vtr_flows(YYYYMMDDV).json', functionGlobalContext: { fs: require('fs'), csv: require('csv-parser'), path: require('path'), async: require('async'), yaml: require('js-yaml'), os: require('os') }. Default path summary: Item / Default location / Description. 1. VTR root directory: C:\\VTR — Virtual Tool Room root directory. 2. Default raw-data storage location: C:\\VTR\\RawData\\Source\\Data\\*.txt — stores detected raw TXT data. 3. Default parsed CSV storage location: C:\\VTR\\RawData\\Output\\*.csv — stores parsed CSV data. 4. Default log storage location: C:\\VTR\\Logs\\ — stores error logs and message records."@en ;
+    sth:has_file sth:DataProcess_exe,
+        sth:InitSTH_py,
+        sth:InitSTH_u_json,
+        sth:STHComm_exe,
+        sth:STHLink_exe,
+        sth:STHScan_exe,
+        sth:setting_js ;
+    sth:has_setting sth:log_file_location,
+        sth:output_path,
+        sth:raw_data_directory_location,
+        sth:root_directory_location ;
+    sth:has_subfolder sth:library_folder,
+        sth:logs_folder,
+        sth:node_red_folder,
+        sth:plans_folder,
+        sth:raw_data_folder,
+        sth:reports_folder,
+        sth:simulation_folder ;
+    sth:root_directory "c:\\VTR" ;
+    sth:setting_js_content "flowFile: 'vtr_flows(YYYYMMDDV).json'; functionGlobalContext includes fs, csv-parser, path, async, js-yaml, and os."@en ;
+    sth:vtr_root_directory "C:\\VTR" .
+
+sth:water_and_dust_resistance_rating a sth:specification_item ;
+    rdfs:label "Water and dust resistance rating"@en ;
+    sth:value "IP67" .
+
+sth:whether_to_back_up_raw_data a sth:setting_item ;
+    rdfs:label "Backup Raw Files to Another Folder?"@en ;
+    sth:description "Select whether raw data is backed up to another folder."@en .
+
+sth:whether_to_convert_force_only a sth:setting_item ;
+    rdfs:label "Transfer Force Only?"@en ;
+    sth:description "Select whether only force information is converted from Smart Tool Holder raw data."@en .
+
+sth:whether_to_record_raw_data a sth:setting_item ;
+    rdfs:label "Record the Raw Data?"@en ;
+    sth:description "Select whether to record Smart Tool Holder raw data."@en .
+
+sth:whether_to_save_parsed_files a sth:setting_item ;
+    rdfs:label "Save a Parsed File?"@en ;
+    sth:description "Select whether force information detected by the Smart Tool Holder is saved in CSV format."@en .
+
+sth:data_collection_quick a sth:process_step ;
+    rdfs:label "Data Collection"@en ;
+    sth:auto_stop_setting "Stop In Time(s)" ;
+    sth:blue_led_status_query sth:smart_tool_holder_blue_led_status ;
+    sth:description "Data Collection. Go to the Real-Time Monitoring page (Figure 10) and press LOAD ALL to start the STH connection and data-processing programs. The Smart Tool Holder LED turns blue, indicating normal connection. Confirm good connection status, then press START RECORD to record STH sensor data as TXT files. Stop In Time(s) can specify the automatic recording stop time. Recording Time displays the recorded duration; ensure that the recording covers the entire machining process to be observed. Figure 10, Data Collection page."@en ;
+    sth:display_blue_led "Normally connected."@en ;
+    sth:record_sensor_data_method "Go to the Real-Time Monitoring page and press LOAD ALL to start the STH connection and data-processing programs. After confirming a good connection, press START RECORD to record STH sensor data (TXT files). Stop In Time(s) can specify the automatic recording stop time. Recording Time displays the recorded duration."@en ;
+    sth:start_recording_button "START RECORD" ;
+    sth:startup_procedure "Press LOAD ALL to start the STH connection and data-processing programs."@en ;
+    sth:what_does_blue_led_on_smart_tool_holder_mean "A blue LED on the Smart Tool Holder means the TCP packet channel is enabled and the Smart Tool Holder is in Transmission Mode or normally connected."@en .
+
+sth:history_review a sth:section ;
+    rdfs:label "History Review"@en ;
+    sth:add_control_limits_method "After selecting Folder and File, click ADD UCL LCL to add upper and lower control limits (UCL/LCL) to the selected CSV file. The output filename is formed by appending _processed to the original filename."@en,
+        "After selecting Folder and File, click ADD UCL LCL to add upper and lower control limits (UCL/LCL) to the selected CSV file. The output filename is the original filename + _processed."@en ;
+    sth:add_ucl_lcl_function "Add upper and lower control limits to the selected file."@en ;
+    sth:control_limit_output_filename_rule "original filename + _processed"@en ;
+    sth:data_review_start_and_end_times "Start Time and End Time display the start and end times of the data review, allowing the exact test time range to be identified."@en ;
+    sth:description "History Review. Figure 55, History Review page. Operation procedure: 1. Plan and Folder Settings (Figure 56). Current Plan displays the absolute path of the current plan file. Folder selects an available folder under C:/VTR/RawData/output and loads the corresponding test data. File selects an available data file in the current directory for review analysis and adding upper/lower control limits. ADD UCL LCL: after selecting Folder and File, click ADD UCL LCL to add UCL/LCL to the selected CSV file; the output filename is the original filename + _processed. Time Interval selects the available data file in the current directory for review analysis and adding control limits. 2. File Merge (Figure 57). LOAD FILEMERGE loads the file-merge function to combine multiple test results for further analysis. ENABLE MERGE starts merging selected file data. PAUSE MERGE pauses merging so users can perform other operations or inspect data. UNLOAD MERGE terminates all merge processes and returns the system to the non-merge state. 3. Summary (Figure 58). Start Time and End Time display the start and end times of data review for precise identification of the test range. Time Index (from) adjusts the time bar for displayed review points. Time Zoom adjusts the review time range for detailed analysis of a specific period. CH1 Max, CH2 Max, CH3 Max, and CH4 Max display the maximum voltage values (mV) of channels CH1, CH2, BendingX, and BendingY. Quality displays data-quality status: 1 means differences among all channels are within the acceptable range and quality passes; -1 means a difference exceeds tolerance, quality fails, and further inspection is required. 4. Add as Benchmark (Figure 59). SCAN PLAN rescans plan files under C:/VTR/Plans for selection as benchmarks. Select a Plan selects an available plan file as the benchmark for subsequent tests. AS BENCHMARK sets the selected plan as a benchmark for comparison with other test data. 5. Charts (Figure 60). Torque(Nm), Bending X(KNm), Bending Y(KNm), CH1(mV), and CH2(mV) display channel data in the current file as line charts to visualize torque and bending-force variation. UCL: Upper Control Limit. LCL: Lower Control Limit."@en ;
+    sth:end_time "End Time displays the end time of the data review."@en ;
+    sth:how_to_confirm_data_review_start_and_end_times "On the History Review page, view Start Time and End Time in the Summary area."@en ;
+    sth:quality_judgment "Quality displays the data quality status. A value of 1 means the differences among all channels are within the acceptable range and quality passes; -1 means there are differences outside the tolerance range, quality fails, and further inspection is required."@en ;
+    sth:start_time "Start Time displays the start time of the data review."@en .
+
+sth:initial_operation a sth:section ;
+    rdfs:label "Initial operation"@en ;
+    sth:MQTTPort "1883" ;
+    sth:communication_setting_steps "Open Control Panel, go to System and Security, open Windows Defender Firewall, select Advanced settings, add a new Inbound Rule, select Port, configure TCP and specific local port 1883, select Allow the connection, apply the rule to Domain, Private, and Public, and complete the rule setup."@en ;
+    sth:description "Initial Operation. Install Python and confirm environment variables: after installing Python, check whether python.exe exists in the Python environment-variable path (Figures 12 and 13) to ensure normal system operation. Figure 12, Python environment variables. Figure 13, python.exe under the environment-variable path. MQTT prerequisite settings: install Mosquitto as the MQTT broker from mosquitto.org (Figure 14). Before using MQTT, add an inbound rule in Windows Defender Firewall to allow Port 1883 communication so the computer can enable the MQTT service (Figure 15). (1) Download the required version from the Mosquitto website. Figures 14 and 15, MQTT prerequisite settings. (2) Search for Control Panel, open it, and select System and Security (Figure 16). (3) Open Windows Defender Firewall (Figure 17). (4) Select Advanced settings (Figure 18). (5) Select Inbound Rules and click New Rule (Figure 19). (6) Select Port (Figure 20). (7) The default MQTT communication port is 1883; select TCP and enter 1883 under Specific local ports (Figure 21). (8) Select Allow the connection (Figure 22). (9) Select Domain, Private, and Public (Figure 23). (10) Enter a rule name and complete the outbound Port 1883 rule (Figure 24). (11) Confirm that the inbound rule is enabled normally (Figure 25). Configure IP and Router location: before starting an experiment, connect to Wi-Fi, select ST_route, and edit the network IP settings (Figure 26). Figure 26, Network IP Settings."@en ;
+    sth:mqtt_communication_setting_method "Before using MQTT, add an inbound rule in Windows Defender Firewall to allow TCP Port 1883 communication so that the computer can enable the MQTT service."@en ;
+    sth:mqtt_communication_setting_query sth:mqtt_communication_settings ;
+    sth:mqtt_default_communication_port "1883" ;
+    sth:mqtt_default_connection_port "1883" .
+
+sth:log_file_location a sth:setting_item ;
+    rdfs:label "Log File Location"@en ;
+    sth:default_location "C:\\VTR\\Logs\\" ;
+    sth:description "Set the directory location for Virtual Tool Room abnormal-event log files."@en,
+        "Stores error logs and message records."@en ;
+    sth:value "C:\\VTR\\Logs\\\\" .
+
+sth:output_path a sth:setting_item ;
+    rdfs:label "Output Path"@en ;
+    sth:default_location "C:\\VTR\\RawData\\Output\\*.csv" ;
+    sth:description "Set the default STH output file path used to store parsed data."@en,
+        "Stores parsed CSV data."@en ;
+    sth:value "C:\\VTR\\RawData\\Output\\*.csv" .
+
+sth:production_plan_settings_detailed a sth:section ;
+    rdfs:label "VTR Plan page operation procedure"@en ;
+    sth:description "Plan Settings. Figure 27, Plan Settings page. Operation procedure: 1. Create and update plans (Figure 28). NEW PLAN: press NEW PLAN to start a new production or experimental plan. A new plan file is created in which all required machine, tool, and workpiece parameters can be configured. New plans are saved in JSON and YML formats and include basic settings such as date, machine location, and plan type. UPDATE PLAN: use UPDATE PLAN to modify an existing plan, such as changing machine configuration or tool parameters. The updated plan overwrites the existing version and all changes are displayed in Plan Updates for tracking. Reload Plan: use Reload Plan to reload a previous plan and view its settings. 2. Configure machine, tool, and machining mode (Figure 29). In Machine-Part-Tool Holder, configure basic machine information such as Machine ID, Type, Controller, and Machining mode to record different machines and machining modes. Design STL and Material: upload the workpiece STL and select the workpiece material. To bind Smart Tool Holders and tools required by the plan, select a MAC under STH and a tool number under TID. BIND binds the MAC of a Smart Tool Holder such as STH1 or STH2 to a tool number such as TID1 or TID2 to ensure correct recording and tool use. CLEAR BIND removes the current binding between tool and tool holder. 3. Configure tool parameters (Figure 30). In each T1–T5 area, set Tool ID, Diameter, Flute Num, Full Height, and Flute Height. Also record tool wear before and after machining for tool-life analysis and production optimization. These settings are saved in the plan file and displayed in Plan Updates. 4. View plan update records (Figure 31). Plan Updates displays all updates made to the production plan. Whenever UPDATE PLAN is pressed or another plan change is made, the change is recorded here in JSON format."@en ;
+    sth:how_to_bind_smart_tool_holder_and_tool "On the Plan Settings page, select the Smart Tool Holder MAC under STH and the tool number under TID, then click BIND to bind the Smart Tool Holder and the tool."@en ;
+    sth:node_boundary "This node answers only the VTR Plan / Plan Settings page operation procedure; it does not answer the configurable parameters of Smart Tool Holder Configuration Mode."@en ;
+    sth:not_applicable_question "What can be configured in Smart Tool Holder Configuration Mode?"@en,
+        "What parameters can Configuration Mode configure?"@en,
+        "Which parameters can be configured while the Smart Tool Holder is in Configuration Mode?"@en ;
+    sth:smart_tool_holder_tool_binding_answer "On the Plan Settings page, select the Smart Tool Holder MAC under STH and the tool number under TID, then click BIND to complete the binding."@en .
+
+sth:production_plan_settings_quick a sth:process_step ;
+    rdfs:label "VTR Plan page quick procedure"@en ;
+    sth:description "Plan Settings. Go to the Plan Settings page (Figure 7), press NEW PLAN to create a new production or experimental plan, configure Machine ID, material, machining mode, tool holder MAC and Port, and bind the corresponding Tool ID. To update an existing plan, use UPDATE PLAN. Use BIND to bind each Smart Tool Holder MAC to the corresponding tool number. Figure 7, Plan Settings page."@en ;
+    sth:how_to_bind_smart_tool_holder_and_tool "On the Plan Settings page, select the Smart Tool Holder MAC under STH and the tool number under TID, then click BIND to bind the Smart Tool Holder and the tool."@en ;
+    sth:node_boundary "This node answers only the VTR Plan / Plan Settings page operation procedure; it does not answer the configurable parameters of Smart Tool Holder Configuration Mode."@en ;
+    sth:not_applicable_question "What can be configured in Smart Tool Holder Configuration Mode?"@en,
+        "What parameters can Configuration Mode configure?"@en,
+        "Which parameters can be configured while the Smart Tool Holder is in Configuration Mode?"@en ;
+    sth:smart_tool_holder_tool_binding_answer "On the Plan Settings page, select the Smart Tool Holder MAC under STH and the tool number under TID, then click BIND to complete the binding."@en .
+
+sth:raw_data_directory_location a sth:setting_item ;
+    rdfs:label "Raw Data Folder Location"@en ;
+    sth:default_location "C:\\VTR\\RawData\\Source\\Data\\*.txt" ;
+    sth:description "Set the directory location for Smart Tool Holder raw data."@en,
+        "Stores detected raw TXT data."@en ;
+    sth:value "C:\\VTR\\RawData\\Source\\Data\\*.txt" .
+
+sth:real_time_monitoring a sth:section ;
+    rdfs:label "Real-Time Monitoring"@en ;
+    sth:description "Real-Time Monitoring. Figure 45, Real-Time Monitoring page. Operation procedure: 1. Action area (Figure 46). LOAD ALL: loads the STH connection and data-processing programs (STHComm, DataProcess) to begin real-time monitoring. The data-processing program parses raw sensor TXT files into CSV files for data analysis. ENABLE FUNC.: starts the STH connection and data-processing programs so the system can receive STH data. START RECORD: starts recording and processing STH sensor data into TXT files; the data is subsequently processed and saved by DataProcess. SEND JOB: sends the selected job from the Job list to runSTHJobs.py through MQTT for specific STH operations. Stop In Time(s): automatically stops recording after the specified number of seconds. TOOL CHANGE: triggers a CNC tool-change action. STOP RECORD: stops recording and pauses sensor-data processing. DISABLE FUNC.: pauses data processing and stops the STH connection and data collection. UNLOAD ALL: terminates all STH connection and data-processing programs and returns the system to the unmonitored state. 2. Online STH (Figure 47). Current Plan: displays the absolute path of the currently executing plan file. Package ID: increments for every packet received at 0.4-second intervals and indicates current connection data traffic. STH ID: displays the MAC address of the connected STH. RSSI: displays the current wireless signal strength. Power: displays the remaining battery level of the enabled STH. Recording Time: displays elapsed recording time after START RECORD is pressed. Active: when lit, the signal is stable. Hold: when lit, the signal is unstable or the STH connection is interrupted, causing incomplete data. 3. STH Data (Figure 48). Torque (Nm): line chart of torque read by the STH. Bending X (N): line chart of bending force read by the STH. 4. Logs (Figure 49). STH Comm log: after LOAD ALL, displays the STHComm.exe runtime log for connection details. Data Process log: after LOAD ALL, displays the DataProcess.exe runtime log for tracking data-processing progress and status."@en ;
+    sth:monitoring_field "Current Plan, Package ID, STH ID, RSSI, Power, Recording Time, Active, Hold, Torque(Nm), Bending X(N)" ;
+    sth:sensor_data_recording_method "Press START RECORD to begin recording and processing STH sensor data into TXT files. The data is subsequently processed and saved through DataProcess."@en ;
+    sth:tool_change_function "When a CNC tool change is required, press this button to trigger the tool-change action."@en ;
+    sth:tool_change_method "When a CNC tool change is required, press TOOL CHANGE on the Real-Time Monitoring page to trigger the tool-change action."@en ;
+    sth:tool_change_operation "When a CNC tool change is required, press TOOL CHANGE on the Real-Time Monitoring page to trigger the tool-change action."@en ;
+    sth:tool_change_tool_change_function "When a CNC tool change is required, press TOOL CHANGE to trigger the tool-change action."@en ;
+    sth:viewable_item sth:sufficient_signal_strength_judgment .
+
+sth:root_directory_location a sth:setting_item ;
+    rdfs:label "Root Folder Location"@en ;
+    sth:default_location "C:\\VTR" ;
+    sth:description "Set the root directory location for Virtual Tool Room data."@en,
+        "Virtual Tool Room root directory"@en ;
+    sth:value "C:\\VTR" .
+
+sth:rssi_insufficient_rescan_condition_direct_qa a sth:qa_anchor ;
+    rdfs:label "RSSI rescan condition"@en ;
+    sth:answer "RSSI ≤ -50 dB between the Smart Tool Holder and Router indicates insufficient signal strength, which may cause connection interruption or incomplete data; therefore, the Smart Tool Holder must be rescanned."@en ;
+    sth:cause_description "RSSI ≤ -50 dB means the signal strength between the Smart Tool Holder and Router is insufficient, which may cause connection interruption or incomplete data."@en ;
+    sth:corresponding_topic sth:connection_check,
+        sth:sufficient_signal_strength_judgment ;
+    sth:question "Under what circumstances does the Smart Tool Holder need to be rescanned?"@en,
+        "Under what conditions does the Smart Tool Holder need to be rescanned?"@en,
+        "When does the Smart Tool Holder need to be rescanned?"@en ;
+    sth:rescan_condition "RSSI ≤ -50 dB between the Smart Tool Holder and Router indicates insufficient signal strength, which may cause connection interruption or incomplete data; therefore, the Smart Tool Holder must be rescanned."@en ;
+    skos:prefLabel "RSSI rescan condition"@en .
+
+sth:setting_js a sth:file ;
+    rdfs:label "setting.js"@en ;
+    sth:description "Node-Red configuration file. setting.js contains flowFile: 'VTR_flows(YYYYMMDDV).json' and functionGlobalContext, including modules such as fs, csv-parser, path, async, js-yaml, and os."@en ;
+    sth:setting_content "flowFile: 'VTR_flows(YYYYMMDDV).json'; functionGlobalContext: { fs, csv, path, async, yaml, os }" .
+
+sth:setting_mode_read a sth:section ;
+    rdfs:label "Configuration Mode - Read"@en ;
+    sth:description "Configuration Mode - Read. Table 8, Configuration Mode - Read. Function / Edge Command / WSB Response. 1. Read Router SSID: rssid\\n / rssid:setting value\\n / read Router SSID. 2. Read Password: rpass\\n / rpass:setting value\\n / read Router Password setting value. 3. Read IP: rip\\n / rip:setting value\\n / read IP setting value. 4. Read port: rport\\n / rport:setting value\\n / read port setting value. 5. Read RF Power Level: rpower\\n / rpower:setting value\\n / 1–5, default 5; (5, 8.5, 13, 16.5, 19.5) dBm. 6. Read G-threshold: rgsensor\\n / rgsensor:setting value\\n / read G-Sensor sensitivity. 7. Read sleep time: rctime\\n / rctime:setting value\\n / read sleep time. 8. Read polling interval: rptime\\n / rptime:setting value\\n / read polling interval. 9. Read voltage: rbat\\n / rbat:actual voltage\\n / read current battery voltage. 10. Read signal strength: rRSSI\\n / rRSSI:received signal strength\\n / read current received signal strength. 11. Read program version: rVER\\n / rVER:<M>core 1 version,<E>core 2 version\\n / read the program versions of the two WSB cores, e.g. rVER:<M>01.11,<E>02.03. 12. Continue synchronization: syn\\n / syn:OK\\n / Configuration Mode has a 2-minute timeout. If Edge cannot send configuration data within 2 minutes, it must send syn to the Wireless Sensing Board (WSB), otherwise the channel is considered disconnected."@en ;
+    sth:has_command sth:continue_synchronization_command,
+        sth:read_g_threshold_command,
+        sth:read_ip_command,
+        sth:read_password_command,
+        sth:read_polling_interval_command,
+        sth:read_port_command,
+        sth:read_program_version_command,
+        sth:read_rf_power_command,
+        sth:read_router_ssid_command,
+        sth:read_signal_strength_command,
+        sth:read_sleep_time_command,
+        sth:read_voltage_command .
+
+sth:setting_mode_write a sth:section ;
+    rdfs:label "Configuration Mode - Write"@en ;
+    sth:configurable_parameter "Router SSID, Password, IP, Port, RF Power Level, G-threshold, polling interval, sleep time."@en ;
+    sth:description "Configuration Mode - Write. Table 7, Configuration Mode - Write. Function / Edge Command / WSB Response. 1. Return to Transmission Mode: exit\\n / Exit Configuration Mode\\n / leave Configuration Mode and return to Transmission Mode. 2. Set Router SSID: ssid: ST_route \\n / SSID setting “ST_route” OK\\n / set Router SSID to ST_route. 3. Set Password: pass:123456abc\\n / Password setting “123456abc” OK\\n / set Router Password to 123456abc. 4. Set IP: ip:1.1.1.102\\n / IP setting “1.1.1.102” OK\\n / set IP to 1.1.1.102. 5. Set port: port:6500\\n / Port setting “6500” OK\\n / set port to 6500. 6. Set RF Power Level: power:3\\n / RF TX Power setting “3” OK\\n / 1–5, default 2; (5, 8.5, 13, 16.5, 19.5) dBm. 7. Set wake-up G-threshold: gsensor:10\\n / G-Sensor setting “10” OK\\n / set G-Sensor sensitivity to 10 (range 1–64, default 4). Setting 1–63: vibration-mode sensitivity. Setting 64: angle wake-up (80°). 8. Set sleep time: ctime:60\\n / ctime setting “60” OK\\n / set sleep time to 60 s (range 20–255 s, default 30 s). 9. Set polling interval: ptime:8\\n / ptime setting “8” OK\\n / set ptime to 8 during sleep (setting range 0–5760, default 0). Setting 0: no periodic polling during sleep. Setting 1–5760: sleep interval, base unit 15 s. 10. Enter Sleep Mode: sleep\\n / Enter Sleep Mode\\n / leave Configuration Mode and enter Sleep Mode."@en ;
+    sth:has_command sth:enter_sleep_mode_command,
+        sth:return_to_transmission_mode,
+        sth:set_g_threshold_command,
+        sth:set_ip_command,
+        sth:set_password_command,
+        sth:set_polling_interval_command,
+        sth:set_port_command,
+        sth:set_rf_power_command,
+        sth:set_router_ssid_command,
+        sth:set_sleep_time_command ;
+    sth:setting_mode_configurable_parameters_query sth:smart_tool_holder_setting_mode_configurable_parameters .
+
+sth:simulation_analysis a sth:section ;
+    rdfs:label "Simulation Analysis"@en ;
+    sth:description "Simulation Analysis. Figure 61, Simulation Analysis page. Operation procedure: 1. Action area (Figure 62). Current Plan displays the current plan file so the user knows which plan is being analyzed. UPDATE NC FILE updates the target NC filename according to the Settings page to manage and synchronize the latest NC program. NC File displays the current target NC filename. Select File selects a CSV file that already contains simulation results for analysis. Time Interval displays the interval n between displayed data points (0.003*n sec) to control data-review resolution. 2. Simulation Data (Figure 63). Moment Z and Moment Y display the average Z-axis and Y-axis moment data in the selected simulation CSV file as line charts. UCL is the Upper Control Limit; LCL is the Lower Control Limit. The charts visually show average Z- and Y-axis moment changes over time and help explain forces on the tool during simulation. Coordinate X, Coordinate Y, and Coordinate Z display X-, Y-, and Z-axis position changes in the simulation data as line charts. To view the simulated tool movement trajectory, examine the Coordinate X, Coordinate Y, and Coordinate Z charts to understand position changes in different directions during simulation."@en ;
+    sth:simulated_tool_movement_trajectory_chart "Coordinate X, Coordinate Y, Coordinate Z"@en ;
+    sth:simulated_tool_movement_trajectory_viewing_method "View the Coordinate X, Coordinate Y, and Coordinate Z charts to understand the tool's position changes in different directions during simulation."@en .
+
+sth:standby_time a sth:direct_answer_node,
+        sth:qa_anchor,
+        sth:specification_item ;
+    rdfs:label "Standby time"@en ;
+    sth:answer ">10 day"@en ;
+    sth:belongs_to_specification sth:general_specification ;
+    sth:complete_answer "The Smart Tool Holder power-supply standby time is >10 day."@en ;
+    sth:direct_answer ">10 day"@en ;
+    sth:node_boundary "This node answers only the power-supply standby time in the Smart Tool Holder general specifications; the direct answer is >10 day. It does not answer configurable parameters in Configuration Mode or sleep-time setting items."@en ;
+    sth:not_used_as_answer "Smart Tool Holder power-supply standby time"@en ;
+    sth:power_supply_standby_time ">10 day"@en ;
+    sth:question "How long is the Smart Tool Holder standby time?"@en,
+        "How many days is the Smart Tool Holder standby time?"@en,
+        "What is the Smart Tool Holder power-supply standby time?"@en,
+        "What is the standby time of the power supply?"@en ;
+    sth:semantic_target "Standby-time value in the Smart Tool Holder general specifications"@en ;
+    sth:smart_tool_holder_power_supply_standby_time ">10 day"@en ;
+    sth:unit "day" ;
+    sth:value ">10" ;
+    sth:what_is_power_supply_standby_time ">10 day"@en ;
+    sth:what_is_smart_tool_holder_power_supply_standby_time ">10 day"@en ;
+    skos:hiddenLabel "Power supply standby time day >10"@en,
+        "Smart Tool Holder power-supply standby time"@en,
+        "Standby time day"@en ;
+    skos:prefLabel ">10 day"@en .
+
+sth:case_3 a sth:abnormal_case ;
+    rdfs:label "No available tool holder is displayed after executing LOAD STHSCAN."@en,
+        "Smart Tool Holder cannot be scanned"@en,
+        "Tool holder cannot be found after running the scan function."@en ;
+    sth:cause "Available tool holder MAC and Port are not displayed."@en ;
+    sth:description "After LOAD STHSCAN is executed, available tool holders are not displayed. Normally, the MAC and Port of the tool holder are shown. If none are shown, troubleshoot as follows: A. Confirm the tool holder status and shake it to enter Idle Mode (green LED flashing). B. Check whether the settings under Connection Check are correct, including Networking (TCP/IP settings) and MessageBroking (MQTT settings), as shown in the figure. C. Check the configured IP and Router location; the IP address is 10.0.0.103 and the subnet mask is 255.255.255.0."@en ;
+    sth:direct_answer "If no available tool holder is displayed after LOAD STHSCAN, confirm the tool holder status, check the Connection Check settings, and verify that the IP address is 10.0.0.103 and the subnet mask is 255.255.255.0."@en ;
+    sth:question "No available tool holder is displayed after executing LOAD STHSCAN."@en ;
+    sth:scan_failure_handling_method "First confirm the tool holder status; shake it to enter Idle Mode (green LED flashing). Check Networking (TCP/IP settings) and MessageBroking (MQTT settings) under Connection Check. Check the configured IP and Router location; the IP address is 10.0.0.103 and the subnet mask is 255.255.255.0."@en ;
+    sth:troubleshooting_method "Confirm that the tool holder is in Idle Mode; check Networking (TCP/IP) and MessageBroking (MQTT) settings; confirm that the IP is 10.0.0.103 and the subnet mask is 255.255.255.0."@en .
+
+sth:charging_module a sth:section ;
+    rdfs:label "Charging module"@en ;
+    sth:AdapterOutputCurrent "2A" ;
+    sth:AdapterOutputVoltage "DC 12V" ;
+    sth:charging_dock_output_current_specification "2A"@en ;
+    sth:charging_dock_output_voltage_specification "DC 12V"@en ;
+    sth:charging_dock_solid_green_led_answer "A solid green LED means fully charged."@en ;
+    sth:charging_dock_solid_red_led_answer "A solid red LED means charging."@en ;
+    sth:charging_precautions "When charging, make sure the adapter is firmly inserted into the charger Adapter position and confirm that the charging dock clamping direction is correct."@en ;
+    sth:description "Charging Module. The LED indications are shown in Table 3, Smart Tool Holder Charging Dock LEDs. When charging, make sure the adapter is firmly inserted as shown in Figure 5, Charger Adapter Position, and use the clamping direction shown in Figure 6, Charging Dock Clamping Method. Table 3, Smart Tool Holder Charging Dock LEDs: Status / Green / Red. Not charging: - / -. Charging: - / On. Fully charged: On / -. Figure 5, Charger Adapter Position, V1 on the left and V2 on the right. Figure 6, Charging Dock Clamping Method. Item Specifications: Operating Temperature 0°C–50°C; Storage Temperature -10°C–60°C; Input Voltage DC 12V; Max. Input Current 2A; Max. Charging Current 2A; Charging CC mode 2A; Charging CV mode MAX 8.5V; Adapter Input Specifications Vac 100V–240V, 50/60Hz, 0.5A; Adapter Output Specifications DC 12V; Max. Charging Time 2 hr; Battery life - Activity ≥ 6 hr; Battery life - Standby ≥ 10 days; Charging state-LED: uncharged off / red on while charging / green on when fully charged."@en ;
+    sth:has_led_mapping sth:charging_base_green_led_on,
+        sth:charging_base_red_led_on ;
+    sth:has_led_status sth:charging_status,
+        sth:fully_charged_status,
+        sth:not_charging_status ;
+    sth:has_specification_item sth:battery_life_operation,
+        sth:battery_life_standby,
+        sth:cc_mode,
+        sth:charger_input_specification,
+        sth:charger_output_current_specification,
+        sth:charger_output_voltage_specification,
+        sth:charging_status_led,
+        sth:cv_mode,
+        sth:input_voltage,
+        sth:maximum_charging_current,
+        sth:maximum_charging_time,
+        sth:maximum_input_current,
+        sth:operating_temperature,
+        sth:storage_temperature ;
+    sth:led_mapping "Not charging: Green -, Red -; Charging: Red On; Fully charged: Green On."@en ;
+    sth:output_current "2A" ;
+    sth:solid_green_led_means "Fully charged"@en ;
+    sth:solid_red_led_means "Charging"@en ;
+    sth:unlit_led_means "Not charging. If the LED remains off after the tool holder is connected to the charging dock, follow the troubleshooting case to check the charging contacts, adapter, or charging dock."@en ;
+    sth:what_does_solid_green_led_on_charging_dock_mean "A solid green LED means fully charged."@en ;
+    sth:what_does_solid_red_led_on_charging_dock_mean "A solid red LED means charging."@en .
+
+sth:general_specification a sth:section ;
+    rdfs:label "General Specifications"@en ;
+    sth:description "General Specifications. Table 2, Smart Tool Holder General Specifications. Item / Smart Tool Holder - Turing-E. Signal characteristics: signal sampling rate up to 3.6 kHz per channel; detection items Fx, Fy, Mz; precision ±3%. Communication architecture: Wi-Fi; frequency band 2.45 GHz 802.11 b/g/n. Power supply: continuous operation >6 hr; standby time >10 day. Mechanical characteristics: water and dust resistance IP67; charging method contact charging; maximum speed G1/15,000 rpm. Software characteristics: force monitoring — online monitoring; tool wear estimation — Option; system integration function — Option."@en ;
+    sth:has_specification_item sth:charging_method,
+        sth:communication_frequency_band,
+        sth:communication_method,
+        sth:continuous_operating_time,
+        sth:detection_item,
+        sth:force_monitoring,
+        sth:maximum_speed,
+        sth:precision,
+        sth:signal_sampling_rate,
+        sth:standby_time,
+        sth:system_integration_function,
+        sth:tool_wear_estimation,
+        sth:water_and_dust_resistance_rating ;
+    sth:product_model "Smart Tool Holder- Turing-E" .
+
+sth:qa_sleep_wake_mode_answer a sth:mode ;
+    rdfs:label "After a polling interval is configured, WSB can periodically leave Sleep Mode and enter a brief wake state. In this mode, it reports one Header (packet sequence number: 99999) to Edge. After receiving it, Edge can reply as needed with a command that returns WSB to Sleep Mode or places it in Idle Mode."@en,
+        "qa_sleep_wake_mode_answer"@en ;
+    sth:answer "After a polling interval is configured, WSB can periodically leave Sleep Mode and enter a brief wake state; in this mode it reports one Header (packet sequence number: 99999) to Edge. After receiving it, Edge can reply as needed with a command to return WSB to Sleep Mode or place it in Idle Mode."@en ;
+    sth:available_reply_command "After receiving the Header, Edge can reply with two types of commands: 1. reply with the Enter Sleep Mode command to return WSB to Sleep Mode; 2. reply with the Enter Idle Mode command to place WSB in Idle Mode and resume normal startup."@en ;
+    sth:definition "After a polling interval is configured, WSB can periodically leave Sleep Mode and enter a brief wake state."@en ;
+    sth:description "After a polling interval is configured, WSB periodically leaves Sleep Mode and enters a brief wake state. In this mode, it reports one Header (packet sequence number: 99999) to Edge; after receiving it, Edge can reply to WSB with a command as needed."@en ;
+    sth:enter_idle_mode_command_description "Reply with the Enter Idle Mode command to place WSB in Idle Mode and resume normal startup."@en ;
+    sth:enter_sleep_mode_command_description "Reply with the Enter Sleep Mode command to return WSB to Sleep Mode."@en ;
+    sth:question "What is Sleep-Wake Mode?"@en ;
+    sth:reported_content "In Sleep-Wake Mode, one Header (packet sequence number: 99999) is reported to Edge."@en ;
+    sth:sleep_wake_mode_definition "After a polling interval is configured, WSB can periodically leave Sleep Mode and enter a brief wake state; in this mode it reports one Header (packet sequence number: 99999) to Edge. After receiving it, Edge can reply as needed with a command to return WSB to Sleep Mode or place it in Idle Mode."@en ;
+    sth:sleep_wake_mode_definition_answer "After a polling interval is configured, WSB can periodically leave Sleep Mode and enter a brief wake state; in this mode it reports one Header (packet sequence number: 99999) to Edge. After receiving it, Edge can reply as needed with a command to return WSB to Sleep Mode or place it in Idle Mode."@en ;
+    sth:what_is_sleep_wake_mode "After a polling interval is configured, WSB can periodically leave Sleep Mode and enter a brief wake state; in this mode it reports one Header (packet sequence number: 99999) to Edge. After receiving it, Edge can reply as needed with a command to return WSB to Sleep Mode or place it in Idle Mode."@en .
+
+sth:smart_tool_holder_advanced_settings a sth:section ;
+    rdfs:label "Smart Tool Holder - Advanced Settings"@en ;
+    sth:description "Smart Tool Holder - Advanced Settings. The Smart Tool Holder (STH) contains a Wireless Sensing Board (WSB). During use, the STH connects to Edge through a Router using TCP/IP. Edge can send commands through TCP/IP; the STH executes the commands and returns messages to Edge. The Smart Tool Holder has five main operating modes: Idle, Transmission, Configuration, Sleep, and Sleep-Wake, with transitions shown in Figure 64. After power is supplied and Reset is performed, the STH enters Idle Mode. Before connection, this mode checks internal components, voltage, and other internal STH abnormalities; LED indications are shown in Table 4. In Idle or Configuration Mode, when the preset time is exceeded or a sleep command is received, the STH enters Sleep Mode. In Configuration Mode, when an Edge connection or transmission command is received, the STH enters Transmission Mode; LED indications are shown in Table 4. In Sleep Mode, when motion exceeding the G-threshold is detected, the STH leaves Sleep Mode, first enters Idle Mode, and returns to Transmission Mode after connecting to Edge. G Sensor sensitivity uses the full setting range 1–63, default 4. In Configuration Mode, configurable parameters include Router SSID, Password, IP, Port, RF Power Level, G-threshold, polling interval, and sleep time. Sleep-Wake Mode: after configuring a polling interval, WSB can periodically leave Sleep Mode and enter a brief wake state. In this mode it reports one Header (packet sequence number: 99999) to Edge. Edge can reply with either: 1. Enter Sleep Mode command, returning WSB to Sleep Mode; or 2. Enter Idle Mode command, placing WSB in Idle Mode and resuming normal startup. Table 4, Smart Tool Holder mode LEDs: Mode / Status / LED (RGB) Green Blue Red. Initial: initialize device — -/-/-. Idle: initialization completed — green solid for 5 s; normal vibration-started but not connected — green 50 ms / 1 s; abnormality detected at power-on — red solid; low voltage — red 50 ms / 3 s. Sleep: device sleeping — no LED. Wake: RTC started but not connected — green 50 ms / 2.5 s. Transmission: TCP packet channel enabled — blue 50 ms / 1 s. Configuration: TCP packet channel enabled — blue solid."@en ;
+    sth:has_mode sth:qa_sleep_wake_mode_answer ;
+    sth:has_subsection sth:connection_settings,
+        sth:mode_switching,
+        sth:setting_mode_read,
+        sth:setting_mode_write,
+        sth:sleep_mode,
+        sth:transmission_mode ;
+    sth:setting_mode_configurable_parameters "Router SSID, Password, IP, Port, RF Power Level, G-threshold, polling interval, sleep time."@en ;
+    sth:setting_mode_configurable_parameters_query sth:smart_tool_holder_setting_mode_configurable_parameters ;
+    sth:sleep_wake_mode_definition "After a polling interval is configured, WSB can periodically leave Sleep Mode and enter a brief wake state; in this mode it reports one Header (packet sequence number: 99999) to Edge."@en ;
+    sth:sleep_wake_mode_description "After a polling interval is configured, WSB can periodically leave Sleep Mode and enter a brief wake state; in this mode it reports one Header (packet sequence number: 99999) to Edge."@en .
+
+sth:smart_tool_holder_setting_mode_configurable_parameters a sth:direct_answer_node,
+        sth:qa_anchor,
+        sth:setting_item ;
+    rdfs:label "Smart Tool Holder Configuration Mode configurable parameters"@en,
+        "Which parameters can be configured while the Smart Tool Holder is in Configuration Mode?"@en ;
+    sth:answer "Router SSID, Password, IP, Port, RF Power Level, G-threshold, polling interval, sleep time"@en ;
+    sth:configurable_parameter "Router SSID, Password, IP, Port, RF Power Level, G-threshold, polling interval, sleep time"@en ;
+    sth:corresponding_topic sth:mode_switching,
+        sth:setting_mode_read,
+        sth:setting_mode_write,
+        sth:smart_tool_holder_advanced_settings ;
+    sth:description "In Configuration Mode, the Smart Tool Holder can configure Router SSID, Password, IP, Port, RF Power Level, G-threshold, polling interval, and sleep time."@en ;
+    sth:direct_answer "Router SSID, Password, IP, Port, RF Power Level, G-threshold, polling interval, sleep time"@en ;
+    sth:node_boundary "This node answers only which parameters can be configured in Smart Tool Holder Configuration Mode; it does not answer Smart Tool Holder power-supply specifications, standby time, continuous operating time, the production-plan operation procedure on the VTR Plan page, the tool-binding process, or the plan-file setting process."@en ;
+    sth:not_applicable_question "How do I bind the Smart Tool Holder and tool?"@en,
+        "How do I create a production plan?"@en,
+        "How do I operate the VTR Plan page?"@en,
+        "How long is the Smart Tool Holder standby time?"@en,
+        "What is the Smart Tool Holder power-supply standby time?"@en,
+        "What is the power-supply standby time?"@en,
+        "What tool parameters can be configured on the Plan Settings page?"@en ;
+    sth:question "What can be configured in Smart Tool Holder Configuration Mode?"@en,
+        "What parameters are configurable in Smart Tool Holder Configuration Mode?"@en,
+        "What parameters can Configuration Mode configure?"@en,
+        "What parameters can be configured in Configuration Mode?"@en,
+        "Which parameters can be configured while the Smart Tool Holder is in Configuration Mode?"@en ;
+    sth:semantic_target "Smart Tool Holder Configuration Mode configurable parameter list"@en ;
+    sth:setting_mode_configurable_parameters "Router SSID, Password, IP, Port, RF Power Level, G-threshold, polling interval, sleep time"@en ;
+    sth:setting_mode_configurable_parameters_answer "Router SSID, Password, IP, Port, RF Power Level, G-threshold, polling interval, sleep time"@en ;
+    sth:value "Router SSID, Password, IP, Port, RF Power Level, G-threshold, polling interval, sleep time"@en ;
+    sth:what_parameters_can_be_set_in_smart_tool_holder_setting_mode "Router SSID, Password, IP, Port, RF Power Level, G-threshold, polling interval, sleep time"@en ;
+    skos:hiddenLabel "Configuration Mode configurable parameters"@en,
+        "Router SSID Password IP Port RF Power Level G-threshold polling interval sleep time"@en,
+        "Smart Tool Holder Configuration Mode configurable parameters"@en,
+        "What can be configured in Configuration Mode"@en,
+        "What parameters can be configured in Configuration Mode"@en,
+        "What parameters can be configured in Smart Tool Holder Configuration Mode"@en ;
+    skos:prefLabel "Smart Tool Holder Configuration Mode configurable parameters"@en .
+
+sth:mode_switching a sth:section ;
+    rdfs:label "Smart Tool Holder mode LED status mapping"@en ;
+    sth:angle_wake_up_condition "The G Sensor setting can be configured for angle wake-up (setting value 64). The device can be awakened whenever the tool holder angle changes by more than 80°."@en ;
+    sth:blue_led_answer "A blue LED on the Smart Tool Holder means the TCP packet channel is enabled and the Smart Tool Holder is in Transmission Mode or normally connected."@en ;
+    sth:blue_led_status "TCP packet channel enabled, indicating that the Smart Tool Holder is in Transmission Mode or normally connected."@en ;
+    sth:description "Mode Switching. Startup mode: during power-on startup and operation, the tool holder dynamically checks internal Sensor ICs. If the MCU detects a connection problem with any internal Sensor IC, the Smart Tool Holder displays a red LED. Continuing to use the tool holder may cause abnormal operation. When an abnormal LED appears, first confirm that the tool holder power supply is normal and try power-cycling it. If the abnormal LED still appears after restart, return it to the manufacturer for inspection and repair. Sleep Mode: conditions for entering Sleep Mode after startup include a configurable sleep-entry time (20–255 seconds, default 30); TCP SOCKET channel disconnected for more than 30 seconds (default) during machining/tool-magazine status; G Sensor wake-up/transport status without Router connection for more than 60 seconds (default); or TCP SOCKET channel disconnected for more than 30 seconds (default) in Configuration Mode. Wake Mode: before transport, the G Sensor can be set to angle wake-up (setting value 64). In this mode the device is less likely to wake from vibration, but an angle change greater than 80° easily wakes it. Waking from Sleep Mode, connecting to the router, and entering Transmission Mode normally completes within 10 seconds. The Smart Tool Holder can be awakened by shaking it beyond the G-threshold. Configuration Mode: RF Power can be configured with Power Level 1–5, default 2: 1=5 dBm, 2=8.5 dBm, 3=13 dBm, 4=16.5 dBm, 5=19.5 dBm. The polling interval can be set from 15 s to 1 day, default disabled, allowing periodic wake-up from Sleep Mode; this state is Sleep-Wake Mode. In Sleep-Wake Mode, the device remains associated with configured Router 1 and periodically reports battery level and other information. If configured Router 1 is not found within the sleep-time limit, it returns to Sleep Mode."@en ;
+    sth:has_mode sth:qa_sleep_wake_mode_answer ;
+    sth:led_target "Smart Tool Holder"@en ;
+    sth:method_to_wake_up_smart_tool_holder "Shake the Smart Tool Holder beyond the G-threshold to wake it."@en,
+        "Shake the Smart Tool Holder beyond the G-threshold to wake it. After waking, it first enters Idle Mode and returns to Transmission Mode after the connection is completed."@en ;
+    sth:mode_list "Idle Mode, Transmission Mode, Configuration Mode, Sleep Mode, Sleep-Wake Mode."@en ;
+    sth:operating_mode "Idle, Transmission, Configuration, Sleep, and Sleep-Wake modes."@en ;
+    sth:question "How can I wake up the Smart Tool Holder?"@en,
+        "How do I wake the Smart Tool Holder while it is in Sleep Mode?"@en,
+        "What condition does a red LED on the Smart Tool Holder indicate?"@en,
+        "What does a blue indicator on the Smart Tool Holder mean?"@en,
+        "What does it mean when the Smart Tool Holder displays a blue LED?"@en,
+        "What does it mean when the Smart Tool Holder displays a red LED?"@en,
+        "What does the Smart Tool Holder's red LED indicate?"@en,
+        "What is the procedure for waking up the Smart Tool Holder?"@en ;
+    sth:red_led_abnormal_situation "A red LED on the Smart Tool Holder means that the MCU has detected a connection problem with one of the internal Sensor ICs."@en ;
+    sth:red_led_situation "A red LED on the Smart Tool Holder means that the MCU has detected a connection problem with one of the internal Sensor ICs."@en ;
+    sth:red_led_situation_answer "The MCU has detected a connection problem with one of the internal Sensor ICs. Tool holder operation may be abnormal. First verify the power supply and try power-cycling the tool holder. If the red LED still appears after restart, return it to the manufacturer for inspection and repair."@en ;
+    sth:situation "A red LED on the Smart Tool Holder means that the MCU has detected a connection problem with one of the internal Sensor ICs. Tool holder operation may be abnormal; check the power supply and try power-cycling. If the red LED still appears after restart, return the unit to the manufacturer for inspection and repair."@en ;
+    sth:sleep_wake_condition "Shake the Smart Tool Holder beyond the G-threshold to wake it."@en ;
+    sth:sleep_wake_mode_definition "After a polling interval is configured, WSB can periodically leave Sleep Mode and enter a brief wake state; in this mode it reports one Header (packet sequence number: 99999) to Edge. After receiving it, Edge can reply as needed with a command to return WSB to Sleep Mode or place it in Idle Mode."@en ;
+    sth:sleep_wake_mode_description "After a polling interval is configured, WSB can periodically leave Sleep Mode and enter a brief wake state; in this mode it reports one Header (packet sequence number: 99999) to Edge."@en ;
+    sth:sleep_wake_process "After motion exceeding the G-threshold is detected in Sleep Mode, the Smart Tool Holder leaves Sleep Mode, first enters Idle Mode, and switches back to Transmission Mode after the connection to Edge is completed."@en ;
+    sth:sleep_wake_to_transmission_time "After waking from Sleep Mode, connecting to the router and entering Transmission Mode normally takes about 10 seconds."@en ;
+    sth:smart_tool_holder_red_led_answer "A red LED on the Smart Tool Holder means that the MCU has detected a connection problem with one of the internal Sensor ICs. Tool holder operation may be abnormal; first confirm that the power supply is normal and try power-cycling the tool holder. If the abnormal LED still appears after restart, return it to the manufacturer for inspection and repair."@en ;
+    sth:transmission_mode_blue_led_status "TCP packet channel enabled, indicating that the Smart Tool Holder is in Transmission Mode; in the LED table, the blue LED flashes at 50 ms / 1 s."@en ;
+    sth:wake_up_method "Shake the Smart Tool Holder beyond the G-threshold to wake it."@en ;
+    sth:what_are_smart_tool_holder_operating_modes "The Smart Tool Holder has five main operating modes: Idle, Transmission, Configuration, Sleep, and Sleep-Wake."@en ;
+    sth:what_does_blue_led_on_smart_tool_holder_mean "A blue LED on the Smart Tool Holder means the TCP packet channel is enabled and the Smart Tool Holder is in Transmission Mode or normally connected."@en ;
+    sth:what_does_red_led_on_smart_tool_holder_mean "A red LED on the Smart Tool Holder means that the MCU has detected a connection problem with one of the internal Sensor ICs."@en ;
+    skos:prefLabel "Smart Tool Holder mode LED status mapping"@en .
+
+sth:sufficient_signal_strength_judgment a sth:process_step ;
+    rdfs:label "Sufficient signal-strength judgment"@en ;
+    sth:check_item "RSSI" ;
+    sth:check_location "Real-Time Monitoring page"@en ;
+    sth:description "Signal strength can be viewed on the Real-Time Monitoring page. When RSSI > -50 dB, the signal strength between the Smart Tool Holder and Router is sufficient. When RSSI ≤ -50 dB, signal strength is insufficient and may cause connection interruption or incomplete data."@en ;
+    sth:insufficient_condition "RSSI ≤ -50 dB" ;
+    sth:insufficient_description "Indicates insufficient signal strength, which may cause connection interruption or incomplete data"@en ;
+    sth:insufficient_effect "May cause connection interruption or incomplete data."@en ;
+    sth:insufficient_handling_method "When RSSI ≤ -50 dB, insufficient signal strength may cause connection interruption or incomplete data, so the Smart Tool Holder must be rescanned."@en ;
+    sth:judgment_method "When RSSI > -50 dB, the signal strength between the Smart Tool Holder and Router is sufficient; when RSSI ≤ -50 dB, signal strength is insufficient and may cause connection interruption or incomplete data."@en ;
+    sth:rescan_condition_query sth:rssi_insufficient_rescan_condition_direct_qa ;
+    sth:sufficient_condition "RSSI > -50 dB" ;
+    sth:sufficient_description "Indicates that the signal strength between the Smart Tool Holder and Router is sufficient"@en ;
+    sth:view_location "Signal strength can be viewed on the Real-Time Monitoring page."@en ;
+    skos:altLabel "RSSI check"@en,
+        "STH signal-strength judgment"@en,
+        "Signal-strength check"@en,
+        "Smart Tool Holder signal-strength judgment"@en .
+
+#################################################################
+# Minimal reinforcement for automatic testing: only add directly retrievable answers; do not add a large number of decomposed nodes.
+#################################################################

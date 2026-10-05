@@ -1,0 +1,480 @@
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix map: <http://nkust.edu.tw/mislab/cnc/ontology/sth/manual-bridge#> .
+@prefix mis: <http://nkust.edu.tw/mislab#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix sth: <http://nkust.edu.tw/mislab/cnc/ontology/sth#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+sth:BBT30-v2 sth:bridgeToManualConcept sth:smart_tool_holder .
+
+sth:BBT40-v2 sth:bridgeToManualConcept sth:smart_tool_holder .
+
+sth:BT40-v2 sth:bridgeToManualConcept sth:smart_tool_holder .
+
+sth:Battery_Low sth:bridgeToManualConcept sth:case_1,
+        sth:charging_dock,
+        sth:charging_status,
+        sth:fully_charged_status,
+        sth:power_issue_no_led_after_shaking .
+
+sth:Comm_Unstable sth:bridgeToManualConcept sth:case_3,
+        sth:mqtt_communication_settings,
+        sth:rssi_insufficient_rescan_condition_direct_qa,
+        sth:sufficient_signal_strength_judgment,
+        sth:what_to_do_if_smart_tool_holder_cannot_be_scanned .
+
+sth:CuttingTool sth:bridgeToManualConcept sth:excessive_tool_wear_or_damage,
+        sth:how_to_change_tool,
+        sth:qa_bind_smart_tool_holder_tool,
+        sth:real_time_monitoring,
+        sth:tool_wear_estimation .
+
+sth:DataProcess_exe sth:bridgeToManualConcept sth:cutting_force_data_file,
+        sth:output_folder,
+        sth:real_time_monitoring ;
+    sth:bridgeToSystemConcept sth:JSONField,
+        sth:StrainSignal,
+        sth:TorqueSignal .
+
+sth:Field_window skos:relatedMatch sth:time_tag_field .
+
+sth:NCBlock sth:bridgeToManualConcept sth:Topic_NCBlock,
+        sth:machining_history_example,
+        sth:real_time_monitoring .
+
+sth:STHComm_exe sth:bridgeToManualConcept sth:mqtt_communication_settings,
+        sth:real_time_monitoring ;
+    sth:bridgeToSystemConcept sth:CommunicationAsset,
+        sth:MQTTTopic .
+
+sth:STHLink_exe sth:bridgeToManualConcept sth:mqtt_communication_settings,
+        sth:what_to_do_if_smart_tool_holder_cannot_be_scanned ;
+    sth:bridgeToSystemConcept sth:CommunicationAsset .
+
+sth:STHScan_exe sth:bridgeToManualConcept sth:case_3,
+        sth:what_to_do_if_smart_tool_holder_cannot_be_scanned ;
+    sth:bridgeToSystemConcept sth:SmartToolHolder .
+
+sth:StateChatter sth:bridgeToManualConcept sth:excessive_tool_wear_or_damage,
+        sth:real_time_monitoring,
+        sth:tool_wear_estimation .
+
+sth:State_Stable sth:bridgeToManualConcept sth:real_time_monitoring,
+        sth:smart_tool_holder_blue_led_status,
+        sth:sufficient_signal_strength_judgment .
+
+sth:State_Transition sth:bridgeToManualConcept sth:mode_switching,
+        sth:sleep_mode,
+        sth:transmission_mode .
+
+sth:ToolCondition sth:bridgeToManualConcept sth:excessive_tool_wear_or_damage,
+        sth:how_to_change_tool,
+        sth:tool_wear_estimation .
+
+sth:Tool_Broken sth:bridgeToManualConcept sth:excessive_tool_wear_or_damage,
+        sth:how_to_change_tool .
+
+sth:Tool_Normal sth:bridgeToManualConcept sth:tool_wear_estimation .
+
+sth:Tool_SevereWear sth:bridgeToManualConcept sth:excessive_tool_wear_or_damage,
+        sth:how_to_change_tool,
+        sth:tool_wear_estimation .
+
+sth:Tool_Worn sth:bridgeToManualConcept sth:excessive_tool_wear_or_damage,
+        sth:tool_wear_estimation .
+
+sth:Topic a owl:Class ;
+    rdfs:subClassOf sth:CommunicationAsset ;
+    owl:equivalentClass sth:MQTTTopic .
+
+sth:abnormal_case a owl:Class ;
+    rdfs:subClassOf mis:Diagnosis .
+
+sth:abnormal_cause a owl:Class ;
+    rdfs:subClassOf mis:Diagnosis .
+
+sth:analysis a owl:Class ;
+    rdfs:subClassOf sth:Entity .
+
+sth:bridgeConfidence a owl:DatatypeProperty ;
+    rdfs:label "bridge confidence"@en ;
+    rdfs:range xsd:decimal .
+
+sth:bridgeToSystemConcept a owl:ObjectProperty ;
+    rdfs:label "bridge to system concept"@en ;
+    owl:inverseOf sth:bridgeToManualConcept .
+
+sth:command a owl:Class ;
+    rdfs:subClassOf sth:CyberAsset .
+
+sth:component a owl:Class ;
+    rdfs:subClassOf sth:PhysicalAsset .
+
+sth:direct_answer_node a owl:Class ;
+    rdfs:subClassOf sth:Entity .
+
+sth:field a owl:Class ;
+    rdfs:subClassOf sth:JSONField .
+
+sth:file a owl:Class ;
+    rdfs:subClassOf sth:CyberAsset .
+
+sth:folder a owl:Class ;
+    rdfs:subClassOf sth:CyberAsset .
+
+sth:hasManualCommand a owl:ObjectProperty ;
+    rdfs:label "has manual command"@en ;
+    rdfs:subPropertyOf sth:bridgeToManualConcept .
+
+sth:hasManualField a owl:ObjectProperty ;
+    rdfs:label "has manual field"@en ;
+    rdfs:subPropertyOf sth:bridgeToManualConcept .
+
+sth:hasManualQAAnchor a owl:ObjectProperty ;
+    rdfs:label "has manual QA anchor"@en ;
+    rdfs:subPropertyOf sth:bridgeToManualConcept .
+
+sth:hasManualSetting a owl:ObjectProperty ;
+    rdfs:label "has manual setting"@en ;
+    rdfs:subPropertyOf sth:bridgeToManualConcept .
+
+sth:hasManualTopic a owl:ObjectProperty ;
+    rdfs:label "has manual topic"@en ;
+    rdfs:subPropertyOf sth:bridgeToManualConcept .
+
+sth:isDescribedByManualSection a owl:ObjectProperty ;
+    rdfs:label "is described by manual section"@en ;
+    rdfs:subPropertyOf sth:bridgeToManualConcept .
+
+sth:led_status a owl:Class ;
+    rdfs:subClassOf mis:STHState .
+
+sth:manualAnswerScope a owl:DatatypeProperty ;
+    rdfs:label "manual answer scope"@en ;
+    rdfs:range xsd:string .
+
+sth:mode a owl:Class ;
+    rdfs:subClassOf sth:ProcessState .
+
+sth:process_step a owl:Class ;
+    rdfs:subClassOf sth:Entity .
+
+sth:product a owl:Class ;
+    rdfs:subClassOf sth:PhysicalAsset ;
+    skos:closeMatch sth:SmartToolHolder .
+
+sth:raw_data_folder sth:bridgeToManualConcept sth:cutting_force_data_file ;
+    sth:bridgeToSystemConcept sth:JSONField .
+
+sth:reports_folder sth:bridgeToSystemConcept sth:DiagnosisSequence,
+        sth:PredictionSequence .
+
+sth:retrievalHint a owl:DatatypeProperty ;
+    rdfs:label "retrieval hint"@en ;
+    rdfs:range rdf:langString .
+
+sth:section a owl:Class ;
+    rdfs:subClassOf sth:Entity .
+
+sth:setting_item a owl:Class ;
+    rdfs:subClassOf sth:CyberAsset .
+
+sth:specification_item a owl:Class ;
+    rdfs:subClassOf sth:Entity .
+
+map:HybridQA_Force_Data_Anchor a sth:qa_anchor ;
+    rdfs:label "Hybrid QA anchor: cutting-force data fields"@en,
+        "Hybrid QA anchor: force data fields"@en ;
+    sth:bridgeConfidence 0.95 ;
+    sth:bridgeToManualConcept sth:bending_x_field,
+        sth:bending_y_field,
+        sth:ch1_field,
+        sth:ch2_field,
+        sth:cutting_force_data_file,
+        sth:time_tag_field,
+        sth:torque_field ;
+    sth:bridgeToSystemConcept sth:JSONField,
+        sth:StrainSignal,
+        sth:Topic_Torque,
+        sth:TorqueSignal ;
+    sth:retrievalHint "When a question asks about Torque, BendingX, BendingY, CH1, CH2, TimeTag, or cutting-force data-file fields, bridge from the system sensor signals to the corresponding field descriptions in the manual."@en .
+
+map:HybridQA_MQTT_Function_Anchor a sth:qa_anchor ;
+    rdfs:label "Hybrid QA anchor: MQTT function"@en,
+        "Hybrid QA anchor: MQTT primary function"@en ;
+    sth:bridgeConfidence 0.99 ;
+    sth:bridgeToManualConcept sth:MQTT,
+        sth:mqtt_communication_settings,
+        sth:mqtt_default_communication_port,
+        sth:mqtt_primary_function_priority_direct_answer ;
+    sth:bridgeToSystemConcept sth:CommunicationAsset,
+        sth:MQTTTopic ;
+    sth:manualAnswerScope "MQTT function, communication target, topics, and default communication port."@en ;
+    sth:retrievalHint "When a question asks for the primary function of MQTT on the Smart Tool Holder, prefer the manual direct-answer node; if the question also mentions topics or communication data, extend the bridge to the system ontology MQTTTopic."@en .
+
+map:HybridQA_STH_Setting_Anchor a sth:qa_anchor ;
+    rdfs:label "Hybrid QA anchor: STH setting mode"@en,
+        "Hybrid QA anchor: Smart Tool Holder Configuration Mode"@en ;
+    sth:bridgeConfidence 0.97 ;
+    sth:bridgeToManualConcept sth:setting_mode_read,
+        sth:setting_mode_write,
+        sth:smart_tool_holder,
+        sth:smart_tool_holder_advanced_settings,
+        sth:smart_tool_holder_setting_mode_configurable_parameters ;
+    sth:bridgeToSystemConcept sth:ProcessState,
+        sth:SmartToolHolder ;
+    sth:manualAnswerScope "Router SSID, Password, IP, Port, RF Power Level, G-threshold, polling interval, and sleep time."@en ;
+    sth:retrievalHint "When a question asks which parameters can be configured in Configuration Mode, bridge to the manual direct-answer node and advanced-settings section instead of returning only a system-ontology class name."@en .
+
+map:HybridQA_Scan_Abnormal_Anchor a sth:qa_anchor ;
+    rdfs:label "Hybrid QA anchor: STH scan abnormal"@en,
+        "Hybrid QA anchor: Smart Tool Holder scan abnormality"@en ;
+    sth:bridgeConfidence 0.94 ;
+    sth:bridgeToManualConcept sth:case_3,
+        sth:mqtt_communication_settings,
+        sth:rssi_insufficient_rescan_condition_direct_qa,
+        sth:sufficient_signal_strength_judgment,
+        sth:what_to_do_if_smart_tool_holder_cannot_be_scanned ;
+    sth:bridgeToSystemConcept mis:STHState,
+        sth:CommunicationAsset,
+        sth:SmartToolHolder ;
+    sth:retrievalHint "When a question asks about a missing tool holder after LOAD STHSCAN, insufficient RSSI, rescanning, Networking, or MessageBroking, bridge to the scan-abnormality and MQTT-configuration nodes."@en .
+
+map:TMV720_STH_Manual_Bridge_Mapping a owl:Ontology ;
+    rdfs:label "TMV-720 STH ontology to smart tool holder manual bridge mapping"@en ;
+    dct:source "TMV-720_ontology_0.ttl",
+        "智慧刀把操作說明書_v0.35_英文知識圖譜20.ttl" ;
+    rdfs:comment "This bridge TTL adds semantic relations between the system ontology and the operation-manual QA ontology. It does not replace the two source TTL files; load it together with both original TTL files for hybrid QA/retrieval."@en ;
+    owl:versionInfo "2026-09-06 bridge mapping English v2" .
+
+sth:Field_torque skos:closeMatch sth:torque_field .
+
+sth:Topic_DiagnosisSequence sth:bridgeToManualConcept sth:CMD_REQ,
+        sth:MQTT,
+        sth:real_time_monitoring .
+
+sth:Topic_Vibration sth:bridgeToManualConcept sth:MQTT,
+        sth:STH_Pdata,
+        sth:cutting_force_data_file,
+        sth:real_time_monitoring .
+
+sth:communication_protocol a owl:Class ;
+    rdfs:subClassOf sth:CommunicationAsset .
+
+mis:STHState sth:bridgeToManualConcept sth:case_1,
+        sth:case_2,
+        sth:case_3,
+        sth:mode_switching,
+        sth:sleep_mode,
+        sth:smart_tool_holder_blue_led_status,
+        sth:smart_tool_holder_operating_modes,
+        sth:transmission_mode .
+
+sth:CMD_NOTIFY a sth:MQTTTopic ;
+    skos:relatedMatch sth:Topic_Diagnosis,
+        sth:Topic_Prediction,
+        sth:Topic_Window .
+
+sth:NCFile sth:bridgeToManualConcept sth:STH_FILE,
+        sth:Topic_NCFile,
+        sth:machining_history_example,
+        sth:output_folder,
+        sth:plans_folder,
+        sth:source_folder .
+
+sth:ProcessState sth:bridgeToManualConcept sth:mode_switching,
+        sth:real_time_monitoring,
+        sth:sleep_mode,
+        sth:smart_tool_holder_operating_modes,
+        sth:transmission_mode .
+
+sth:Topic_Diagnosis sth:bridgeToManualConcept sth:CMD_RESP,
+        sth:MQTT,
+        sth:case_1,
+        sth:case_2,
+        sth:case_3,
+        sth:excessive_tool_wear_or_damage .
+
+sth:Topic_NCBlock sth:bridgeToManualConcept sth:CMD_REQ,
+        sth:MQTT,
+        sth:machining_history_example,
+        sth:real_time_monitoring .
+
+sth:Topic_Prediction sth:bridgeToManualConcept sth:CMD_RESP,
+        sth:MQTT,
+        sth:excessive_tool_wear_or_damage,
+        sth:how_to_change_tool,
+        sth:tool_wear_estimation .
+
+sth:Topic_Torque sth:bridgeToManualConcept sth:MQTT,
+        sth:STH_Pdata,
+        sth:cutting_force_data_file,
+        sth:force_monitoring,
+        sth:real_time_monitoring,
+        sth:torque_field ;
+    skos:relatedMatch sth:torque_field .
+
+sth:Topic_Window sth:bridgeToManualConcept sth:MQTT,
+        sth:STH_Pdata,
+        sth:how_to_confirm_data_review_start_and_end_times,
+        sth:real_time_monitoring .
+
+sth:plans_folder sth:bridgeToSystemConcept sth:NCFile .
+
+sth:source_folder sth:bridgeToSystemConcept sth:NCFile .
+
+sth:Topic_NCFile sth:bridgeToManualConcept sth:MQTT,
+        sth:STH_FILE,
+        sth:machining_history_example,
+        sth:output_folder,
+        sth:plans_folder,
+        sth:source_folder .
+
+sth:output_folder sth:bridgeToManualConcept sth:cutting_force_data_file ;
+    sth:bridgeToSystemConcept sth:JSONField .
+
+sth:CMD_REQ a sth:MQTTTopic ;
+    skos:closeMatch sth:Topic_DiagnosisSequence,
+        sth:Topic_NCBlock,
+        sth:Topic_NCFile .
+
+sth:CMD_RESP a sth:MQTTTopic ;
+    skos:closeMatch sth:Topic_Diagnosis,
+        sth:Topic_Prediction .
+
+sth:STH_FILE a sth:MQTTTopic ;
+    skos:closeMatch sth:Topic_NCFile .
+
+sth:TorqueSignal sth:bridgeToManualConcept sth:STH_Pdata,
+        sth:cutting_force_data_file,
+        sth:force_monitoring,
+        sth:real_time_monitoring,
+        sth:torque_field .
+
+sth:bending_x_field a sth:JSONField ;
+    sth:bridgeToSystemConcept sth:StrainSignal .
+
+sth:bending_y_field a sth:JSONField ;
+    sth:bridgeToSystemConcept sth:StrainSignal .
+
+sth:ch1_field a sth:JSONField ;
+    sth:bridgeToSystemConcept sth:StrainSignal .
+
+sth:ch2_field a sth:JSONField ;
+    sth:bridgeToSystemConcept sth:StrainSignal .
+
+sth:qa_anchor a owl:Class ;
+    rdfs:subClassOf sth:Entity .
+
+sth:time_tag_field a sth:JSONField ;
+    sth:bridgeToSystemConcept sth:JSONField .
+
+sth:smart_tool_holder a sth:PhysicalAsset,
+        sth:SmartToolHolder ;
+    sth:bridgeConfidence 0.98 ;
+    sth:bridgeToSystemConcept sth:SmartToolHolder ;
+    sth:hasManualQAAnchor sth:qa_smart_tool_holder_power_supply_standby_time,
+        sth:smart_tool_holder_blue_led_status,
+        sth:smart_tool_holder_operating_modes,
+        sth:smart_tool_holder_setting_mode_configurable_parameters,
+        sth:smart_tool_holder_wake_up_method,
+        sth:what_to_do_if_smart_tool_holder_cannot_be_scanned ;
+    sth:hasManualSetting sth:s0_setting,
+        sth:s1_setting,
+        sth:smart_tool_holder_setting_mode_configurable_parameters ;
+    sth:isDescribedByManualSection sth:mode_switching,
+        sth:real_time_monitoring,
+        sth:sleep_mode,
+        sth:smart_tool_holder_advanced_settings,
+        sth:smart_tool_holder_component,
+        sth:smart_tool_holder_introduction,
+        sth:transmission_mode ;
+    sth:manualAnswerScope "Product, status, configuration, operation, communication, and real-time monitoring questions about the Smart Tool Holder (STH)."@en ;
+    sth:retrievalHint "When a question mentions STH, Smart Tool Holder, tool-holder status, Configuration Mode, Transmission Mode, Sleep Mode, real-time monitoring, or scan abnormalities, bridge from the system ontology SmartToolHolder concept to the corresponding manual nodes."@en ;
+    skos:altLabel "STH"@en,
+        "Smart Tool Holder"@en,
+        "smart tool holder"@en ;
+    skos:prefLabel "Smart Tool Holder"@en .
+
+sth:STH_Pdata a sth:MQTTTopic ;
+    skos:closeMatch sth:Topic_Torque,
+        sth:Topic_Vibration,
+        sth:Topic_Window .
+
+sth:SmartToolHolder sth:bridgeToManualConcept sth:smart_tool_holder,
+        sth:smart_tool_holder_advanced_settings,
+        sth:smart_tool_holder_component,
+        sth:smart_tool_holder_introduction,
+        sth:smart_tool_holder_operating_modes,
+        sth:smart_tool_holder_setting_mode_configurable_parameters,
+        sth:what_to_do_if_smart_tool_holder_cannot_be_scanned .
+
+sth:StrainSignal sth:bridgeToManualConcept sth:bending_x_field,
+        sth:bending_y_field,
+        sth:ch1_field,
+        sth:ch2_field,
+        sth:cutting_force_data_file,
+        sth:force_monitoring .
+
+sth:bridgeToManualConcept a owl:ObjectProperty ;
+    rdfs:label "bridge to manual concept"@en ;
+    rdfs:comment "Links a system ontology class/individual to a manual concept, section, QA anchor, setting, field, command, or topic."@en .
+
+sth:torque_field a sth:JSONField ;
+    sth:bridgeToSystemConcept sth:Field_torque,
+        sth:TorqueSignal .
+
+sth:cutting_force_data_file sth:bridgeConfidence 0.95 ;
+    sth:bridgeToSystemConcept sth:JSONField,
+        sth:StrainSignal,
+        sth:TorqueSignal ;
+    sth:hasManualField sth:bending_x_field,
+        sth:bending_y_field,
+        sth:ch1_field,
+        sth:ch2_field,
+        sth:time_tag_field,
+        sth:torque_field ;
+    sth:retrievalHint "The cutting-force data file describes parsed CSV fields including TimeTag, CH1, CH2, BendingX, BendingY, and Torque; these can be aligned with TorqueSignal, StrainSignal, and JSONField in the system ontology."@en .
+
+sth:MQTTTopic sth:bridgeToManualConcept sth:CMD_NOTIFY,
+        sth:CMD_REQ,
+        sth:CMD_RESP,
+        sth:MQTT,
+        sth:STH_FILE,
+        sth:STH_Pdata,
+        sth:mqtt_communication_settings,
+        sth:mqtt_default_communication_port,
+        sth:mqtt_primary_function_priority_direct_answer .
+
+sth:MQTT a sth:CommunicationAsset,
+        sth:communication_protocol ;
+    sth:bridgeConfidence 0.99 ;
+    sth:bridgeToSystemConcept sth:CommunicationAsset,
+        sth:MQTTTopic ;
+    sth:hasManualQAAnchor sth:mqtt_communication_settings,
+        sth:mqtt_default_communication_port,
+        sth:mqtt_primary_function_priority_direct_answer ;
+    sth:hasManualTopic sth:CMD_NOTIFY,
+        sth:CMD_REQ,
+        sth:CMD_RESP,
+        sth:STH_FILE,
+        sth:STH_Pdata ;
+    sth:isDescribedByManualSection sth:integration_interface_example,
+        sth:real_time_monitoring,
+        sth:transmission_mode ;
+    sth:manualAnswerScope "MQTT data communication between the Smart Tool Holder and VTR/Edge, including topics, port 1883, and firewall settings."@en ;
+    sth:retrievalHint "When the system ontology retrieves MQTTTopic, CommunicationAsset, or a topic string and the question asks about MQTT functions, communication ports, CMD/REQ, CMD/RESP, CMD/NOTIFY, STH/Pdata, or STH/FILE, bridge to the MQTT nodes in the manual."@en ;
+    skos:altLabel "MQTT communication protocol"@en,
+        "Message Queuing Telemetry Transport"@en ;
+    skos:prefLabel "MQTT"@en .
+
+sth:JSONField sth:bridgeToManualConcept sth:bending_x_field,
+        sth:bending_y_field,
+        sth:ch1_field,
+        sth:ch2_field,
+        sth:time_tag_field,
+        sth:torque_field .
+
