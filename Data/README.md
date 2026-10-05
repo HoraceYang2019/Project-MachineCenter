@@ -2,9 +2,9 @@
 1. Manual: An operation manual for the smart tool holder of CNC machining<br>
 
 2. Question List:<br>
-   a. Independent Instruction Questions (pdf only).csv
-   b. Continuous Instruction Questions (pdf only).csv
-   c. Cross-Source Instruction Questions (pdf+csv).csv
+   a. Independent Instruction Questions (pdf only).csv <br>
+   b. Continuous Instruction Questions (pdf only).csv <br>
+   c. Cross-Source Instruction Questions (pdf+csv).csv <br>
    d. Continuous and Cross-Source Instruction (pdf+csv+report).csv
 
 3. Machining Resume: <br>
