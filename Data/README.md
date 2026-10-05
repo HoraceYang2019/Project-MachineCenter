@@ -1,18 +1,19 @@
 
-1. Manual: An operation manual for the smart tool holder of CNC machining<cr>
+1. Manual: An operation manual for the smart tool holder of CNC machining<br>
 
-2. Question List:<cr>
-*a. Independent Instruction Questions (pdf only).csv
-*b. Continuous Instruction Questions (pdf only).csv
-*c. Cross-Source Instruction Questions (pdf+csv).csv
-*d. Continuous and Cross-Source Instruction (pdf+csv+report).csv
+2. Question List:<br>
+   *a. Independent Instruction Questions (pdf only).csv
+   *b. Continuous Instruction Questions (pdf only).csv
+   *c. Cross-Source Instruction Questions (pdf+csv).csv
+   *d. Continuous and Cross-Source Instruction (pdf+csv+report).csv
 
-3. Machining Resume: production data covering from 10 months, ranging from 202507 to 202605 at different sites
+3. Machining Resume: <br>
+   production data covering from 10 months, ranging from 202507 to 202605 at different sites
    20250702_MIRDC,..., 20260427_TT
 
-4. Reports:
+4. Reports: <br>
    Production reports by machining resume.
     
-6. Data files:
+6. Data files: <br>
    Collected data from the smart tool holders and the CNC controllers by time and coordinates.
    
